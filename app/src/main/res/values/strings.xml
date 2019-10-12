@@ -1,4 +1,7 @@
 <resources>
-    <string name="app_name">Konkursowa-Appka</string>
+    <string name="app_name">Stara Olafa</string>
     <string name="action_settings">Settings</string>
+    <string name="main_content">Hocki Klocki, myszka miki</string>
+    <string name="email">E-mail</string>
+    <string name="password">Hasło</string>
 </resources>
