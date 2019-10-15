@@ -17,9 +17,9 @@ import kotlinx.android.synthetic.main.activity_map.*
 
 class MapActivity : AppCompatActivity() {
 
-    val filters = HashMap<String, Boolean>()
+    private val filters = HashMap<String, Boolean>()
 
-    fun initFilters()
+    private fun initFilters()
     {
         filters["Trash"] = true
         filters["Malysz"] = false
@@ -38,12 +38,11 @@ class MapActivity : AppCompatActivity() {
         mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(OnMapReadyCallback {
             //poczatek funkcji map
-            println("running")
             googleMap = it
             //googleMap.isMyLocationEnabled = true
 
             fun getMarkers(): MutableList<Marker> {
-                var markersJson = SharedPreferencesRepository.marker
+                val markersJson = SharedPreferencesRepository.marker
 
                 return if (markersJson != null)
                     Gson().fromJson(markersJson)
@@ -55,6 +54,13 @@ class MapActivity : AppCompatActivity() {
             {
                 val markersTemp = getMarkers()
                 markersTemp.add(m)
+                SharedPreferencesRepository.marker = Gson().toJson(markersTemp)
+            }
+
+            fun removeMarker(m: Marker)
+            {
+                val markersTemp = getMarkers()
+                markersTemp.remove(m)
                 SharedPreferencesRepository.marker = Gson().toJson(markersTemp)
             }
 
@@ -137,26 +143,34 @@ class MapActivity : AppCompatActivity() {
             googleMap.uiSettings.setZoomControlsEnabled(true)
 
             googleMap.setOnMapClickListener {
-                var thisMarker = Marker("Trash", it.latitude, it.longitude, false, "user name")
+                val thisMarker = Marker("Trash", it.latitude, it.longitude, false, "user name")
                 saveMarker(thisMarker)
                 setFilterValue("Trash", true)
                 refreshMap()
             }
 
             googleMap.setOnMapLongClickListener {
-                var thisMarker = Marker("Malysz", it.latitude, it.longitude, false, "user name")
+                val thisMarker = Marker("Malysz", it.latitude, it.longitude, false, "user name")
                 saveMarker(thisMarker)
                 setFilterValue("Malysz", true)
                 refreshMap()
             }
 
-            /*mMap.setOnMarkerClickListener { marker ->
+            googleMap.setOnMarkerClickListener { marker ->
                 if(marker.title == "Trash")
                 {
-                    googleMap.clear()
+                    val thisMarker = Marker(marker.title, marker.position.latitude, marker.position.longitude, false, "user name")
+                    removeMarker(thisMarker)
+                    refreshMap()
+                }
+                else if(marker.title == "Malysz")
+                {
+                    val thisMarker = Marker(marker.title, marker.position.latitude, marker.position.longitude, false, "user name")
+                    removeMarker(thisMarker)
+                    refreshMap()
                 }
             true
-            }*/
+            }
 
             refreshMap()
         })//koniec funkcji map
