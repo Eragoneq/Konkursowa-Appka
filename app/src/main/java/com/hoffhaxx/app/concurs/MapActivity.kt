@@ -2,9 +2,13 @@ package com.hoffhaxx.app.concurs
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.view.View
+import android.widget.Button
 import android.widget.CheckBox
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatDialogFragment
+import androidx.core.view.isVisible
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -24,8 +28,12 @@ class MapActivity : AppCompatActivity() {
         filters["Trash"] = true
         filters["Malysz"] = false
     }
+    
+    private var isMarkerClicked: Boolean = false
+    private val defaultMarker: Marker = Marker("", 0.0, 0.0, false, "")
+    private var lastClickedMarker: Marker = defaultMarker
 
-    lateinit var mapFragment: SupportMapFragment
+    private lateinit var mapFragment: SupportMapFragment
     lateinit var googleMap: GoogleMap
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -115,16 +123,42 @@ class MapActivity : AppCompatActivity() {
 
 
             val checkBoxTrash = findViewById<CheckBox>(R.id.Trash)
-            checkBoxTrash.isChecked = true //domyslne
+            checkBoxTrash.isChecked = true
             checkBoxTrash?.setOnCheckedChangeListener { buttonView, isChecked ->
                 filters["Trash"] = isChecked
                 refreshMap()
             }
             val checkBoxMalysz = findViewById<CheckBox>(R.id.Malysz)
-            checkBoxMalysz.isChecked = false //domyslne
+            checkBoxMalysz.isChecked = false
             checkBoxMalysz?.setOnCheckedChangeListener { buttonView, isChecked ->
                 filters["Malysz"] = isChecked
                 refreshMap()
+            }
+
+            var clickableMarkers = true
+            var clickedMarker: Marker = defaultMarker
+
+            val buttonConfirm = findViewById<Button>(R.id.Confirm)
+            val buttonCancel = findViewById<Button>(R.id.Cancel)
+            val backgroundButtons = findViewById<ImageView>(R.id.ButtonsBackground)
+            backgroundButtons.isVisible = false
+            buttonConfirm.isVisible = false
+            buttonCancel.isVisible = false
+
+            buttonConfirm.setOnClickListener {
+                buttonCancel.isVisible = false
+                buttonConfirm.isVisible = false
+                backgroundButtons.isVisible = false
+                clickableMarkers = true
+                removeMarker(clickedMarker)
+                refreshMap()
+            }
+
+            buttonCancel.setOnClickListener {
+                buttonCancel.isVisible = false
+                buttonConfirm.isVisible = false
+                backgroundButtons.isVisible = false
+                clickableMarkers = true
             }
 
             fun setFilterValue(type: String, value: Boolean)
@@ -144,32 +178,60 @@ class MapActivity : AppCompatActivity() {
 
             googleMap.setOnMapClickListener {
                 val thisMarker = Marker("Trash", it.latitude, it.longitude, false, "user name")
-                saveMarker(thisMarker)
-                setFilterValue("Trash", true)
-                refreshMap()
+                if(clickableMarkers)
+                {
+                    saveMarker(thisMarker)
+                    setFilterValue("Trash", true)
+                    refreshMap()
+                }
             }
 
             googleMap.setOnMapLongClickListener {
                 val thisMarker = Marker("Malysz", it.latitude, it.longitude, false, "user name")
-                saveMarker(thisMarker)
-                setFilterValue("Malysz", true)
-                refreshMap()
+                if(clickableMarkers)
+                {
+                    saveMarker(thisMarker)
+                    setFilterValue("Malysz", true)
+                    refreshMap()
+                }
             }
 
             googleMap.setOnMarkerClickListener { marker ->
-                if(marker.title == "Trash")
+                val thisMarker = Marker(marker.title, marker.position.latitude, marker.position.longitude, false, "user name")
+                if(clickableMarkers)
                 {
-                    val thisMarker = Marker(marker.title, marker.position.latitude, marker.position.longitude, false, "user name")
-                    removeMarker(thisMarker)
-                    refreshMap()
-                }
-                else if(marker.title == "Malysz")
-                {
-                    val thisMarker = Marker(marker.title, marker.position.latitude, marker.position.longitude, false, "user name")
-                    removeMarker(thisMarker)
-                    refreshMap()
+                    if(marker.title == "Trash")
+                    {
+                        if(!isMarkerClicked || lastClickedMarker != thisMarker)
+                        {
+                            marker.showInfoWindow()
+                            lastClickedMarker = thisMarker
+                            isMarkerClicked = true
+                        }
+                        else
+                        {
+                            isMarkerClicked = false
+                            lastClickedMarker = defaultMarker
+                        }
+                    }
+                    else if(marker.title == "Malysz")
+                    {
+                        marker.showInfoWindow()
+                    }
                 }
             true
+            }
+
+            googleMap.setOnInfoWindowClickListener {marker ->
+                val thisMarker = Marker(marker.title, marker.position.latitude, marker.position.longitude, false, "user name")
+                if(marker.title == "Trash")
+                {
+                    buttonCancel.isVisible = true
+                    buttonConfirm.isVisible = true
+                    backgroundButtons.isVisible = true
+                    clickableMarkers = false
+                    clickedMarker = thisMarker
+                }
             }
 
             refreshMap()
