@@ -1,6 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorPrimary">#F3F0DD</color>
+    <color name="colorPrimaryDark">#55B598</color>
+    <color name="colorAccent">#87B955</color>
+    <color name="colorLight">#FFECB3</color>
+
+    <color name="navbar">#6964DD17</color>
+    <color name="waves">#64DD17</color>
+    <color name="btnColor">#8ED66A</color>
+
+    <color name="gradientTop">#FDFCD5</color>
+    <color name="gradientBottom">#DCFEC9</color>
+
+    <color name="colorPurpleLight">#55B598</color>
+    <color name="colorPurpleDark">#188440</color>
+    <color name="colorPurpleFont">#707070</color>
+    <color name="user_input_color">#707070</color>
+    <color name="unfocused_color">#8E8E8E</color>
+
+
+    <color name="primaryColor">#f9fbe7</color>
+    <color name="primaryLightColor">#ffffff</color>
+    <color name="primaryDarkColor">#c6c8b5</color>
+    <color name="secondaryColor">#9ccc65</color>
+    <color name="secondaryLightColor">#cfff95</color>
+    <color name="secondaryDarkColor">#6b9b37</color>
+    <color name="primaryTextColor">#000000</color>
+
 </resources>
