@@ -1,20 +1,37 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimaryDark">@color/navbar</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:fitsSystemWindows">false</item>
     </style>
 
-    <style name="AppTheme.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
+    <style name="ErrorText" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/colorPurpleFont</item>
+        <item name="android:textSize">14sp</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="HintText" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textSize">14sp</item>
+    </style>
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="SignInTextInputLayoutAppearance" parent="Widget.Design.TextInputLayout">
+        <item name="hintTextAppearance">@style/HintText</item>
+        <item name="errorTextAppearance">@style/ErrorText</item>
+        <item name="android:colorControlNormal">@color/colorAccent</item>
+        <item name="android:colorControlActivated">@color/colorAccent</item>
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textColorHint">@color/colorAccent</item>
+        <item name="colorControlNormal">@color/colorAccent</item>
+        <item name="colorControlActivated">@color/colorAccent</item>
+        <item name="colorControlHighlight">@color/colorAccent</item>
+    </style>
 
 </resources>

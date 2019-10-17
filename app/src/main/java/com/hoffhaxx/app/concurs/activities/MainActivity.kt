@@ -1,24 +1,14 @@
-package com.hoffhaxx.app.concurs
+package com.hoffhaxx.app.concurs.activities
 
 import android.content.Intent
 import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
-import android.view.Menu
-import android.view.MenuItem
 import android.widget.*
-import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 
 import kotlinx.android.synthetic.main.activity_main.*
-import java.lang.Exception
-import java.util.*
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
-import androidx.core.app.ComponentActivity.ExtraData
-import androidx.core.content.ContextCompat.getSystemService
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import android.util.Log
-import android.view.View
+import com.hoffhaxx.app.concurs.R
 
 class MainActivity : AppCompatActivity() {
 
@@ -28,10 +18,10 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         val button: Button = findViewById(R.id.button)
         button.setOnClickListener{goToLogin()}
-//        fab.setOnClickListener { view ->
-//            Snackbar.make(view, "SiemaNie", Snackbar.LENGTH_LONG)
-//                .setAction("Action", null).show()
-//        }
+        fab.setOnClickListener { view ->
+            Snackbar.make(view, "SiemaNie", Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show()
+        }
     }
 
     private fun goToLogin(){
