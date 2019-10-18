@@ -8,10 +8,7 @@ import android.view.View
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
-import com.hoffhaxx.app.concurs.HomeActivity
 import com.hoffhaxx.app.concurs.R
-import com.hoffhaxx.app.concurs.activities.auth.SignIn
-import com.hoffhaxx.app.concurs.activities.auth.SignInGoogle
 import com.hoffhaxx.app.concurs.activities.auth.SignUp
 
 

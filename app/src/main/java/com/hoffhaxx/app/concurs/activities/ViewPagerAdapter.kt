@@ -1,4 +1,4 @@
-package com.hoffhaxx.app.concurs
+package com.hoffhaxx.app.concurs.activities
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager

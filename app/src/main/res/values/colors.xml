@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!-- TODO: Uporządkować kolory w odpowiedni sposób -->
     <color name="colorPrimary">#F3F0DD</color>
     <color name="colorPrimaryDark">#55B598</color>
     <color name="colorAccent">#87B955</color>
     <color name="colorLight">#FFECB3</color>
 
     <color name="navbar">#64DD17</color>
+    <color name="bottom_nav">#707070</color>
     <color name="waves">#64DD17</color>
     <color name="btnColor">#8ED66A</color>
 

@@ -1,8 +1,10 @@
-package com.hoffhaxx.app.concurs
+package com.hoffhaxx.app.concurs.activities
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
+import com.hoffhaxx.app.concurs.R
+import com.hoffhaxx.app.concurs.fragments.*
 
 class HomeActivity : AppCompatActivity() {
 
