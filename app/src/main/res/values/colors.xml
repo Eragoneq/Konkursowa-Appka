@@ -11,6 +11,7 @@
     <color name="bottom_nav">#707070</color>
     <color name="waves">#64DD17</color>
     <color name="btnColor">#8ED66A</color>
+    <color name="error">#D50000</color>
 
     <color name="gradientTop">#FDFCD5</color>
     <color name="gradientBottom">#DCFEC9</color>

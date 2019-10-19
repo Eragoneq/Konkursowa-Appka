@@ -10,5 +10,5 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/signInFragment"
-        android:name="com.hoffhaxx.app.concurs.fragments.SignInFragment"/>
+        android:name="com.hoffhaxx.app.concurs.fragments.SignInFragment" />
 </androidx.constraintlayout.widget.ConstraintLayout>

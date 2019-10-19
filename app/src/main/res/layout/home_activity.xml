@@ -7,6 +7,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guidelineNavbar" />
+
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
@@ -18,7 +26,8 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guidelineNavbar"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintVertical_bias="0.0"
+        tools:visibility="invisible">
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/navItem1"
@@ -38,21 +47,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:icon="@drawable/ic_home"
-            android:visibility="invisible"/>
+            android:visibility="invisible" />
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/navItem4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:icon="@drawable/ic_stats"
-            android:visibility="invisible"/>
+            android:visibility="invisible" />
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/navItem5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:icon="@drawable/ic_eco"
-            android:visibility="invisible"/>
+            android:visibility="invisible" />
     </com.google.android.material.tabs.TabLayout>
 
     <androidx.constraintlayout.widget.Guideline
