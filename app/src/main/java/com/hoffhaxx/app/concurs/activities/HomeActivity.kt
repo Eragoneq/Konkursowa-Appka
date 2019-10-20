@@ -63,7 +63,7 @@ class HomeActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        if (viewPager.currentItem == 0) {
+        if (viewPager.currentItem == 2) {
             super.onBackPressed()
         } else {
             viewPager.currentItem = 2
