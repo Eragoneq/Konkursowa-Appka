@@ -1,5 +1,6 @@
 package com.hoffhaxx.app.concurs.activities
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar
@@ -10,6 +11,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import android.util.Log
 import com.hoffhaxx.app.concurs.R
 import com.hoffhaxx.app.concurs.misc.UserRepository
+import com.hoffhaxx.app.concurs.web.WebClient
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
@@ -25,14 +27,7 @@ class MainActivity : AppCompatActivity() {
         val button: Button = findViewById(R.id.button)
         button.setOnClickListener{goToLogin()}
 
-//        CoroutineScope(IO).launch {
-//            val user = UserRepository.getUser()
-//            withContext(Main) {
-//                if (user != null) {
-//                    Toast.makeText(this@MainActivity, user.email, Toast.LENGTH_LONG).show()
-//                }
-//            }
-//        }
+        displayUserName()
 
 
 
@@ -42,10 +37,12 @@ class MainActivity : AppCompatActivity() {
         }
         logoutBtn.setOnClickListener {
             CoroutineScope(IO).launch {
-                val user = UserRepository.logout()
-                withContext(Main) {
-                    goToLogin()
-                }
+                try {
+                    UserRepository.logout()
+                    withContext(Main) {
+                        goToLogin()
+                    }
+                } catch (e : WebClient.NetworkException) {}
             }
         }
     }
@@ -55,5 +52,22 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
         Log.println(Log.INFO, "TEST", "klik")
         finish()
+    }
+    private fun displayUserName() = CoroutineScope(IO).launch {
+        try {
+            val user = UserRepository.getUser()
+            withContext(Main) {
+                if (user != null) {
+                    Toast.makeText(this@MainActivity, "Zalogowano jako ${user.email}", Toast.LENGTH_LONG).show()
+                }
+            }
+        } catch (e : WebClient.NetworkException) {
+            AlertDialog.Builder(this@MainActivity)
+                .setTitle("Błąd logwania")
+                .setMessage("Nie można nawiązać połączenia z serwerem")
+                .setNeutralButton("OK") {dialog, which ->  }
+                .create()
+                .show()
+        }
     }
 }

@@ -5,24 +5,19 @@ import com.hoffhaxx.app.concurs.misc.data.LoginCredentials
 import com.hoffhaxx.app.concurs.misc.data.LoginOauthGoogleCredentials
 import com.hoffhaxx.app.concurs.misc.data.SignInResult
 import com.hoffhaxx.app.concurs.misc.data.User
-import com.hoffhaxx.app.concurs.misc.web.WebClient
+import com.hoffhaxx.app.concurs.web.WebClient
 
 object UserRepository {
     suspend fun getUser(): User? {
         var user = SharedPreferencesRepository.user
-        if (user != null)
-            return user;
-        val sessionId = SharedPreferencesRepository.sessionId
-        if (sessionId != null) {
+        if (SharedPreferencesRepository.sessionId != "") {
             try {
-                user = WebClient.client.userProfile()
+                user =  WebClient.client.userProfile()
             } catch (e : retrofit2.HttpException) {
-                return null
+                Log.i("SOMETHING", e.message())
             }
-            if (user != null)
-                return user
         }
-        return null
+        return user
     }
     suspend fun loginUserLocal(email: String, password : String) : SignInResult {
         val credentials = LoginCredentials(email, password)
@@ -36,12 +31,11 @@ object UserRepository {
     }
 
     suspend fun googleAuth(idToken : String) : SignInResult {
-        try {
-            val result = WebClient.client.userGoogleAuth(LoginOauthGoogleCredentials(idToken))
-            return result
+        return try {
+            WebClient.client.userGoogleAuth(LoginOauthGoogleCredentials(idToken))
         } catch (e : retrofit2.HttpException) {
             Log.i("SOOMETHING", e.response().toString())
-            return SignInResult(success = false, message = "Network error")
+            SignInResult(success = false, message = "Network error")
         }
     }
 
