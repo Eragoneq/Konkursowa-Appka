@@ -27,7 +27,7 @@ class HomeActivity : AppCompatActivity() {
         pagerAdapter = ViewPagerAdapter(supportFragmentManager)
         fragmentsArray.forEach { fragment: Fragment ->  pagerAdapter.addFragment(fragment) }
 
-        viewPager.setPageTransformer(false, PageTransformer())
+        //viewPager.setPageTransformer(false, PageTransformer())
         viewPager.adapter = pagerAdapter
         viewPager.currentItem = 2
 
