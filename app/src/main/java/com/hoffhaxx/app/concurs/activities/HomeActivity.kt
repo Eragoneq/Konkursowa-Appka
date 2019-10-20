@@ -7,7 +7,6 @@ import androidx.viewpager.widget.ViewPager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.hoffhaxx.app.concurs.R
 import com.hoffhaxx.app.concurs.fragments.*
-import com.hoffhaxx.app.concurs.ui.PageTransformer
 
 class HomeActivity : AppCompatActivity() {
 
@@ -30,14 +29,34 @@ class HomeActivity : AppCompatActivity() {
         //viewPager.setPageTransformer(false, PageTransformer())
         viewPager.adapter = pagerAdapter
         viewPager.currentItem = 2
+        viewPager?.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+
+            override fun onPageScrollStateChanged(state: Int) {
+
+            }
+
+            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+
+            }
+
+            override fun onPageSelected(position: Int) {
+                when(position){
+                    0->bottomNav.selectedItemId = R.id.bottom_nav_menu_todo
+                    1->bottomNav.selectedItemId = R.id.bottom_nav_menu_achiev
+                    2->bottomNav.selectedItemId = R.id.bottom_nav_menu_home
+                    3->bottomNav.selectedItemId = R.id.bottom_nav_menu_stats
+                    4->bottomNav.selectedItemId = R.id.bottom_nav_menu_leaf
+                }
+            }
+        })
 
         val navListener = BottomNavigationView.OnNavigationItemSelectedListener { menuItem ->
             when(menuItem.itemId){
-                R.id.bottom_nav_item_todo -> {
+                R.id.bottom_nav_menu_todo -> {
                     viewPager.setCurrentItem(0, false)
                     return@OnNavigationItemSelectedListener true
                 }
-                R.id.bottom_nav_item_achiev -> {
+                R.id.bottom_nav_menu_achiev -> {
                     viewPager.setCurrentItem(1, false)
                     return@OnNavigationItemSelectedListener true
                 }
@@ -69,6 +88,5 @@ class HomeActivity : AppCompatActivity() {
             viewPager.currentItem = 2
         }
     }
-
 
 }

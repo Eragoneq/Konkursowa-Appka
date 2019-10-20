@@ -11,12 +11,19 @@
         android:id="@+id/bottom_nav"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@color/bottom_nav"
+        android:background="#58695a"
+        app:itemIconSize="35dp"
+        app:itemIconTint="@color/bottomnavigation_colors"
+        app:itemTextColor="@color/bottomnavigation_colors"
         app:menu="@menu/bottom_nav_items"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guidelineNavbar" />
+        app:layout_constraintTop_toTopOf="@+id/guidelineNavbar"
+        app:labelVisibilityMode="unlabeled" />
+        <!--Ostatnia linijka z jakiegoś powodu usuwa tę chują animację wybranej opcji, nie wiem
+        jak to działa, ale nie usuwać -->
+
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineNavbar"
