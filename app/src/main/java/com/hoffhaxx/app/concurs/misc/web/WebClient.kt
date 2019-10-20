@@ -1,23 +1,20 @@
-package com.hoffhaxx.app.concurs.web
+package com.hoffhaxx.app.concurs.misc.web
 
 import android.util.Log
 import com.hoffhaxx.app.concurs.misc.SharedPreferencesRepository
+import com.hoffhaxx.app.concurs.web.Webservice
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import com.squareup.moshi.Moshi
-import okhttp3.CookieJar
-import okhttp3.OkHttpClient
+import okhttp3.*
 import retrofit2.converter.scalars.ScalarsConverterFactory
-import okhttp3.Cookie
-import okhttp3.HttpUrl
-
-
-
+import java.net.SocketTimeoutException
+import java.time.Duration
 
 object WebClient {
     val host = "10.0.2.2"
     val port = "8080"
-    val okHttpClient = OkHttpClient
+    private val okHttpClient = OkHttpClient
         .Builder()
         .cookieJar(object : CookieJar {
             override fun saveFromResponse(url: HttpUrl, cookies: List<Cookie>) {
@@ -31,7 +28,7 @@ object WebClient {
                 }
             }
             override fun loadForRequest(url: HttpUrl): List<Cookie> {
-                var list = ArrayList<Cookie>()
+                val list = ArrayList<Cookie>()
                 if (url.host() == host) {
                     val sessionId = SharedPreferencesRepository.sessionId
                     if (sessionId != "") {
@@ -39,19 +36,20 @@ object WebClient {
                         cookie?.let { list.add(it) }
                     }
                 }
-                return list;
+                return list
             }
         }).addInterceptor { chain ->
-            val response = chain.proceed(chain.request())
+            val response: Response = chain.proceed(chain.request())  //TODO: Błąd który crashuje całą aplikacje gdy server nie jest dostępny
             if (response.code() == 401)
                 SharedPreferencesRepository.sessionId = ""
             return@addInterceptor response
         }.build()
 
-    val client = Retrofit.Builder()
+    val client: Webservice = Retrofit.Builder()
         .baseUrl("http://$host:$port")
         .client(okHttpClient)
         .addConverterFactory(ScalarsConverterFactory.create())
         .addConverterFactory(MoshiConverterFactory.create(Moshi.Builder().build()))
         .build().create(Webservice::class.java)
+
 }

@@ -25,14 +25,14 @@ class MainActivity : AppCompatActivity() {
         val button: Button = findViewById(R.id.button)
         button.setOnClickListener{goToLogin()}
 
-        CoroutineScope(IO).launch {
-            val user = UserRepository.getUser()
-            withContext(Main) {
-                if (user != null) {
-                    Toast.makeText(this@MainActivity, user.email, Toast.LENGTH_LONG).show()
-                }
-            }
-        }
+//        CoroutineScope(IO).launch {
+//            val user = UserRepository.getUser()
+//            withContext(Main) {
+//                if (user != null) {
+//                    Toast.makeText(this@MainActivity, user.email, Toast.LENGTH_LONG).show()
+//                }
+//            }
+//        }
 
 
 

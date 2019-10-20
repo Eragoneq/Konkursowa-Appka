@@ -1,20 +1,18 @@
 package com.hoffhaxx.app.concurs.misc
 
 import android.util.Log
-import com.google.android.gms.auth.api.credentials.IdToken
 import com.hoffhaxx.app.concurs.misc.data.LoginCredentials
 import com.hoffhaxx.app.concurs.misc.data.LoginOauthGoogleCredentials
 import com.hoffhaxx.app.concurs.misc.data.SignInResult
 import com.hoffhaxx.app.concurs.misc.data.User
-import com.hoffhaxx.app.concurs.web.WebClient
-import java.lang.Exception
+import com.hoffhaxx.app.concurs.misc.web.WebClient
 
 object UserRepository {
     suspend fun getUser(): User? {
-        var user = SharedPreferencesRepository.user;
+        var user = SharedPreferencesRepository.user
         if (user != null)
             return user;
-        val sessionId = SharedPreferencesRepository.sessionId;
+        val sessionId = SharedPreferencesRepository.sessionId
         if (sessionId != null) {
             try {
                 user = WebClient.client.userProfile()
@@ -29,12 +27,11 @@ object UserRepository {
     suspend fun loginUserLocal(email: String, password : String) : SignInResult {
         val credentials = LoginCredentials(email, password)
         SharedPreferencesRepository.sessionId = ""
-        try {
-            val result = WebClient.client.userLoginLocal(credentials)
-            return result
+        return try {
+            WebClient.client.userLoginLocal(credentials)
         } catch (e : retrofit2.HttpException) {
             Log.i("SOOMETHING", e.response().toString())
-            return SignInResult(success = false, message = "Network error")
+            SignInResult(success = false, message = "Network error")
         }
     }
 

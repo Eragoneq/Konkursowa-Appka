@@ -16,4 +16,9 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="bottom_nav_item_todo">TODO</string>
+    <string name="bottom_nav_menu_achiev">Achievements</string>
+    <string name="bottom_nav_menu_home">Home</string>
+    <string name="bottom_nav_menu_stats">Stats</string>
+    <string name="bottom_nav_menu_leaf">Leaf</string>
 </resources>
