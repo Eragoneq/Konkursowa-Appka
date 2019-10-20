@@ -85,7 +85,6 @@ class LoginActivity: AppCompatActivity(){
                 if (result.success) {
                     goToMain()
                 } else {
-                    Log.i("SOMETHING", result.message)
                     sign_in_text_input_password.error = result.message
                 }
             }
