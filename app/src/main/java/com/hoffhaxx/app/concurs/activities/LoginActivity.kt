@@ -7,20 +7,14 @@ import android.util.DisplayMetrics
 import android.util.Log
 import android.view.View
 import android.widget.Button
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
-import com.google.android.gms.tasks.Task
-import com.hoffhaxx.app.concurs.HomeActivity
 import com.hoffhaxx.app.concurs.R
-import com.hoffhaxx.app.concurs.activities.auth.SignIn
-import com.hoffhaxx.app.concurs.activities.auth.SignInGoogle
-import com.hoffhaxx.app.concurs.activities.auth.SignUp
+import com.hoffhaxx.app.concurs.fragments.SignUpFragment
 import com.hoffhaxx.app.concurs.misc.UserRepository
 import kotlinx.android.synthetic.main.fragment_sign_in.*
 import kotlinx.coroutines.CoroutineScope
@@ -50,15 +44,17 @@ class LoginActivity: AppCompatActivity(){
         val signInGoogle: Button = findViewById(R.id.sign_in_google)
         val signUp: Button = findViewById(R.id.sign_up)
 
-        CoroutineScope(IO).launch {
-            val user = UserRepository.getUser()
-            if (user?.email != null) {
-                Log.i("XD", user.toString())
-                goToMain()
-            }
-        }
-        signIn.setOnClickListener { signIn() }
+//        CoroutineScope(IO).launch {
+//            val user = UserRepository.getUser()
+//            if (user?.email != null) {
+//                Log.i("XD", user.toString())
+//                goToMain()
+//            }
+//        }
+//        signIn.setOnClickListener { signIn() }
         signInGoogle.setOnClickListener { googleSignIn() }
+        signUp.setOnClickListener{ signUp() }
+        signIn.setOnClickListener { goToHomePage() }
     }
 
     //signIn() zamienione na goToMain
@@ -131,9 +127,8 @@ class LoginActivity: AppCompatActivity(){
     }
 
     private fun signUp(){
-        val intent = Intent(this, SignUp::class.java)
+        val intent = Intent(this, SignUpActivity::class.java)
         startActivity(intent)
-        finish()
     }
 
     private fun getSoftButtonsBarSizePort(activity: Activity): Int {
@@ -149,7 +144,7 @@ class LoginActivity: AppCompatActivity(){
     }
 
     private fun setupBottomMargin(){
-        val forgotBtn: View = findViewById(R.id.sign_in_dont_rembmer_password_btn)
+        val forgotBtn: View = findViewById(R.id.sign_in_dont_remember_password_btn)
         val param = forgotBtn.layoutParams as ConstraintLayout.LayoutParams
         param.setMargins(0,0,0, getSoftButtonsBarSizePort(this))
         forgotBtn.layoutParams = param

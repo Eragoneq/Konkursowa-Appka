@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:id="@+id/ranking_fragment"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#2A5E04">
+    android:background="#2A5E04"
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Ranking"
-        android:textSize="40sp"/>
+        android:textSize="40sp" />
 
 </LinearLayout>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/bottom_nav_item_todo"
+        android:icon="@drawable/ic_bookmark"
+        android:title="@string/bottom_nav_item_todo"/>
+    <item
+        android:id="@+id/bottom_nav_item_achiev"
+        android:icon="@drawable/ic_achievements"
+        android:title="@string/bottom_nav_menu_achiev"/>
+    <item
+        android:id="@+id/bottom_nav_menu_home"
+        android:icon="@drawable/ic_home"
+        android:title="@string/bottom_nav_menu_home"/>
+    <item
+        android:id="@+id/bottom_nav_menu_stats"
+        android:icon="@drawable/ic_stats"
+        android:title="@string/bottom_nav_menu_stats"/>
+    <item
+        android:id="@+id/bottom_nav_menu_leaf"
+        android:icon="@drawable/ic_eco"
+        android:title="@string/bottom_nav_menu_leaf"/>
+</menu>
