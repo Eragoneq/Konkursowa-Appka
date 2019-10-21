@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.hoffhaxx.app.concurs.HomeActivity
 import com.hoffhaxx.app.concurs.R
 import com.hoffhaxx.app.concurs.activities.auth.SignIn
 import com.hoffhaxx.app.concurs.activities.auth.SignInGoogle
@@ -25,18 +26,23 @@ class LoginActivity: AppCompatActivity(){
         val signInGoogle: Button = findViewById(R.id.sign_in_google)
         val signUp: Button = findViewById(R.id.sign_up)
 
+        signIn.setOnClickListener { goToMain() }
+        signInGoogle.setOnClickListener { goToHomePage() }
+        signUp.setOnClickListener { signUp() }
 
     }
 
-    private fun signIn(){
+    //signIn() zamienione na goToMain
+    private fun goToMain(){
         // Tutaj powinien isc kod sprawdzajacy sesje
-        val intent = Intent(this, SignIn::class.java)
+        val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
         finish()
     }
 
-    private fun signInGoogle(){
-        val intent = Intent(this, SignInGoogle::class.java)
+    //signInGoogle zamienione na goToHomepage
+    private fun goToHomePage(){
+        val intent = Intent(this, HomeActivity::class.java)
         startActivity(intent)
         finish()
     }
