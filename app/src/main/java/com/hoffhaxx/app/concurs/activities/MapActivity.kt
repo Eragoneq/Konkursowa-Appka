@@ -1,172 +1,48 @@
 package com.hoffhaxx.app.concurs.activities
 
+import android.Manifest
+import android.app.AlertDialog
 import android.content.Context
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.location.Location
+import android.location.LocationManager
+import android.os.Build
 import android.os.Bundle
+import android.os.Looper
+import android.provider.Settings
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.ImageView
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.core.view.isVisible
+import com.google.android.gms.location.*
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.gson.Gson
-import com.hoffhaxx.app.concurs.activities.map.Marker
 import com.hoffhaxx.app.concurs.R
+import com.hoffhaxx.app.concurs.activities.map.Marker
 import com.hoffhaxx.app.concurs.misc.SharedPreferencesRepository
 import com.hoffhaxx.app.concurs.misc.fromJson
-import android.Manifest
-import android.annotation.SuppressLint
-import android.content.Intent
-import android.content.pm.PackageManager
-import android.location.Location
-import android.location.LocationListener
-import android.location.LocationManager
-import android.os.Build
-import android.util.Log
-import android.widget.Toast
-import androidx.core.app.ActivityCompat.shouldShowRequestPermissionRationale
-import androidx.core.content.PermissionChecker.checkCallingOrSelfPermission
-import com.google.android.gms.common.api.ResolvableApiException
-import com.google.android.gms.location.*
-import com.google.android.gms.tasks.RuntimeExecutionException
+import kotlin.math.sqrt
 
-const val PERMISSION_REQUEST = 10
 
 class MapActivity : AppCompatActivity() {
 
-    /*lateinit var locationManager: LocationManager
-    private var hasGps = false
-    //private var hasNetwork = false
-    private var locationGps : Location? = null
-    //private var locationNetwork : Location? = null
+    private var mFusedLocationProviderClient: FusedLocationProviderClient? = null
+    private val INTERVAL: Long = 2000
+    private val FASTEST_INTERVAL: Long = 1000
+    lateinit var mLastLocation: Location
+    internal lateinit var mLocationRequest: LocationRequest
+    private val REQUEST_PERMISSION_LOCATION = 10
 
-    @SuppressLint("MissingPermission")
-    private fun getLocation()
-    {
-        locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        hasGps = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
-        //hasNetwork = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
-        if(hasGps/* || hasNetwork*/) {
-
-            if(hasGps)
-            {
-                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 500, 0F, object : LocationListener{
-                    override fun onLocationChanged(location: Location?) {
-                        if(location!=null)
-                        {
-                            locationGps = location
-                        }
-                    }
-
-                    override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {
-                        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-                    }
-
-                    override fun onProviderEnabled(provider: String?) {
-                        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-                    }
-
-                    override fun onProviderDisabled(provider: String?) {
-                        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-                    }
-                })
-
-                val localGpsLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
-                if(localGpsLocation!=null)
-                {
-                    locationGps = localGpsLocation
-                }
-            }*/
-            /*if(hasNetwork)
-            {
-                locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 5000, 0F, object : LocationListener{
-                    override fun onLocationChanged(location: Location?) {
-                        if(location!=null)
-                        {
-                            locationNetwork = location
-                        }
-                    }
-
-                    override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {
-                        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-                    }
-
-                    override fun onProviderEnabled(provider: String?) {
-                        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-                    }
-
-                    override fun onProviderDisabled(provider: String?) {
-                        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-                    }
-                })
-
-                val localNetworkLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
-                if(localNetworkLocation!=null)
-                {
-                    locationNetwork = localNetworkLocation
-                }
-            }
-
-            if(locationGps!=null/* && locationNetwork!=*/)
-            {
-                //if(locationGps!!.accuracy > locationNetwork!!.accuracy) {
-                    //userLatLng = LatLng(locationNetwork!!.latitude, locationNetwork!!.longitude)
-                //}else{
-                    //userLatLng = LatLng(locationGps!!.latitude, locationGps!!.longitude)
-                    Toast.makeText(this, "robie elo", Toast.LENGTH_LONG).show()
-                //}
-            }
-
-        }else{
-
-        }
-    }*/
-
-    private var permissions = arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)
-
-    fun checkPermission(context: Context, permissionArray: Array<String>) : Boolean
-    {
-        var allSuccess = true
-        for(i in permissionArray.indices)
-        {
-            if (checkCallingOrSelfPermission(permissionArray[i]) == PackageManager.PERMISSION_DENIED)
-            {
-                allSuccess = false
-            }
-        }
-        return allSuccess
-    }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if(requestCode == PERMISSION_REQUEST)
-        {
-            var allSuccess = true
-            for(i in permissions.indices)
-            {
-                if(grantResults[i] == PackageManager.PERMISSION_DENIED)
-                {
-                    allSuccess = false
-                    var requestAgain = shouldShowRequestPermissionRationale(permissions[i]) && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
-                    if(requestAgain)
-                    {
-
-                    }else{
-
-                    }
-                }
-            }
-        }
-    }
+    private var userLatLng = LatLng(52.23, 21.01)
 
     private val filters = HashMap<String, Boolean>()
 
@@ -183,121 +59,33 @@ class MapActivity : AppCompatActivity() {
     private lateinit var mapFragment: SupportMapFragment
     lateinit var googleMap: GoogleMap
 
-    //var fusedLocationClient: FusedLocationProviderClient? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
-
-        var userLatLng : LatLng = LatLng(0.0, 0.0)
-        val context: Context = this
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
-        {
-            if(!checkPermission(context, permissions))
-            {
-                requestPermissions(permissions, PERMISSION_REQUEST)
-            }
-        }
-
-        //fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-
-        /*fun getLocation()
-        {
-            if(checkPermission(context, permissions))
-            {
-                fusedLocationClient?.lastLocation?.addOnSuccessListener(this
-                ) { location : Location? ->
-                    if(location == null) {
-                        //nakaz włączenia lokalizacji/cofniecie
-                    }
-                    else //location.apply
-                    {
-                        userLatLng = LatLng(location.latitude, location.longitude)
-                    }
-                }
-            }
-        }*/
 
         initFilters()
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_map)
 
+        mLocationRequest = LocationRequest()
+
+        val locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            buildAlertMessageNoGps()
+        }
+
+        if (checkPermissionForLocation(this)) {
+            startLocationUpdates()
+        }
+
+
         mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
-        mapFragment.getMapAsync {
+        mapFragment.getMapAsync { it ->
             //poczatek funkcji map
             googleMap = it
             googleMap.isMyLocationEnabled = true
 
-            fun getMarkers(): MutableList<Marker> {
-                val markersJson = SharedPreferencesRepository.marker
-
-                return if (markersJson != null)
-                    Gson().fromJson(markersJson)
-                else
-                    mutableListOf()
-            }
-
-            fun saveMarker(m : Marker) {
-                val markersTemp = getMarkers()
-                markersTemp.add(m)
-                SharedPreferencesRepository.marker = Gson().toJson(markersTemp)
-            }
-
-            fun removeMarker(m: Marker) {
-                val markersTemp = getMarkers()
-                markersTemp.remove(m)
-                SharedPreferencesRepository.marker = Gson().toJson(markersTemp)
-            }
-
-            fun placeMarkerOnMap(m: Marker) {
-                val location = LatLng(m.latitude, m.longitude)
-                if(m.type == "Trash") {
-                    googleMap.addMarker(
-                        MarkerOptions()
-                            .position(location)
-                            .title(m.type)
-                            .snippet(m.user)
-                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.mapmarker32))
-                            .visible(true)
-                    )
-                } else if(m.type == "Malysz") {
-                    googleMap.addMarker(
-                        MarkerOptions()
-                            .position(location)
-                            .title(m.type)
-                            .snippet(m.user)
-                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.malysz))
-                            .visible(true)
-                    )
-                }
-            }
-
-            fun placeMarkersOfType(type: String) {
-                val marOfType = getMarkers().filter {
-                    it.type == type
-                }
-                for (m in marOfType) {
-                    placeMarkerOnMap(m)
-                }
-            }
-
-            val warszawa = LatLng(52.23, 21.01)
-            val zoom = 20.0f
-
-            fun refreshMap() {
-                googleMap.clear()
-                for((key, value) in filters) {
-                    if(value) {
-                        placeMarkersOfType(key)
-                    }
-                }
-                //getLocation()
-                println(userLatLng.latitude)
-                println(userLatLng.longitude)
-                //val s : String = userLatLng.latitude.toString() + ", " + userLatLng.longitude.toString()
-                //Toast.makeText(this, s, Toast.LENGTH_LONG).show()
-                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userLatLng, zoom))
-            }
-
+            //val warszawa = LatLng(52.23, 21.01)
+            //val zoom = 19.0f
 
             val checkBoxTrash = findViewById<CheckBox>(R.id.Trash)
             checkBoxTrash.isChecked = true
@@ -321,7 +109,7 @@ class MapActivity : AppCompatActivity() {
                 }
             }
 
-            var action: String = ""
+            var action = ""
 
             var clickableMarkers = true
             var clickedMarker: Marker = defaultMarker
@@ -359,7 +147,7 @@ class MapActivity : AppCompatActivity() {
 
 
             //googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(warszawa, zoom))
-            //googleMap.uiSettings.setZoomControlsEnabled(true)
+            googleMap.uiSettings.setZoomControlsEnabled(true)
             val buttonAddMarker = findViewById<Button>(R.id.AddMarkerBtn)
             buttonAddMarker.setOnClickListener {
                 if(clickableMarkers)
@@ -377,10 +165,12 @@ class MapActivity : AppCompatActivity() {
                     backgroundButtons.isVisible = true
                     clickableMarkers = false
                     clickedMarker = thisMarker
+
+                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userLatLng, 19.0f))
                 }
             }
 
-            /*googleMap.setOnMapClickListener {
+            googleMap.setOnMapClickListener {
                 val thisMarker = Marker(
                     "Trash",
                     it.latitude,
@@ -388,12 +178,18 @@ class MapActivity : AppCompatActivity() {
                     false,
                     "user name"
                 )
-                if(clickableMarkers) {
-                    saveMarker(thisMarker)
-                    setFilterValue("Trash", true)
-                    refreshMap()
+                val maxDistance = 100
+                val distance = distanceInMeters(userLatLng.latitude, userLatLng.longitude, it.latitude, it.longitude)
+
+                if(clickableMarkers && distance < maxDistance) {
+                    action = "add"
+                    buttonCancel.isVisible = true
+                    buttonConfirm.isVisible = true
+                    backgroundButtons.isVisible = true
+                    clickableMarkers = false
+                    clickedMarker = thisMarker
                 }
-            }*/
+            }
 
             googleMap.setOnMapLongClickListener {
                 val thisMarker = Marker(
@@ -428,7 +224,7 @@ class MapActivity : AppCompatActivity() {
                             isMarkerClicked = false
                             lastClickedMarker = defaultMarker
                         }
-                    } else if(marker.title == "Malysz") {
+                    } else {
                         marker.showInfoWindow()
                     }
                 }
@@ -454,9 +250,203 @@ class MapActivity : AppCompatActivity() {
             }
 
             refreshMap()
+            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userLatLng, 19.0f))
         }//koniec funkcji map
 
     }
 
+    private fun getMarkers(): MutableList<Marker> {
+        val markersJson = SharedPreferencesRepository.marker
+
+        return if (markersJson != null)
+            Gson().fromJson(markersJson)
+        else
+            mutableListOf()
+    }
+
+    private fun saveMarker(m : Marker) {
+        val markersTemp = getMarkers()
+        markersTemp.add(m)
+        SharedPreferencesRepository.marker = Gson().toJson(markersTemp)
+    }
+
+    private fun removeMarker(m: Marker) {
+        val markersTemp = getMarkers()
+        markersTemp.remove(m)
+        SharedPreferencesRepository.marker = Gson().toJson(markersTemp)
+    }
+
+    private fun placeMarkerOnMap(m: Marker) {
+        val location = LatLng(m.latitude, m.longitude)
+        if(m.type == "Trash") {
+            googleMap.addMarker(
+                MarkerOptions()
+                    .position(location)
+                    .title(m.type)
+                    .snippet(m.user)
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.mapmarker32))
+                    .visible(true)
+            )
+        } else if(m.type == "Malysz") {
+            googleMap.addMarker(
+                MarkerOptions()
+                    .position(location)
+                    .title(m.type)
+                    .snippet(m.user)
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.malysz))
+                    .visible(true)
+            )
+        }
+    }
+
+    private fun placeMarkersOfType(type: String) {
+        val marOfType = getMarkers().filter {
+            it.type == type
+        }
+        for (m in marOfType) {
+            placeMarkerOnMap(m)
+        }
+    }
+
+    private fun refreshMap() {
+        googleMap.clear()
+        for((key, value) in filters) {
+            if(value) {
+                placeMarkersOfType(key)
+            }
+        }
+        var x = 0.0
+        /*while(x < 6.283)
+        {
+            val loc = LatLng(abs(userLatLng.latitude - (0.0005 * kotlin.math.sin(x))),abs(userLatLng.longitude - (0.0005 * kotlin.math.cos(x))))
+            x+=0.05
+            googleMap.addMarker(
+                MarkerOptions()
+                    .title("chuj")
+                    .position(loc)
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.userloc32))
+            )
+        }*/
+
+        val s : String = userLatLng.latitude.toString() + ", " + userLatLng.longitude.toString()
+        Toast.makeText(this, s, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun buildAlertMessageNoGps() {
+
+        val builder = AlertDialog.Builder(this)
+        builder.setMessage("Your GPS seems to be disabled, do you want to enable it?")
+            .setCancelable(false)
+            .setPositiveButton("Yes") { dialog, id ->
+                startActivityForResult(
+                    Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
+                    , 11)
+            }
+            .setNegativeButton("No") { dialog, id ->
+                dialog.cancel()
+                finish()
+            }
+        val alert: AlertDialog = builder.create()
+        alert.show()
+
+
+    }
+
+
+    private fun startLocationUpdates() {
+
+        // Create the location request to start receiving updates
+
+        mLocationRequest!!.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+        mLocationRequest!!.setInterval(INTERVAL)
+        mLocationRequest!!.setFastestInterval(FASTEST_INTERVAL)
+
+        // Create LocationSettingsRequest object using location request
+        val builder = LocationSettingsRequest.Builder()
+        builder.addLocationRequest(mLocationRequest!!)
+        val locationSettingsRequest = builder.build()
+
+        val settingsClient = LocationServices.getSettingsClient(this)
+        settingsClient.checkLocationSettings(locationSettingsRequest)
+
+        mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
+        // new Google API SDK v11 uses getFusedLocationProviderClient(this)
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+
+            return
+        }
+        mFusedLocationProviderClient!!.requestLocationUpdates(mLocationRequest, mLocationCallback,
+            Looper.myLooper())
+    }
+
+    private val mLocationCallback = object : LocationCallback() {
+        override fun onLocationResult(locationResult: LocationResult) {
+            // do work here
+            locationResult.lastLocation
+            onLocationChanged(locationResult.lastLocation)
+        }
+    }
+
+    fun onLocationChanged(location: Location) {
+        // New location has now been determined
+
+        mLastLocation = location
+        userLatLng = locationToLatLng(mLastLocation)
+    }
+
+    private fun stoplocationUpdates() {
+        mFusedLocationProviderClient!!.removeLocationUpdates(mLocationCallback)
+    }
+
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        if (requestCode == REQUEST_PERMISSION_LOCATION) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                startLocationUpdates()
+            } else {
+                Toast.makeText(this@MapActivity, "Permission Denied", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun checkPermissionForLocation(context: Context): Boolean {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+
+            if (context.checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) ==
+                PackageManager.PERMISSION_GRANTED) {
+                true
+            } else {
+                // Show the permission request
+                ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION),
+                    REQUEST_PERMISSION_LOCATION)
+                false
+            }
+        } else {
+            true
+        }
+    }
+
+    private fun distanceInMeters(lat1: Double, lng1: Double, lat2: Double, lng2: Double): Double {
+        val R = 6371000
+        val dLat = degreesToRadians(lat2 - lat1)
+        val dLng = degreesToRadians(lng2 - lng1)
+        val a = kotlin.math.sin(dLat/2) * kotlin.math.sin(dLat/2) +
+                kotlin.math.cos(degreesToRadians(lat1)/2) * kotlin.math.cos(degreesToRadians(lat2)/2) *
+                kotlin.math.sin(dLng/2) * kotlin.math.sin(dLng/2)
+        val c = 2 * kotlin.math.atan2(sqrt(a), sqrt(1-a))
+
+        return R * c
+    }
+
+    private fun degreesToRadians(deg: Double) : Double
+    {
+        return deg / 180 * kotlin.math.PI
+    }
+
+    private fun locationToLatLng(location: Location) : LatLng
+    {
+        return LatLng(location.latitude, location.longitude)
+    }
 
 }
