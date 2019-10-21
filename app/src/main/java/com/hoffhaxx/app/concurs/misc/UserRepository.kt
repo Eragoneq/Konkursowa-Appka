@@ -1,10 +1,7 @@
 package com.hoffhaxx.app.concurs.misc
 
 import android.util.Log
-import com.hoffhaxx.app.concurs.misc.data.LoginCredentials
-import com.hoffhaxx.app.concurs.misc.data.LoginOauthGoogleCredentials
-import com.hoffhaxx.app.concurs.misc.data.SignInResult
-import com.hoffhaxx.app.concurs.misc.data.User
+import com.hoffhaxx.app.concurs.misc.data.*
 import com.hoffhaxx.app.concurs.web.WebClient
 
 object UserRepository {
@@ -14,7 +11,7 @@ object UserRepository {
             try {
                 user =  WebClient.client.userProfile()
             } catch (e : retrofit2.HttpException) {
-                Log.i("SOMETHING", e.message())
+                throw WebClient.NetworkException()
             }
         }
         return user
@@ -25,8 +22,7 @@ object UserRepository {
         return try {
             WebClient.client.userLoginLocal(credentials)
         } catch (e : retrofit2.HttpException) {
-            Log.i("SOOMETHING", e.response().toString())
-            SignInResult(success = false, message = "Network error")
+            throw WebClient.NetworkException()
         }
     }
 
@@ -34,8 +30,7 @@ object UserRepository {
         return try {
             WebClient.client.userGoogleAuth(LoginOauthGoogleCredentials(idToken))
         } catch (e : retrofit2.HttpException) {
-            Log.i("SOOMETHING", e.response().toString())
-            SignInResult(success = false, message = "Network error")
+            throw WebClient.NetworkException()
         }
     }
 
@@ -45,7 +40,15 @@ object UserRepository {
             SharedPreferencesRepository.user = null
             SharedPreferencesRepository.sessionId = ""
         } catch (e : retrofit2.HttpException) {
-            Log.i("SOOMETHING", e.response().toString())
+            throw WebClient.NetworkException()
+        }
+    }
+
+    suspend fun register(nickname: String, email: String, password: String): SignUpResult {
+        return try {
+            WebClient.client.userRegister(RegisterCredentials(nickname, email, password))
+        } catch (e : retrofit2.HttpException) {
+            throw WebClient.NetworkException()
         }
     }
 }

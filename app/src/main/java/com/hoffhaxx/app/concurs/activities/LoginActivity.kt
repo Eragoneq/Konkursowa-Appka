@@ -78,15 +78,14 @@ class LoginActivity: AppCompatActivity(){
 
     private fun signIn() =  CoroutineScope(IO).launch {
         try {
-            val email = sign_in_text_input_email.editText.toString()
-            val password = sign_in_text_input_password.editText.toString()
+            val email = signin_edit_email.text.toString()
+            val password = signin_edit_password.text.toString()
             val result = UserRepository.loginUserLocal(email, password)
             withContext(Main) {
-                if (result.success) {
+                if (result.success)
                     goToMain()
-                } else {
+                else
                     sign_in_text_input_password.error = result.message
-                }
             }
         } catch (e : WebClient.NetworkException) {
             withContext(Main) {
