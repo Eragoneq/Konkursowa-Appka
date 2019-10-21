@@ -83,6 +83,7 @@ class MapActivity : AppCompatActivity() {
             //poczatek funkcji map
             googleMap = it
             googleMap.isMyLocationEnabled = true
+            googleMap.mapType = GoogleMap.MAP_TYPE_HYBRID
 
             //val warszawa = LatLng(52.23, 21.01)
             //val zoom = 19.0f
@@ -147,8 +148,8 @@ class MapActivity : AppCompatActivity() {
 
 
             //googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(warszawa, zoom))
-            googleMap.uiSettings.setZoomControlsEnabled(true)
-            val buttonAddMarker = findViewById<Button>(R.id.AddMarkerBtn)
+            //googleMap.uiSettings.setZoomControlsEnabled(true)
+            /*val buttonAddMarker = findViewById<Button>(R.id.AddMarkerBtn)
             buttonAddMarker.setOnClickListener {
                 if(clickableMarkers)
                 {
@@ -168,7 +169,7 @@ class MapActivity : AppCompatActivity() {
 
                     googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userLatLng, 19.0f))
                 }
-            }
+            }*/
 
             googleMap.setOnMapClickListener {
                 val thisMarker = Marker(
@@ -181,13 +182,17 @@ class MapActivity : AppCompatActivity() {
                 val maxDistance = 100
                 val distance = distanceInMeters(userLatLng.latitude, userLatLng.longitude, it.latitude, it.longitude)
 
-                if(clickableMarkers && distance < maxDistance) {
-                    action = "add"
-                    buttonCancel.isVisible = true
-                    buttonConfirm.isVisible = true
-                    backgroundButtons.isVisible = true
-                    clickableMarkers = false
-                    clickedMarker = thisMarker
+                if(clickableMarkers) {
+                    if(distance < maxDistance) {
+                        action = "add"
+                        buttonCancel.isVisible = true
+                        buttonConfirm.isVisible = true
+                        backgroundButtons.isVisible = true
+                        clickableMarkers = false
+                        clickedMarker = thisMarker
+                    } else {
+                        Toast.makeText(this, "You are too far away", Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
 
@@ -315,21 +320,6 @@ class MapActivity : AppCompatActivity() {
                 placeMarkersOfType(key)
             }
         }
-        var x = 0.0
-        /*while(x < 6.283)
-        {
-            val loc = LatLng(abs(userLatLng.latitude - (0.0005 * kotlin.math.sin(x))),abs(userLatLng.longitude - (0.0005 * kotlin.math.cos(x))))
-            x+=0.05
-            googleMap.addMarker(
-                MarkerOptions()
-                    .title("chuj")
-                    .position(loc)
-                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.userloc32))
-            )
-        }*/
-
-        val s : String = userLatLng.latitude.toString() + ", " + userLatLng.longitude.toString()
-        Toast.makeText(this, s, Toast.LENGTH_SHORT).show()
     }
 
     private fun buildAlertMessageNoGps() {
@@ -344,7 +334,7 @@ class MapActivity : AppCompatActivity() {
             }
             .setNegativeButton("No") { dialog, id ->
                 dialog.cancel()
-                finish()
+                //finish()
             }
         val alert: AlertDialog = builder.create()
         alert.show()
