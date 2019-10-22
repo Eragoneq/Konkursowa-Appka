@@ -21,8 +21,8 @@ import java.net.SocketTimeoutException
 object WebClient {
     lateinit var connectivityManager : ConnectivityManager
 
-    val host = "10.0.2.2"
-    val port = "8080"
+    val host = "fajnaaplikacja.pl"
+    val port = "443"
 
     val okHttpClient = OkHttpClient
         .Builder()
@@ -62,7 +62,7 @@ object WebClient {
         }.build()
 
     val client = Retrofit.Builder()
-        .baseUrl("http://$host:$port")
+        .baseUrl("https://$host:$port")
         .client(okHttpClient)
         .addConverterFactory(ScalarsConverterFactory.create())
         .addConverterFactory(MoshiConverterFactory.create(Moshi.Builder().build()))
