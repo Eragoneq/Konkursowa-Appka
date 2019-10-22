@@ -85,7 +85,7 @@ class LoginActivity: AppCompatActivity(){
                 if (result.success)
                     goToMain()
                 else
-                    sign_in_text_input_password.error = result.message
+                    signin_error_text.text = result.message
             }
         } catch (e : WebClient.NetworkException) {
             withContext(Main) {
@@ -119,7 +119,7 @@ class LoginActivity: AppCompatActivity(){
                                 if (result.success)
                                     goToMain()
                                 else
-                                    sign_in_text_input_password.error = result.message
+                                    signin_error_text.text = result.message
                             }
                         } catch (e : WebClient.NetworkException) {
                             withContext(Main) {

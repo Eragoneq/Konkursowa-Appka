@@ -30,7 +30,7 @@ class SignUpActivity: AppCompatActivity() {
         val signUp: Button = findViewById(R.id.sign_up_button)
         pass = findViewById(R.id.password_edit_signup)
         mail = findViewById(R.id.email_edit_signup)
-        errText = findViewById(R.id.error_text_signup)
+        errText = findViewById(R.id.signup_error_text)
 
         signUp.setOnClickListener {
             val nickname = nickname_edit_signup.text.toString()
@@ -38,8 +38,8 @@ class SignUpActivity: AppCompatActivity() {
             val password = pass.text.toString()
             signUp(nickname, email, password)
         }
-        mail.setOnFocusChangeListener { _, hasFocus -> if(!hasFocus) testMail() }
-        pass.setOnFocusChangeListener { _, hasFocus -> if(!hasFocus) testPass() }
+//        mail.setOnFocusChangeListener { _, hasFocus -> if(!hasFocus) testMail() }
+//        pass.setOnFocusChangeListener { _, hasFocus -> if(!hasFocus) testPass() }
         goto_sign_in_btn.setOnClickListener{
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
@@ -61,6 +61,9 @@ class SignUpActivity: AppCompatActivity() {
                     goToMain()
                 else {
                     val errors = result.errors
+                    sign_up_text_input_nickname.error = ""
+                    sign_up_text_input_email.error = ""
+                    sign_up_text_input_password.error = ""
                     if (errors.isNotEmpty()) {
                         for (error in errors) {
                             when(error.param) {
@@ -84,19 +87,19 @@ class SignUpActivity: AppCompatActivity() {
         }
     }
 
-    private fun isEmailValid(email: String): Boolean {
-        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
-    }
-
-    private fun testMail(){
-        errText.text = if (!isEmailValid(mail.text.toString())) resources.getString(R.string.illegal_email)  else  ""
-    }
-
-    private fun testPass(){
-        if (pass.text.toString().length < 5){
-            errText.text = resources.getString(R.string.illegal_pass)
-        }else{
-            errText.text = ""
-        }
-    }
+//    private fun isEmailValid(email: String): Boolean {
+//        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
+//    }
+//
+//    private fun testMail(){
+//        errText.text = if (!isEmailValid(mail.text.toString())) resources.getString(R.string.illegal_email)  else  ""
+//    }
+//
+//    private fun testPass(){
+//        if (pass.text.toString().length < 5){
+//            errText.text = resources.getString(R.string.illegal_pass)
+//        }else{
+//            errText.text = ""
+//        }
+//    }
 }

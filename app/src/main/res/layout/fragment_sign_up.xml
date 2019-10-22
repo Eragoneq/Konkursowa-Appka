@@ -23,11 +23,10 @@
         android:id="@+id/sign_up_text_input_nickname"
         android:layout_width="256dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
         android:theme="@style/SignInTextInputLayoutAppearance"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/header_signup">
+        app:layout_constraintTop_toBottomOf="@id/signup_error_text">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/nickname_edit_signup"
@@ -141,15 +140,27 @@
         app:layout_constraintGuide_percent="0.8" />
 
     <TextView
-        android:id="@+id/error_text_signup"
-        style="@style/ErrorText"
-        android:layout_width="wrap_content"
+        android:id="@+id/signup_error_text"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textStyle="normal"
-        app:layout_constraintBottom_toTopOf="@+id/sign_up_text_input_nickname"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/sign_up_text_input_email"
-        tools:visibility="visible" />
+        android:minHeight="42dp"
+        android:textSize="14sp"
+        android:layout_marginTop="44dp"
+        android:textColor="@color/error"
+        app:layout_constraintTop_toBottomOf="@+id/header_signup"
+        app:layout_constraintEnd_toStartOf="@+id/guideline2"
+        app:layout_constraintStart_toStartOf="@+id/guideline" />
+
+<!--    <TextView-->
+<!--        android:id="@+id/error_text_signup"-->
+<!--        style="@style/ErrorText"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:textStyle="normal"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/sign_up_text_input_nickname"-->
+<!--        app:layout_constraintEnd_toStartOf="@+id/guideline2"-->
+<!--        app:layout_constraintHorizontal_bias="0.0"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/sign_up_text_input_email"-->
+<!--        tools:visibility="visible" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
