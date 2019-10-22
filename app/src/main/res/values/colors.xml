@@ -22,7 +22,7 @@
     <color name="primaryColor">#f9fbe7</color>
     <color name="primaryLightColor">#ffffff</color>
     <color name="primaryDarkColor">#c6c8b5</color>
-    <color name="secondaryColor">#9ccc65</color>
+    <color name="secondaryColor">#9CCC65</color>
     <color name="secondaryLightColor">#cfff95</color>
     <color name="secondaryDarkColor">#6b9b37</color>
     <color name="primaryTextColor">#000000</color>

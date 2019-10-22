@@ -11,10 +11,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Looper
 import android.provider.Settings
-import android.widget.Button
-import android.widget.CheckBox
-import android.widget.ImageView
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.view.isVisible
@@ -85,9 +82,6 @@ class MapActivity : AppCompatActivity() {
             googleMap.isMyLocationEnabled = true
             googleMap.mapType = GoogleMap.MAP_TYPE_HYBRID
 
-            //val warszawa = LatLng(52.23, 21.01)
-            //val zoom = 19.0f
-
             val checkBoxTrash = findViewById<CheckBox>(R.id.Trash)
             checkBoxTrash.isChecked = true
             checkBoxTrash?.setOnCheckedChangeListener { buttonView, isChecked ->
@@ -118,98 +112,38 @@ class MapActivity : AppCompatActivity() {
             val buttonConfirm = findViewById<Button>(R.id.Confirm)
             val buttonCancel = findViewById<Button>(R.id.Cancel)
             val backgroundButtons = findViewById<ImageView>(R.id.ButtonsBackground)
+            val textButtons = findViewById<TextView>(R.id.ButtonsText)
             backgroundButtons.isVisible = false
             buttonConfirm.isVisible = false
             buttonCancel.isVisible = false
+            textButtons.isVisible = false
 
             buttonConfirm.setOnClickListener {
-                buttonCancel.isVisible = false
-                buttonConfirm.isVisible = false
-                backgroundButtons.isVisible = false
-                clickableMarkers = true
                 if(action == "delete") {
                     removeMarker(clickedMarker)
                     refreshMap()
-                }
-                else if(action == "add")
-                {
+                } else if(action == "add") {
                     saveMarker(clickedMarker)
                     setFilterValue("Trash", true)
                     refreshMap()
                 }
+                buttonCancel.isVisible = false
+                buttonConfirm.isVisible = false
+                backgroundButtons.isVisible = false
+                textButtons.isVisible = false
+                clickableMarkers = true
+
             }
 
             buttonCancel.setOnClickListener {
                 buttonCancel.isVisible = false
                 buttonConfirm.isVisible = false
                 backgroundButtons.isVisible = false
+                textButtons.isVisible = false
                 clickableMarkers = true
             }
 
-
-            //googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(warszawa, zoom))
             //googleMap.uiSettings.setZoomControlsEnabled(true)
-            /*val buttonAddMarker = findViewById<Button>(R.id.AddMarkerBtn)
-            buttonAddMarker.setOnClickListener {
-                if(clickableMarkers)
-                {
-                    val thisMarker = Marker(
-                        "Trash",
-                        userLatLng.latitude,
-                        userLatLng.longitude,
-                        false,
-                        "user name"
-                    )
-                    action = "add"
-                    buttonCancel.isVisible = true
-                    buttonConfirm.isVisible = true
-                    backgroundButtons.isVisible = true
-                    clickableMarkers = false
-                    clickedMarker = thisMarker
-
-                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userLatLng, 19.0f))
-                }
-            }*/
-
-            googleMap.setOnMapClickListener {
-                val thisMarker = Marker(
-                    "Trash",
-                    it.latitude,
-                    it.longitude,
-                    false,
-                    "user name"
-                )
-                val maxDistance = 100
-                val distance = distanceInMeters(userLatLng.latitude, userLatLng.longitude, it.latitude, it.longitude)
-
-                if(clickableMarkers) {
-                    if(distance < maxDistance) {
-                        action = "add"
-                        buttonCancel.isVisible = true
-                        buttonConfirm.isVisible = true
-                        backgroundButtons.isVisible = true
-                        clickableMarkers = false
-                        clickedMarker = thisMarker
-                    } else {
-                        Toast.makeText(this, "You are too far away", Toast.LENGTH_SHORT).show()
-                    }
-                }
-            }
-
-            googleMap.setOnMapLongClickListener {
-                val thisMarker = Marker(
-                    "Malysz",
-                    it.latitude,
-                    it.longitude,
-                    false,
-                    "user name"
-                )
-                if(clickableMarkers) {
-                    saveMarker(thisMarker)
-                    setFilterValue("Malysz", true)
-                    refreshMap()
-                }
-            }
 
             googleMap.setOnMarkerClickListener { marker ->
                 val thisMarker = Marker(
@@ -219,6 +153,7 @@ class MapActivity : AppCompatActivity() {
                     false,
                     "user name"
                 )
+                Toast.makeText(this, thisMarker.type, Toast.LENGTH_SHORT).show()
                 if(clickableMarkers) {
                     if(marker.title == "Trash") {
                         if(!isMarkerClicked || lastClickedMarker != thisMarker) {
@@ -236,6 +171,57 @@ class MapActivity : AppCompatActivity() {
                 true
             }
 
+            googleMap.setOnMapClickListener {
+                isMarkerClicked = false
+                lastClickedMarker = defaultMarker
+            }
+
+            googleMap.setOnMapLongClickListener {
+                val thisMarker = Marker(
+                    "Trash",
+                    it.latitude,
+                    it.longitude,
+                    false,
+                    "user name"
+                )
+
+                isMarkerClicked = false
+                lastClickedMarker = defaultMarker
+
+                val maxDistance = 100
+                val distance = distanceInMeters(userLatLng.latitude, userLatLng.longitude, it.latitude, it.longitude)
+
+                if(clickableMarkers) {
+                    if(distance < maxDistance) {
+                        action = "add"
+                        textButtons.text = "Are you sure you want to add a Trash?"
+                        buttonCancel.isVisible = true
+                        buttonConfirm.isVisible = true
+                        backgroundButtons.isVisible = true
+                        textButtons.isVisible = true
+                        clickableMarkers = false
+                        clickedMarker = thisMarker
+                    } else {
+                        Toast.makeText(this, "You are too far away", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+
+            /*googleMap.setOnMapLongClickListener {
+                val thisMarker = Marker(
+                    "Malysz",
+                    it.latitude,
+                    it.longitude,
+                    false,
+                    "user name"
+                )
+                if(clickableMarkers) {
+                    saveMarker(thisMarker)
+                    setFilterValue("Malysz", true)
+                    refreshMap()
+                }
+            }*/
+
             googleMap.setOnInfoWindowClickListener {marker ->
                 val thisMarker = Marker(
                     marker.title,
@@ -246,9 +232,11 @@ class MapActivity : AppCompatActivity() {
                 )
                 if(marker.title == "Trash") {
                     action = "delete"
+                    textButtons.text = "Are you sure you want to remove a Trash?"
                     buttonCancel.isVisible = true
                     buttonConfirm.isVisible = true
                     backgroundButtons.isVisible = true
+                    textButtons.isVisible = true
                     clickableMarkers = false
                     clickedMarker = thisMarker
                 }

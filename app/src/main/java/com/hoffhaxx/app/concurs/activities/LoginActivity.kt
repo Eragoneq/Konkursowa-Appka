@@ -48,7 +48,7 @@ class LoginActivity: AppCompatActivity(){
     }
 
     private fun signUp(){
-        val intent = Intent(this, MapActivity::class.java)
+        val intent = Intent(this, SignUp::class.java)
         startActivity(intent)
         finish()
     }

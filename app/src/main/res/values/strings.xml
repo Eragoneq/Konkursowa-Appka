@@ -10,4 +10,11 @@
     <string name="sign_in_fragment_socialmedia_login_str">Or continue with</string>
     <string name="sign_up">Sign up</string>
     <string name="sign_in_fragment_dont_remember_pass_btn">I don\'t remember password</string>
+    <string name="trash">Trash</string>
+    <string name="malysz">Malysz</string>
+    <string name="confirm">Confirm</string>
+    <string name="cancel">Cancel</string>
+    <string name="add_trash">Add trash</string>
+    <string name="are_you_sure_you_want_to_add_a_trash">Are you sure you want to add a Trash\?</string>
+    <string name="are_you_sure_you_want_to_remove_a_trash">Are you sure you want to remove a Trash\?</string>
 </resources>
