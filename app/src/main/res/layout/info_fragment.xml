@@ -13,4 +13,10 @@
         android:text="Info"
         android:textSize="40sp" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewBookmarks"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical"/>
+
 </LinearLayout>
