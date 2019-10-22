@@ -14,18 +14,25 @@
 
     <CheckBox
         android:id="@+id/Malysz"
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:text="Malysz"
+        android:layout_marginTop="4dp"
+        android:background="@color/btnColor"
+        android:theme="@style/CheckboxColor"
+        android:fontFamily="@font/lato_bold"
+        android:text="@string/malysz"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Trash" />
 
     <CheckBox
         android:id="@+id/Trash"
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="Trash"
+        android:layout_marginTop="32dp"
+        android:background="@color/btnColor"
+        android:theme="@style/CheckboxColor"
+        android:fontFamily="@font/lato_bold"
+        android:text="@string/trash"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -34,6 +41,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/buttons_background"
+        android:background="@color/btnColor"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -46,32 +54,23 @@
         android:id="@+id/Confirm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Confirm"
+        android:layout_marginTop="40dp"
+        android:text="@string/confirm"
         android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/ButtonsBackground"
         app:layout_constraintStart_toStartOf="@+id/guideline4"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/ButtonsBackground" />
 
     <Button
         android:id="@+id/Cancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Cancel"
+        android:layout_marginTop="40dp"
+        android:text="@string/cancel"
         android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/ButtonsBackground"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/AddMarkerBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="64dp"
-        android:text="Add trash"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/guideline3"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/guideline4" />
+        app:layout_constraintTop_toTopOf="@+id/ButtonsBackground" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline3"
@@ -86,6 +85,18 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.2" />
+
+    <TextView
+        android:id="@+id/ButtonsText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/lato_bold"
+        android:visibility="invisible"
+        android:text="@string/are_you_sure_you_want_to_add_a_trash"
+        app:layout_constraintEnd_toEndOf="@+id/ButtonsBackground"
+        app:layout_constraintStart_toStartOf="@+id/ButtonsBackground"
+        app:layout_constraintTop_toTopOf="@+id/ButtonsBackground" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -42,4 +42,8 @@
         <item name="colorControlHighlight">@color/colorAccent</item>
     </style>
 
+    <style name="CheckboxColor">
+        <item name="colorAccent">@color/secondaryDarkColor</item>
+    </style>
+
 </resources>
