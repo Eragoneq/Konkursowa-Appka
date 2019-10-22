@@ -277,7 +277,7 @@ class MapActivity : AppCompatActivity() {
                     .position(location)
                     .title(m.type)
                     .snippet(m.user)
-                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.mapmarker32))
+                    .icon(BitmapDescriptorFactory.fromResource(R.raw.mapmarker32))
                     .visible(true)
             )
         } else if(m.type == "Malysz") {
@@ -286,7 +286,7 @@ class MapActivity : AppCompatActivity() {
                     .position(location)
                     .title(m.type)
                     .snippet(m.user)
-                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.malysz))
+                    .icon(BitmapDescriptorFactory.fromResource(R.raw.malysz))
                     .visible(true)
             )
         }

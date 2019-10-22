@@ -31,12 +31,12 @@ class HomepageFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         animation = AnimationUtils.loadAnimation(this.context, R.anim.fade_in_anim)
-        img = view.findViewById<ImageView>(R.id.imageView3)
+        img = view.findViewById(R.id.lvlRectangle)
     }
 
-    override fun getEnterTransition(): Any? {
+    override fun onResume() {
+        super.onResume()
         img.startAnimation(animation)
-        return super.getEnterTransition()
     }
 
 }
