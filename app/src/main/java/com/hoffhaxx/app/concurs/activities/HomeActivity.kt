@@ -3,10 +3,12 @@ package com.hoffhaxx.app.concurs.activities
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.hoffhaxx.app.concurs.R
 import com.hoffhaxx.app.concurs.fragments.*
+import kotlinx.android.synthetic.main.info_fragment.*
 
 class HomeActivity : AppCompatActivity() {
 
@@ -62,6 +64,7 @@ class HomeActivity : AppCompatActivity() {
                 }
                 R.id.bottom_nav_menu_home -> {
                     viewPager.setCurrentItem(2, false)
+
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.bottom_nav_menu_stats -> {
