@@ -11,7 +11,7 @@ object UserRepository {
     suspend fun getUser(): User? {
         var user = SharedPreferencesRepository.user
         if (user != null)
-            return user;
+            return user
         val sessionId = SharedPreferencesRepository.sessionId
         if (sessionId != null) {
             try {

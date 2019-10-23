@@ -46,6 +46,12 @@
         <item name="colorAccent">@color/secondaryDarkColor</item>
     </style>
 
+    <style name="AppTheme.InfoPopUp">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowCloseOnTouchOutside">true</item>
+        <item name="android:windowBackground" > @android:color/transparent </item>
+    </style>
+
     <style name="MapTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/navbar</item>
