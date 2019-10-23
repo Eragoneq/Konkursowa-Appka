@@ -93,7 +93,6 @@
         android:layout_marginTop="24dp"
         android:fontFamily="@font/lato_bold"
         android:visibility="invisible"
-        android:text="@string/are_you_sure_you_want_to_add_a_trash"
         app:layout_constraintEnd_toEndOf="@+id/ButtonsBackground"
         app:layout_constraintStart_toStartOf="@+id/ButtonsBackground"
         app:layout_constraintTop_toTopOf="@+id/ButtonsBackground" />

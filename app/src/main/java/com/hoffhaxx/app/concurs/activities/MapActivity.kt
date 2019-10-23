@@ -198,7 +198,7 @@ class MapActivity : AppCompatActivity() {
                     if (clickableMarkers) {
                         if (distance < maxDistance) {
                             action = "add"
-                            textButtons.text = "Are you sure you want to add a Trash?"
+                            textButtons.text = getString(R.string.TrashQuestionAdd)
                             buttonCancel.isVisible = true
                             buttonConfirm.isVisible = true
                             backgroundButtons.isVisible = true
@@ -211,21 +211,6 @@ class MapActivity : AppCompatActivity() {
                     }
                 }
 
-                /*googleMap.setOnMapLongClickListener {
-                val thisMarker = Marker(
-                    "Malysz",
-                    it.latitude,
-                    it.longitude,
-                    false,
-                    "user name"
-                )
-                if(clickableMarkers) {
-                    saveMarker(thisMarker)
-                    setFilterValue("Malysz", true)
-                    refreshMap()
-                }
-            }*/
-
                 googleMap.setOnInfoWindowClickListener { marker ->
                     val thisMarker = Marker(
                         marker.title,
@@ -236,7 +221,7 @@ class MapActivity : AppCompatActivity() {
                     )
                     if (marker.title == "Trash") {
                         action = "delete"
-                        textButtons.text = "Are you sure you want to remove a Trash?"
+                        textButtons.text = getString(R.string.TrashQuestionRemove)
                         buttonCancel.isVisible = true
                         buttonConfirm.isVisible = true
                         backgroundButtons.isVisible = true
@@ -248,9 +233,12 @@ class MapActivity : AppCompatActivity() {
 
                 refreshMap()
                 googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userLatLng, 19.0f))
-            }
-        }//koniec funkcji map
-
+            }//koniec funkcji map
+        }
+        else
+        {
+            finish()
+        }
     }
 
     private fun getMarkers(): MutableList<Marker> {
@@ -331,8 +319,6 @@ class MapActivity : AppCompatActivity() {
             }
         val alert: AlertDialog = builder.create()
         alert.show()
-
-
     }
 
 
@@ -340,13 +326,13 @@ class MapActivity : AppCompatActivity() {
 
         // Create the location request to start receiving updates
 
-        mLocationRequest!!.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
-        mLocationRequest!!.setInterval(INTERVAL)
-        mLocationRequest!!.setFastestInterval(FASTEST_INTERVAL)
+        mLocationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+        mLocationRequest.interval = INTERVAL
+        mLocationRequest.fastestInterval = FASTEST_INTERVAL
 
         // Create LocationSettingsRequest object using location request
         val builder = LocationSettingsRequest.Builder()
-        builder.addLocationRequest(mLocationRequest!!)
+        builder.addLocationRequest(mLocationRequest)
         val locationSettingsRequest = builder.build()
 
         val settingsClient = LocationServices.getSettingsClient(this)
@@ -411,7 +397,7 @@ class MapActivity : AppCompatActivity() {
     }
 
     private fun distanceInMeters(lat1: Double, lng1: Double, lat2: Double, lng2: Double): Double {
-        val R = 6371000
+        val r = 6371000
         val dLat = degreesToRadians(lat2 - lat1)
         val dLng = degreesToRadians(lng2 - lng1)
         val a = kotlin.math.sin(dLat/2) * kotlin.math.sin(dLat/2) +
@@ -419,7 +405,7 @@ class MapActivity : AppCompatActivity() {
                 kotlin.math.sin(dLng/2) * kotlin.math.sin(dLng/2)
         val c = 2 * kotlin.math.atan2(sqrt(a), sqrt(1-a))
 
-        return R * c
+        return r * c
     }
 
     private fun degreesToRadians(deg: Double) : Double

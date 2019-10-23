@@ -25,6 +25,6 @@
     <string name="confirm">Confirm</string>
     <string name="cancel">Cancel</string>
     <string name="add_trash">Add trash</string>
-    <string name="are_you_sure_you_want_to_add_a_trash">Are you sure you want to add a Trash\?</string>
-    <string name="are_you_sure_you_want_to_remove_a_trash">Are you sure you want to remove a Trash\?</string>
+    <string name="TrashQuestionRemove">Are you sure you want to remove a Trash?</string>
+    <string name="TrashQuestionAdd">Are you sure you want to add a Trash?</string>
 </resources>
