@@ -17,6 +17,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".activities.MapActivity"
+            android:theme="@style/MapTheme"
             android:permission="android.permission.ACCESS_FINE_LOCATION"/>
 
         <meta-data
