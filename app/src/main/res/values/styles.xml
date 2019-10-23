@@ -42,12 +42,8 @@
         <item name="colorControlHighlight">@color/colorAccent</item>
     </style>
 
-    <style name="AppTheme.InfoPopUp">
-
-        <item name="android:windowIsTranslucent">true</item>
-        <item name="android:windowCloseOnTouchOutside">true</item>
-        <item name = "android:windowBackground" > @android:color/transparent </item>
-
+    <style name="CheckboxColor">
+        <item name="colorAccent">@color/secondaryDarkColor</item>
     </style>
 
 </resources>

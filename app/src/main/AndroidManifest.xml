@@ -16,21 +16,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-
-        <activity android:name=".activities.MapActivity" />
+        <activity android:name=".activities.MapActivity"
+            android:permission="android.permission.ACCESS_FINE_LOCATION"/>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyBXob3gmhVb4v5FqGsw72292_CBI8Y0LZc" />
+            android:value="AIzaSyDVXNMmuaK1OmUV6HEuv4kVY5LOk1BAU4w" />
 
         <activity
             android:name=".activities.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme"></activity>
-        <activity
-            android:name=".activities.InfoPopUpActivity"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme.InfoPopUp"></activity>
         <activity
             android:name=".activities.LoginActivity"
             android:label="Login Activity"

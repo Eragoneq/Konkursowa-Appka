@@ -12,7 +12,6 @@
     <string name="sign_in_fragment_socialmedia_login_str">Or continue with</string>
     <string name="sign_up">Sign up</string>
     <string name="sign_in_fragment_dont_remember_pass_btn">I don\'t remember password</string>
-    <string name="title_activity_huj">huj</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
@@ -21,4 +20,11 @@
     <string name="bottom_nav_menu_home">Home</string>
     <string name="bottom_nav_menu_stats">Stats</string>
     <string name="bottom_nav_menu_leaf">Leaf</string>
+    <string name="trash">Trash</string>
+    <string name="malysz">Malysz</string>
+    <string name="confirm">Confirm</string>
+    <string name="cancel">Cancel</string>
+    <string name="add_trash">Add trash</string>
+    <string name="TrashQuestionRemove">Are you sure you want to remove a Trash?</string>
+    <string name="TrashQuestionAdd">Are you sure you want to add a Trash?</string>
 </resources>
