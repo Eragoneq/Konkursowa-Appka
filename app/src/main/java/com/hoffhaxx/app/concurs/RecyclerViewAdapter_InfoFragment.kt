@@ -53,7 +53,10 @@ class RecyclerViewAdapter_InfoFragment(private val eco_cards: ArrayList<EcoCard>
                 val view = LayoutInflater.from(itemView.context).inflate(R.layout.info_popup, null)
                 window.contentView = view
 
-                var button_exit: Button = view.findViewById(R.id.infopopup_buttonexit)
+                val button_exit: Button = view.findViewById(R.id.infopopup_buttonexit)
+                val textv: TextView = view.findViewById(R.id.infopopup_text)
+                textv.text = textViewInfo?.text
+
                 button_exit.setOnClickListener{
                     window.dismiss()
                 }
