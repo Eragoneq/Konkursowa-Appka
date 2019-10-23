@@ -1,4 +1,4 @@
-package com.hoffhaxx.   app.concurs.activities
+package com.hoffhaxx.app.concurs.activities
 
 import android.os.Bundle
 import android.util.DisplayMetrics
@@ -10,11 +10,11 @@ class InfoPopUpActivity : AppCompatActivity(){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_infopopup)
 
-        var dm = DisplayMetrics()
+        val dm = DisplayMetrics()
         windowManager.defaultDisplay.getMetrics(dm)
 
-        var width: Int = dm.widthPixels
-        var height: Int = dm.heightPixels
+        val width: Int = dm.widthPixels
+        val height: Int = dm.heightPixels
 
         window.setLayout((width*.8).toInt(), (height*.6).toInt())
     }

@@ -51,23 +51,23 @@ class LoginActivity: AppCompatActivity(){
     private fun checkUserSession() = CoroutineScope(Main).launch {
         try {
             if (UserRepository.getUser() != null)
-                goToMain()
+                goToHomePage()
         } catch (e : WebClient.NetworkException) {}
     }
 
     private fun setupGoogleLogin() {
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken("765380157329-qkpmq9v5f32m71ca3vopi6m031s2q69u.apps.googleusercontent.com")
+            .requestIdToken("490869806290-17bk9lor8fcb091vni1kvanqqjh6o3up.apps.googleusercontent.com")
             .requestEmail()
             .build()
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
     }
 
-    private fun goToMain(){
-        val intent = Intent(this, MainActivity::class.java)
-        startActivity(intent)
-        finish()
-    }
+//    private fun goToMain(){
+//        val intent = Intent(this, MainActivity::class.java)
+//        startActivity(intent)
+//        finish()
+//    }
 
     //signInGoogle zamienione na goToHomepage
     private fun goToHomePage(){
@@ -83,7 +83,7 @@ class LoginActivity: AppCompatActivity(){
             val result = UserRepository.loginUserLocal(email, password)
             withContext(Main) {
                 if (result.success)
-                    goToMain()
+                    goToHomePage()
                 else
                     signin_error_text.text = result.message
             }
@@ -117,7 +117,7 @@ class LoginActivity: AppCompatActivity(){
                             val result = UserRepository.googleAuth(idToken)
                             withContext(Main) {
                                 if (result.success)
-                                    goToMain()
+                                    goToHomePage()
                                 else
                                     signin_error_text.text = result.message
                             }
