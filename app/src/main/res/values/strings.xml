@@ -1,11 +1,11 @@
 <resources>
     <string name="app_name">EcøYøu</string>
     <string name="action_settings">Settings</string>
-    <string name="main_content">Hocki Klocki, myszka miki</string>
+    <string name="main_content" translatable="false">Hocki Klocki, myszka miki</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="sign_in_fragment_header">Welcome back</string>
     <string name="nickname_hint">Nickname</string>
-    <string name="email_hint">E-mail</string>
+    <string name="email_hint" translatable="false">E-mail</string>
     <string name="password_hint">Password</string>
     <string name="illegal_email">Please enter valid e-mail</string>
     <string name="illegal_pass">Your password should be at least 5 characters long</string>
@@ -14,7 +14,7 @@
     <string name="sign_up">Sign up</string>
     <string name="sign_in_fragment_dont_remember_pass_btn">I don\'t remember password</string>
     <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
+    <string name="title_dashboard" translatable="false">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="bottom_nav_item_todo">TODO</string>
     <string name="bottom_nav_menu_achiev">Achievements</string>
@@ -22,7 +22,7 @@
     <string name="bottom_nav_menu_stats">Stats</string>
     <string name="bottom_nav_menu_leaf">Leaf</string>
     <string name="trash">Trash</string>
-    <string name="malysz">Malysz</string>
+    <string name="malysz" translatable="false">Malysz</string>
     <string name="confirm">Confirm</string>
     <string name="cancel">Cancel</string>
     <string name="add_trash">Add trash</string>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">EcøYøu</string>
+    <string name="action_settings">Ustawienia</string>
+    <string name="add_trash">Dodaj śmieci</string>
+    <string name="are_you_sure_you_want_to_add_a_trash">Czy na pewno chcesz tu dodać śmieci?</string>
+    <string name="are_you_sure_you_want_to_remove_a_trash">Czy na pewno chcesz usunąć stąd śmieci?</string>
+    <string name="bottom_nav_item_todo">Do zrobienia</string>
+    <string name="bottom_nav_menu_achiev">Osiągnięcia</string>
+    <string name="bottom_nav_menu_home">Strona główna</string>
+    <string name="bottom_nav_menu_leaf">Środowisko</string>
+    <string name="bottom_nav_menu_stats">Statystyki</string>
+    <string name="cancel">Anuluj</string>
+    <string name="confirm">Potwierdź</string>
+    <string name="far_away">Jesteś za daleko</string>
+    <string name="illegal_email">Podaj prawidłowy e-mail</string>
+    <string name="illegal_pass">Twoje hasło powinno zawierać conajmniej 5 znaków</string>
+    <string name="nickname_hint">Nazwa użytkownika</string>
+    <string name="password_hint">Hasło</string>
+    <string name="sign_in_fragment_button">Zaloguj się</string>
+    <string name="sign_in_fragment_dont_remember_pass_btn">Nie pamiętam hasła</string>
+    <string name="sign_in_fragment_header">Witaj ponownie</string>
+    <string name="sign_in_fragment_socialmedia_login_str">Kontynuuj za pomocą</string>
+    <string name="sign_up">Zarejestruj</string>
+    <string name="sign_up_goto_sign_in">Wróć do logowania</string>
+    <string name="title_home">Strona glówna</string>
+    <string name="title_notifications">Powiadomienia</string>
+    <string name="trash">Śmieci</string>
+    <string name="trash_question">Czy na pewno chcesz tu dodać śmieci?</string>
+    <string name="your_location">Twoja lokalizacja</string>
+</resources>
