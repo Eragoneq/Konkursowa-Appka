@@ -26,6 +26,7 @@ import com.google.gson.Gson
 import com.hoffhaxx.app.concurs.R
 import com.hoffhaxx.app.concurs.activities.map.Marker
 import com.hoffhaxx.app.concurs.misc.SharedPreferencesRepository
+import com.hoffhaxx.app.concurs.misc.data.UserLocation
 import com.hoffhaxx.app.concurs.misc.fromJson
 import kotlin.math.sqrt
 
@@ -39,7 +40,7 @@ class MapActivity : AppCompatActivity() {
     private lateinit var mLocationRequest: LocationRequest
     private val REQUEST_PERMISSION_LOCATION = 10
 
-    private var userLatLng = LatLng(52.23, 21.01)
+    private lateinit var userLatLng: LatLng
 
     private val filters = HashMap<String, Boolean>()
 
@@ -71,6 +72,13 @@ class MapActivity : AppCompatActivity() {
         setContentView(R.layout.activity_map)
 
         mLocationRequest = LocationRequest()
+
+        userLatLng = if(SharedPreferencesRepository.userLocation != null) {
+            LatLng(SharedPreferencesRepository.userLocation!!.latitude, SharedPreferencesRepository.userLocation!!.longitude)
+        }else{
+            LatLng(52.23, 21.01)
+        }
+
 
         val locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
         if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
@@ -370,6 +378,7 @@ class MapActivity : AppCompatActivity() {
 
         mLastLocation = location
         userLatLng = locationToLatLng(mLastLocation)
+        SharedPreferencesRepository.userLocation = UserLocation(userLatLng.latitude, userLatLng.longitude)
     }
 
     private fun stoplocationUpdates() {
