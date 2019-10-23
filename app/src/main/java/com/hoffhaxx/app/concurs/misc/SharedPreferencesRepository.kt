@@ -17,6 +17,7 @@ object SharedPreferencesRepository {
     private val KEY_SESSION_ID = "sessionId"
     private val KEY_USER = "user"
     private val KEY_USER_LOCATION = "userLocation"
+    private val KEY_AQI = "aqi"
 
     fun initialize(context: Context) {
         if (!SharedPreferencesRepository::prefs.isInitialized)
@@ -62,5 +63,11 @@ object SharedPreferencesRepository {
             val string = Gson().toJson(value)
             prefs.edit{ putString(KEY_USER, string) }
         }
-
+    var aqi : Int?
+        get() = prefs.getInt(KEY_AQI, -1)
+        set(value) = prefs.edit {
+            if (value != null) {
+                putInt(KEY_AQI, value)
+            }
+        }
 }
