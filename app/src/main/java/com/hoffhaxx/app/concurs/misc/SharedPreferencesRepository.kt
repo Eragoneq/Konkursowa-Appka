@@ -43,7 +43,7 @@ object SharedPreferencesRepository {
         }
         set(value) {
             val string = Gson().toJson(value)
-            prefs.edit{ putString(KEY_USER, string) }
+            prefs.edit{ putString(KEY_USER_LOCATION, string) }
         }
 
 
