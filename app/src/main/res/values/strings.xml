@@ -4,6 +4,7 @@
     <string name="main_content">Hocki Klocki, myszka miki</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="sign_in_fragment_header">Welcome back</string>
+    <string name="nickname_hint">Nickname</string>
     <string name="email_hint">E-mail</string>
     <string name="password_hint">Password</string>
     <string name="illegal_email">Please enter valid e-mail</string>
@@ -12,6 +13,7 @@
     <string name="sign_in_fragment_socialmedia_login_str">Or continue with</string>
     <string name="sign_up">Sign up</string>
     <string name="sign_in_fragment_dont_remember_pass_btn">I don\'t remember password</string>
+    <string name="title_activity_huj">huj</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>

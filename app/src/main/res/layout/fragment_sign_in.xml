@@ -19,17 +19,30 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
+    <TextView
+        android:id="@+id/signin_error_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:minHeight="42dp"
+        android:textSize="14sp"
+        android:layout_marginTop="44dp"
+        android:textColor="@color/error"
+        app:layout_constraintEnd_toStartOf="@+id/guideline2"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toBottomOf="@id/header_signin" />
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/sign_in_text_input_email"
         android:layout_width="256dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="44dp"
         android:theme="@style/SignInTextInputLayoutAppearance"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/header_signin">
+        app:layout_constraintTop_toBottomOf="@id/signin_error_text">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/signin_edit_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/email_hint"
@@ -52,6 +65,7 @@
         app:passwordToggleTint="@color/colorAccent">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/signin_edit_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/password_hint"
@@ -151,7 +165,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.8" />
+        app:layout_constraintGuide_begin="330dp" />
 
     <TextView
         android:id="@+id/sign_in_dont_remember_password_btn"

@@ -1,6 +1,7 @@
 package com.hoffhaxx.app.concurs.activities
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.DisplayMetrics
@@ -16,6 +17,7 @@ import com.google.android.gms.common.api.ApiException
 import com.hoffhaxx.app.concurs.R
 import com.hoffhaxx.app.concurs.fragments.SignUpFragment
 import com.hoffhaxx.app.concurs.misc.UserRepository
+import com.hoffhaxx.app.concurs.web.WebClient
 import kotlinx.android.synthetic.main.fragment_sign_in.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
@@ -34,32 +36,34 @@ class LoginActivity: AppCompatActivity(){
         setContentView(R.layout.login_activity)
         setupBottomMargin()
 
-        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken("765380157329-qkpmq9v5f32m71ca3vopi6m031s2q69u.apps.googleusercontent.com")
-            .requestEmail()
-            .build()
-        mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
+        checkUserSession()
+        setupGoogleLogin()
 
         val signIn: Button = findViewById(R.id.sign_in_button)
         val signInGoogle: Button = findViewById(R.id.sign_in_google)
         val signUp: Button = findViewById(R.id.sign_up)
 
-//        CoroutineScope(IO).launch {
-//            val user = UserRepository.getUser()
-//            if (user?.email != null) {
-//                Log.i("XD", user.toString())
-//                goToMain()
-//            }
-//        }
-//        signIn.setOnClickListener { signIn() }
         signInGoogle.setOnClickListener { googleSignIn() }
         signUp.setOnClickListener{ signUp() }
-        signIn.setOnClickListener { goToHomePage() }
+        signIn.setOnClickListener { signIn() }
     }
 
-    //signIn() zamienione na goToMain
+    private fun checkUserSession() = CoroutineScope(Main).launch {
+        try {
+            if (UserRepository.getUser() != null)
+                goToMain()
+        } catch (e : WebClient.NetworkException) {}
+    }
+
+    private fun setupGoogleLogin() {
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken("765380157329-qkpmq9v5f32m71ca3vopi6m031s2q69u.apps.googleusercontent.com")
+            .requestEmail()
+            .build()
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
+    }
+
     private fun goToMain(){
-        // Tutaj powinien isc kod sprawdzajacy sesje
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
         finish()
@@ -72,20 +76,25 @@ class LoginActivity: AppCompatActivity(){
         finish()
     }
 
-    private fun signIn() {
-        val email = sign_in_text_input_email.editText.toString()
-        val password = sign_in_text_input_password.editText.toString()
-        CoroutineScope(IO).launch {
+    private fun signIn() =  CoroutineScope(IO).launch {
+        try {
+            val email = signin_edit_email.text.toString()
+            val password = signin_edit_password.text.toString()
             val result = UserRepository.loginUserLocal(email, password)
-            if (result.success)
-                withContext(Main) {
+            withContext(Main) {
+                if (result.success)
                     goToMain()
-                }
-            else {
-                Log.i("SOMETHING", result.message)
-                withContext(Main) {
-                    sign_in_text_input_password.error = result.message
-                }
+                else
+                    signin_error_text.text = result.message
+            }
+        } catch (e : WebClient.NetworkException) {
+            withContext(Main) {
+                AlertDialog.Builder(this@LoginActivity)
+                    .setTitle("Błąd logwania")
+                    .setMessage("Nie można nawiązać połączenia z serwerem")
+                    .setNeutralButton("OK") {dialog, which ->  }
+                    .create()
+                    .show()
             }
         }
     }
@@ -104,20 +113,26 @@ class LoginActivity: AppCompatActivity(){
                 if (account != null) {
                     val idToken = account.idToken.toString()
                     CoroutineScope(IO).launch {
-                        val result = UserRepository.googleAuth(idToken)
-                        if (result.success)
+                        try {
+                            val result = UserRepository.googleAuth(idToken)
                             withContext(Main) {
-                                goToMain()
+                                if (result.success)
+                                    goToMain()
+                                else
+                                    signin_error_text.text = result.message
                             }
-                        else {
-                            Log.i("SOMETHING", result.message)
+                        } catch (e : WebClient.NetworkException) {
                             withContext(Main) {
-                                sign_in_text_input_password.error = result.message
+                                AlertDialog.Builder(this@LoginActivity)
+                                    .setTitle("Błąd logwania")
+                                    .setMessage("Nie można nawiązać połączenia z serwerem")
+                                    .setNeutralButton("OK") {dialog, which ->  }
+                                    .create()
+                                    .show()
                             }
                         }
                     }
-                } else
-                    Log.i("something", "null account")
+                }
             } catch (e: ApiException) {
                 // The ApiException status code indicates the detailed failure reason.
                 // Please refer to the GoogleSignInStatusCodes class reference for more information.
@@ -127,7 +142,7 @@ class LoginActivity: AppCompatActivity(){
     }
 
     private fun signUp(){
-        val intent = Intent(this, MapActivity::class.java)
+        val intent = Intent(this, SignUpActivity::class.java)
         startActivity(intent)
     }
 
