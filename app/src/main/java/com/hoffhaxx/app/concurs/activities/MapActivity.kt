@@ -26,6 +26,7 @@ import com.google.gson.Gson
 import com.hoffhaxx.app.concurs.R
 import com.hoffhaxx.app.concurs.activities.map.Marker
 import com.hoffhaxx.app.concurs.misc.SharedPreferencesRepository
+import com.hoffhaxx.app.concurs.misc.data.UserLocation
 import com.hoffhaxx.app.concurs.misc.fromJson
 import kotlin.math.sqrt
 
@@ -39,19 +40,26 @@ class MapActivity : AppCompatActivity() {
     private lateinit var mLocationRequest: LocationRequest
     private val REQUEST_PERMISSION_LOCATION = 10
 
-    private var userLatLng = LatLng(52.23, 21.01)
+    private lateinit var userLatLng: LatLng
 
     private val filters = HashMap<String, Boolean>()
 
-    private fun initFilters()
-    {
-        filters["Trash"] = true
-        filters["Malysz"] = false
-    }
+    lateinit var checkBoxMalysz: CheckBox
+    lateinit var checkBoxTrash: CheckBox
+
+    lateinit var buttonConfirm: Button
+    lateinit var buttonCancel: Button
+    lateinit var backgroundButtons: ImageView
+    lateinit var textButtons: TextView
     
     private var isMarkerClicked: Boolean = false
     private val defaultMarker: Marker = Marker("", 0.0, 0.0, false, "")
     private var lastClickedMarker: Marker = defaultMarker
+
+    private var action = ""
+
+    private var clickableMarkers = true
+    private var clickedMarker: Marker = defaultMarker
 
     private lateinit var mapFragment: SupportMapFragment
     lateinit var googleMap: GoogleMap
@@ -65,6 +73,13 @@ class MapActivity : AppCompatActivity() {
 
         mLocationRequest = LocationRequest()
 
+        userLatLng = if(SharedPreferencesRepository.userLocation != null) {
+            LatLng(SharedPreferencesRepository.userLocation!!.latitude, SharedPreferencesRepository.userLocation!!.longitude)
+        }else{
+            LatLng(52.23, 21.01)
+        }
+
+
         val locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
         if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             buildAlertMessageNoGps()
@@ -73,7 +88,6 @@ class MapActivity : AppCompatActivity() {
         if (checkPermissionForLocation(this)) {
             startLocationUpdates()
 
-
             mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
             mapFragment.getMapAsync { it ->
                 //poczatek funkcji map
@@ -81,37 +95,23 @@ class MapActivity : AppCompatActivity() {
                 googleMap.isMyLocationEnabled = true
                 googleMap.mapType = GoogleMap.MAP_TYPE_HYBRID
 
-                val checkBoxTrash = findViewById<CheckBox>(R.id.Trash)
+                checkBoxTrash = findViewById(R.id.Trash)
                 checkBoxTrash.isChecked = true
-                checkBoxTrash?.setOnCheckedChangeListener { buttonView, isChecked ->
+                checkBoxTrash.setOnCheckedChangeListener { buttonView, isChecked ->
                     filters["Trash"] = isChecked
                     refreshMap()
                 }
-                val checkBoxMalysz = findViewById<CheckBox>(R.id.Malysz)
+                checkBoxMalysz = findViewById(R.id.Malysz)
                 checkBoxMalysz.isChecked = false
-                checkBoxMalysz?.setOnCheckedChangeListener { buttonView, isChecked ->
+                checkBoxMalysz.setOnCheckedChangeListener { buttonView, isChecked ->
                     filters["Malysz"] = isChecked
                     refreshMap()
                 }
 
-                fun setFilterValue(type: String, value: Boolean) {
-                    filters[type] = value
-                    if (type == "Trash") {
-                        checkBoxTrash.isChecked = value
-                    } else if (type == "Malysz") {
-                        checkBoxMalysz.isChecked = value
-                    }
-                }
-
-                var action = ""
-
-                var clickableMarkers = true
-                var clickedMarker: Marker = defaultMarker
-
-                val buttonConfirm = findViewById<Button>(R.id.Confirm)
-                val buttonCancel = findViewById<Button>(R.id.Cancel)
-                val backgroundButtons = findViewById<ImageView>(R.id.ButtonsBackground)
-                val textButtons = findViewById<TextView>(R.id.ButtonsText)
+                buttonConfirm = findViewById(R.id.Confirm)
+                buttonCancel = findViewById(R.id.Cancel)
+                backgroundButtons = findViewById(R.id.ButtonsBackground)
+                textButtons = findViewById(R.id.ButtonsText)
                 backgroundButtons.isVisible = false
                 buttonConfirm.isVisible = false
                 buttonCancel.isVisible = false
@@ -211,21 +211,6 @@ class MapActivity : AppCompatActivity() {
                     }
                 }
 
-                /*googleMap.setOnMapLongClickListener {
-                val thisMarker = Marker(
-                    "Malysz",
-                    it.latitude,
-                    it.longitude,
-                    false,
-                    "user name"
-                )
-                if(clickableMarkers) {
-                    saveMarker(thisMarker)
-                    setFilterValue("Malysz", true)
-                    refreshMap()
-                }
-            }*/
-
                 googleMap.setOnInfoWindowClickListener { marker ->
                     val thisMarker = Marker(
                         marker.title,
@@ -253,6 +238,21 @@ class MapActivity : AppCompatActivity() {
             finish()
         }
 
+    }
+
+    private fun setFilterValue(type: String, value: Boolean) {
+        filters[type] = value
+        if (type == "Trash") {
+            checkBoxTrash.isChecked = value
+        } else if (type == "Malysz") {
+            checkBoxMalysz.isChecked = value
+        }
+    }
+
+    private fun initFilters()
+    {
+        filters["Trash"] = true
+        filters["Malysz"] = false
     }
 
     private fun getMarkers(): MutableList<Marker> {
@@ -378,6 +378,7 @@ class MapActivity : AppCompatActivity() {
 
         mLastLocation = location
         userLatLng = locationToLatLng(mLastLocation)
+        SharedPreferencesRepository.userLocation = UserLocation(userLatLng.latitude, userLatLng.longitude)
     }
 
     private fun stoplocationUpdates() {

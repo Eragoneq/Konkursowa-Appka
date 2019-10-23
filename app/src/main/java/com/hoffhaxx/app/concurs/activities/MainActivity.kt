@@ -50,7 +50,7 @@ class MainActivity : AppCompatActivity() {
     private fun goToLogin(){
         val intent = Intent(this, LoginActivity::class.java)
         startActivity(intent)
-        Log.println(Log.INFO, "TEST", "klik")
+        Log.println(Log.INFO, "TESTT", "klik")
         finish()
     }
     private fun displayUserName() = CoroutineScope(IO).launch {

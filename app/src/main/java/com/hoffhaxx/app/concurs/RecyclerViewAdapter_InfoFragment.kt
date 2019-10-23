@@ -1,13 +1,16 @@
 package com.hoffhaxx.app.concurs
 
+import android.app.Dialog
 import android.content.Intent
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.widget.Button
 import android.widget.ImageView
+import android.widget.PopupWindow
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.hoffhaxx.app.concurs.activities.InfoPopUpActivity
+import com.hoffhaxx.app.concurs.fragments.InfoFragment
 
 class RecyclerViewAdapter_InfoFragment(private val eco_cards: ArrayList<EcoCard>):
     RecyclerView.Adapter<RecyclerViewAdapter_InfoFragment.ViewHolder>(){
@@ -46,10 +49,18 @@ class RecyclerViewAdapter_InfoFragment(private val eco_cards: ArrayList<EcoCard>
             imageViewTick = itemView.findViewById(R.id.recyclerView_imageTick)
 
             itemView.setOnClickListener {
-                val intent = Intent(itemView.context, InfoPopUpActivity::class.java)
+                val window = PopupWindow(itemView.context)
+                val view = LayoutInflater.from(itemView.context).inflate(R.layout.info_popup, null)
+                window.contentView = view
 
-                itemView.context.startActivity(intent)
+                var button_exit: Button = view.findViewById(R.id.infopopup_buttonexit)
+                button_exit.setOnClickListener{
+                    window.dismiss()
+                }
+                window.showAtLocation(itemView, Gravity.CENTER, 10, 10)
             }
         }
+
+
     }
 }
