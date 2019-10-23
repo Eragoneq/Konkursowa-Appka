@@ -36,7 +36,7 @@ class MapActivity : AppCompatActivity() {
     private val INTERVAL: Long = 2000
     private val FASTEST_INTERVAL: Long = 1000
     lateinit var mLastLocation: Location
-    internal lateinit var mLocationRequest: LocationRequest
+    private lateinit var mLocationRequest: LocationRequest
     private val REQUEST_PERMISSION_LOCATION = 10
 
     private var userLatLng = LatLng(52.23, 21.01)
@@ -198,7 +198,7 @@ class MapActivity : AppCompatActivity() {
                     if (clickableMarkers) {
                         if (distance < maxDistance) {
                             action = "add"
-                            textButtons.text = getString(R.string.TrashQuestionAdd)
+                            textButtons.text = getString(R.string.trash_question)
                             buttonCancel.isVisible = true
                             buttonConfirm.isVisible = true
                             backgroundButtons.isVisible = true
@@ -206,10 +206,25 @@ class MapActivity : AppCompatActivity() {
                             clickableMarkers = false
                             clickedMarker = thisMarker
                         } else {
-                            Toast.makeText(this, "You are too far away", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this, getString(R.string.far_away), Toast.LENGTH_SHORT).show()
                         }
                     }
                 }
+
+                /*googleMap.setOnMapLongClickListener {
+                val thisMarker = Marker(
+                    "Malysz",
+                    it.latitude,
+                    it.longitude,
+                    false,
+                    "user name"
+                )
+                if(clickableMarkers) {
+                    saveMarker(thisMarker)
+                    setFilterValue("Malysz", true)
+                    refreshMap()
+                }
+            }*/
 
                 googleMap.setOnInfoWindowClickListener { marker ->
                     val thisMarker = Marker(
@@ -221,7 +236,7 @@ class MapActivity : AppCompatActivity() {
                     )
                     if (marker.title == "Trash") {
                         action = "delete"
-                        textButtons.text = getString(R.string.TrashQuestionRemove)
+                        textButtons.text = getString(R.string.trash_question)
                         buttonCancel.isVisible = true
                         buttonConfirm.isVisible = true
                         backgroundButtons.isVisible = true
@@ -234,11 +249,10 @@ class MapActivity : AppCompatActivity() {
                 refreshMap()
                 googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userLatLng, 19.0f))
             }//koniec funkcji map
-        }
-        else
-        {
+        }else{
             finish()
         }
+
     }
 
     private fun getMarkers(): MutableList<Marker> {
@@ -319,6 +333,8 @@ class MapActivity : AppCompatActivity() {
             }
         val alert: AlertDialog = builder.create()
         alert.show()
+
+
     }
 
 
@@ -397,7 +413,7 @@ class MapActivity : AppCompatActivity() {
     }
 
     private fun distanceInMeters(lat1: Double, lng1: Double, lat2: Double, lng2: Double): Double {
-        val r = 6371000
+        val R = 6371000
         val dLat = degreesToRadians(lat2 - lat1)
         val dLng = degreesToRadians(lng2 - lng1)
         val a = kotlin.math.sin(dLat/2) * kotlin.math.sin(dLat/2) +
@@ -405,7 +421,7 @@ class MapActivity : AppCompatActivity() {
                 kotlin.math.sin(dLng/2) * kotlin.math.sin(dLng/2)
         val c = 2 * kotlin.math.atan2(sqrt(a), sqrt(1-a))
 
-        return r * c
+        return R * c
     }
 
     private fun degreesToRadians(deg: Double) : Double

@@ -31,7 +31,7 @@ class HomeActivity : AppCompatActivity() {
         //viewPager.setPageTransformer(false, PageTransformer())
         viewPager.adapter = pagerAdapter
         viewPager.currentItem = 2
-        viewPager?.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+        viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
 
             override fun onPageScrollStateChanged(state: Int) {
 

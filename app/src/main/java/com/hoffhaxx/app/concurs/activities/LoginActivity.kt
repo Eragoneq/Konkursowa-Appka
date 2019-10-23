@@ -102,7 +102,7 @@ class LoginActivity: AppCompatActivity(){
             try {
                 val account = task.getResult(ApiException::class.java)
                 if (account != null) {
-                    val idToken = account.getIdToken().toString()
+                    val idToken = account.idToken.toString()
                     CoroutineScope(IO).launch {
                         val result = UserRepository.googleAuth(idToken)
                         if (result.success)
@@ -117,7 +117,7 @@ class LoginActivity: AppCompatActivity(){
                         }
                     }
                 } else
-                    Log.i("something", "null account");
+                    Log.i("something", "null account")
             } catch (e: ApiException) {
                 // The ApiException status code indicates the detailed failure reason.
                 // Please refer to the GoogleSignInStatusCodes class reference for more information.
