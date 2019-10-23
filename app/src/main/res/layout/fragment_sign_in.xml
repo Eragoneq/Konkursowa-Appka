@@ -24,10 +24,10 @@
         android:id="@+id/signin_error_text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:minHeight="42dp"
-        android:textSize="14sp"
-        android:layout_marginTop="44dp"
         android:textColor="@color/error"
+        android:textSize="14sp"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@id/header_signin" />
@@ -55,7 +55,7 @@
         android:id="@+id/sign_in_text_input_password"
         android:layout_width="256dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="20dp"
         android:theme="@style/SignInTextInputLayoutAppearance"
         app:errorEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
@@ -85,6 +85,7 @@
         android:src="@drawable/ic_light_waves"
         android:translationZ="-1dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -165,7 +166,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="330dp" />
+        app:layout_constraintGuide_percent="0.8" />
 
     <TextView
         android:id="@+id/sign_in_dont_remember_password_btn"
