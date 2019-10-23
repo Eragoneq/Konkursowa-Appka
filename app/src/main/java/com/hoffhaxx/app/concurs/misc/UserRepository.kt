@@ -1,28 +1,20 @@
 package com.hoffhaxx.app.concurs.misc
 
 import android.util.Log
-import com.hoffhaxx.app.concurs.misc.data.LoginCredentials
-import com.hoffhaxx.app.concurs.misc.data.LoginOauthGoogleCredentials
-import com.hoffhaxx.app.concurs.misc.data.SignInResult
-import com.hoffhaxx.app.concurs.misc.data.User
-import com.hoffhaxx.app.concurs.misc.web.WebClient
+import com.hoffhaxx.app.concurs.misc.data.*
+import com.hoffhaxx.app.concurs.web.WebClient
 
 object UserRepository {
     suspend fun getUser(): User? {
         var user = SharedPreferencesRepository.user
-        if (user != null)
-            return user
-        val sessionId = SharedPreferencesRepository.sessionId
-        if (sessionId != null) {
+        if (SharedPreferencesRepository.sessionId != "") {
             try {
-                user = WebClient.client.userProfile()
+                user =  WebClient.client.userProfile()
             } catch (e : retrofit2.HttpException) {
-                return null
+                throw WebClient.NetworkException()
             }
-            if (user != null)
-                return user
         }
-        return null
+        return user
     }
     suspend fun loginUserLocal(email: String, password : String) : SignInResult {
         val credentials = LoginCredentials(email, password)
@@ -30,18 +22,15 @@ object UserRepository {
         return try {
             WebClient.client.userLoginLocal(credentials)
         } catch (e : retrofit2.HttpException) {
-            Log.i("SOOMETHING", e.response().toString())
-            SignInResult(success = false, message = "Network error")
+            throw WebClient.NetworkException()
         }
     }
 
     suspend fun googleAuth(idToken : String) : SignInResult {
-        try {
-            val result = WebClient.client.userGoogleAuth(LoginOauthGoogleCredentials(idToken))
-            return result
+        return try {
+            WebClient.client.userGoogleAuth(LoginOauthGoogleCredentials(idToken))
         } catch (e : retrofit2.HttpException) {
-            Log.i("SOOMETHING", e.response().toString())
-            return SignInResult(success = false, message = "Network error")
+            throw WebClient.NetworkException()
         }
     }
 
@@ -51,7 +40,15 @@ object UserRepository {
             SharedPreferencesRepository.user = null
             SharedPreferencesRepository.sessionId = ""
         } catch (e : retrofit2.HttpException) {
-            Log.i("SOOMETHING", e.response().toString())
+            throw WebClient.NetworkException()
+        }
+    }
+
+    suspend fun register(nickname: String, email: String, password: String): SignUpResult {
+        return try {
+            WebClient.client.userRegister(RegisterCredentials(nickname, email, password))
+        } catch (e : retrofit2.HttpException) {
+            throw WebClient.NetworkException()
         }
     }
 }
