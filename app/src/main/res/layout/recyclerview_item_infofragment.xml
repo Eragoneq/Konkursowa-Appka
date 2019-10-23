@@ -5,7 +5,7 @@
     android:padding="3dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#fbffe0">
+    android:background="#7CF059">
 
     <androidx.cardview.widget.CardView
         android:layout_marginLeft="3dp"
