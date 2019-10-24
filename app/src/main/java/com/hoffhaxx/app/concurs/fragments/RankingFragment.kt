@@ -71,12 +71,12 @@ class RankingFragment : Fragment() {
                     userLocationScore.text = s
                 }
                 when {
-                    result.data.aqi<=50 -> userLocationBackground.background = ContextCompat.getDrawable(context!!, R.color.pollution50Color)
-                    result.data.aqi<=100 -> userLocationBackground.background = ContextCompat.getDrawable(context!!, R.color.pollution100Color)
-                    result.data.aqi<=150 -> userLocationBackground.background = ContextCompat.getDrawable(context!!, R.color.pollution150Color)
-                    result.data.aqi<=200 -> userLocationBackground.background = ContextCompat.getDrawable(context!!, R.color.pollution200Color)
-                    result.data.aqi<=300 -> userLocationBackground.background = ContextCompat.getDrawable(context!!, R.color.pollution300Color)
-                    else -> userLocationBackground.background = ContextCompat.getDrawable(context!!, R.color.pollutionOver300Color)
+                    result.data.aqi<=50 -> userLocationBackground.setColorFilter(R.color.pollution50Color)
+                    result.data.aqi<=100 -> userLocationBackground.setColorFilter(R.color.pollution100Color)
+                    result.data.aqi<=150 -> userLocationBackground.setColorFilter(R.color.pollution150Color)
+                    result.data.aqi<=200 -> userLocationBackground.setColorFilter(R.color.pollution200Color)
+                    result.data.aqi<=300 -> userLocationBackground.setColorFilter(R.color.pollution300Color)
+                    else -> userLocationBackground.setColorFilter(R.color.pollutionOver300Color)
                 }
             }else{
                 userLocationScore.text = "Huj"
