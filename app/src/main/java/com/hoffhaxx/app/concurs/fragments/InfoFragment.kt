@@ -16,32 +16,23 @@ import com.hoffhaxx.app.concurs.R
 import com.hoffhaxx.app.concurs.RecyclerViewAdapter_InfoFragment
 import com.hoffhaxx.app.concurs.activities.InfoPopUpActivity
 import kotlinx.android.synthetic.main.info_fragment.*
+import kotlin.random.Random
 
 /**
  * A simple [Fragment] subclass.
  */
 
-private val ecoCards = arrayListOf<EcoCard>(
-    EcoCard(5, "Bedzie was pis ruchal w dupe",
-        R.drawable.ic_eco, R.drawable.ic_done),
-    EcoCard(5, "Bedzie was pis ruchal w dupe",
-        R.drawable.ic_eco, R.drawable.ic_done),
-    EcoCard(5, "Bedzie was pis ruchal w dupe",
-        R.drawable.ic_eco, R.drawable.ic_done),
-    EcoCard(5, "Bedzie was pis ruchal w dupe",
-        R.drawable.ic_eco, R.drawable.ic_done),
-    EcoCard(5, "Bedzie was pis ruchal w dupe",
-        R.drawable.ic_eco, R.drawable.ic_done),
-    EcoCard(5, "Bedzie was pis ruchal w dupe",
-        R.drawable.ic_eco, R.drawable.ic_done),
-    EcoCard(5, "Bedzie was pis ruchal w dupe",
-        R.drawable.ic_eco, R.drawable.ic_done),
-    EcoCard(5, "Bedzie was pis ruchal w dupe",
-        R.drawable.ic_eco, R.drawable.ic_done),
-    EcoCard(5, "Bedzie was pis ruchal w dupe",
-        R.drawable.ic_eco, R.drawable.ic_done)
-)
+private val ecoCards = arrayListOf<EcoCard>()
 
+fun gen_ecocard(): EcoCard{
+    val points: Int = (1 until 6).random()
+    val string_base = listOf<String>("wiadomosc a, kurwa musi byc dluga zeby dzialalo",
+        "wiadomosc b, kurwa musi byc dluga zeby dzialalo",
+        "wiadomosc c, kurwa musi byc dluga zeby dzialalo")   //do wypierdolenia
+    val string_msg = string_base.get(Random.nextInt(string_base.size))
+
+    return EcoCard(points, string_msg, R.drawable.ic_eco, R.drawable.ic_done)
+}
 
 class InfoFragment : Fragment() {
 
@@ -51,6 +42,9 @@ class InfoFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        for (i in 1..50){
+            ecoCards.add(gen_ecocard())
+        }
         return inflater.inflate(R.layout.info_fragment, container, false)
     }
 

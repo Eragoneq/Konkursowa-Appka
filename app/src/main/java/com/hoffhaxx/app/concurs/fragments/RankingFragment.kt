@@ -1,8 +1,10 @@
 package com.hoffhaxx.app.concurs.fragments
 
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,7 +15,14 @@ import android.widget.TextView
 import android.widget.Toast
 import com.hoffhaxx.app.concurs.R
 import com.hoffhaxx.app.concurs.activities.MapActivity
+import com.hoffhaxx.app.concurs.misc.PollutionRepository
 import com.hoffhaxx.app.concurs.misc.SharedPreferencesRepository
+import com.hoffhaxx.app.concurs.web.WebClient
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Dispatchers.Main
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 /**
  * A simple [Fragment] subclass.
@@ -53,11 +62,35 @@ class RankingFragment : Fragment() {
         return ""
     }
 
-    private fun setPollutionScore() {
+    private fun setPollutionScore() = CoroutineScope(Dispatchers.IO).launch {
+        try {
+            val userLocation = SharedPreferencesRepository.userLocation
+            if(userLocation != null) {
+                val lat = kotlin.math.round(userLocation.latitude * 100) / 100
+                val lng = kotlin.math.round(userLocation.longitude * 100) / 100
+                val result = PollutionRepository.getAqi(lat, lng)
+                val s = result!!.data.aqi.toString()
+                withContext(Main) { userLocationScore.text = s }
+            }else{
+                userLocationScore.text = "Huj"
+            }
+        } catch (e : WebClient.NetworkException) {
+            withContext(Dispatchers.Main) {
+                /*AlertDialog.Builder(this)
+                    .setTitle("Błąd logwania")
+                    .setMessage("Nie można nawiązać połączenia z serwerem")
+                    .setNeutralButton("OK") {dialog, which ->  }
+                    .create()
+                    .show()*/
+            }
+        }
+    }
+
+    /*private fun setPollutionScore() {
         var score = 67.toString()
 
         userLocationScore.text = score
-    }
+    }*/
 
     private fun goToMap(){
         val intent = Intent(this.context, MapActivity::class.java)
