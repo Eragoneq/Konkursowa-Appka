@@ -18,6 +18,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import com.hoffhaxx.app.concurs.R
 import com.hoffhaxx.app.concurs.activities.MapActivity
 import com.hoffhaxx.app.concurs.misc.PollutionRepository
@@ -72,15 +73,17 @@ class RankingFragment : Fragment() {
                     userLocationScore.text = s
                 }
                 when {
-                    result.data.aqi<=50 -> userLocationBackground.background = ContextCompat.getDrawable(context!!, R.color.pollution50Color)
-                    result.data.aqi<=100 -> userLocationBackground.background = ContextCompat.getDrawable(context!!, R.color.pollution100Color)
-                    result.data.aqi<=150 -> userLocationBackground.background = ContextCompat.getDrawable(context!!, R.color.pollution150Color)
-                    result.data.aqi<=200 -> userLocationBackground.background = ContextCompat.getDrawable(context!!, R.color.pollution200Color)
-                    result.data.aqi<=300 -> userLocationBackground.background = ContextCompat.getDrawable(context!!, R.color.pollution300Color)
-                    else -> userLocationBackground.background = ContextCompat.getDrawable(context!!, R.color.pollutionOver300Color)
+                    result.data.aqi<=50 -> userLocationBackground.background = ResourcesCompat.getDrawable(resources, R.color.pollution50Color, null)
+                    result.data.aqi<=100 -> userLocationBackground.background = ResourcesCompat.getDrawable(resources, R.color.pollution100Color, null)
+                    result.data.aqi<=150 -> userLocationBackground.background = ResourcesCompat.getDrawable(resources, R.color.pollution150Color, null)
+                    result.data.aqi<=200 -> userLocationBackground.background = ResourcesCompat.getDrawable(resources, R.color.pollution200Color, null)
+                    result.data.aqi<=300 -> userLocationBackground.background = ResourcesCompat.getDrawable(resources, R.color.pollution300Color, null)
+                    else -> userLocationBackground.background = ResourcesCompat.getDrawable(resources, R.color.pollution300Color, null)
                 }
             }else{
-                userLocationScore.text = "Huj"
+                withContext(Main) {
+                    userLocationScore.text = "Huj"
+                }
             }
         } catch (e : WebClient.NetworkException) {
             withContext(Dispatchers.Main) {
