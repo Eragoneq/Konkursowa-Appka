@@ -152,7 +152,6 @@ class MapActivity : AppCompatActivity() {
                         false,
                         "user name"
                     )
-                    Toast.makeText(this, thisMarker.type, Toast.LENGTH_SHORT).show()
                     if (clickableMarkers) {
                         if (marker.title == "Trash") {
                             if (!isMarkerClicked || lastClickedMarker != thisMarker) {
