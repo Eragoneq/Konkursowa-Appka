@@ -25,10 +25,12 @@
     <string name="malysz">Malysz</string>
     <string name="confirm">Confirm</string>
     <string name="cancel">Cancel</string>
-    <string name="add_trash">Add trash</string>
     <string name="are_you_sure_you_want_to_add_a_trash">Are you sure you want to add a Trash\?</string>
     <string name="are_you_sure_you_want_to_remove_a_trash">Are you sure you want to remove a Trash\?</string>
-    <string name="far_away">You are too far away</string>
+    <string name="far_away">You\'re too far away</string>
+    <string name="gps_disabled">Your GPS seems to be disabled, do you want to enable it?</string>
+    <string name="yes">yes</string>
+    <string name="no">no</string>
     <string name="lorem_ipsum">lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum</string>
     <string name="sign_up_goto_sign_in">Go back to login</string>
     <string name="your_location">Your location</string>
