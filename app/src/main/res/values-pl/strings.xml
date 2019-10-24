@@ -15,7 +15,7 @@
     <string name="illegal_pass">Twoje hasło powinno zawierać conajmniej 5 znaków</string>
     <string name="nickname_hint">Nazwa użytkownika</string>
     <string name="password_hint">Hasło</string>
-    <string name="sign_in_fragment_button">Zaloguj się</string>
+    <string name="sign_in_fragment_button">Zaloguj</string>
     <string name="sign_in_fragment_dont_remember_pass_btn">Nie pamiętam hasła</string>
     <string name="sign_in_fragment_header">Witaj ponownie</string>
     <string name="sign_in_fragment_socialmedia_login_str">Kontynuuj za pomocą</string>
