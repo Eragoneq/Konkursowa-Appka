@@ -198,7 +198,7 @@ class MapActivity : AppCompatActivity() {
                     if (clickableMarkers) {
                         if (distance < maxDistance) {
                             action = "add"
-                            textButtons.text = getString(R.string.trash_question)
+                            textButtons.text = getString(R.string.are_you_sure_you_want_to_add_a_trash)
                             buttonCancel.isVisible = true
                             buttonConfirm.isVisible = true
                             backgroundButtons.isVisible = true
@@ -221,7 +221,7 @@ class MapActivity : AppCompatActivity() {
                     )
                     if (marker.title == "Trash") {
                         action = "delete"
-                        textButtons.text = getString(R.string.trash_question)
+                        textButtons.text = getString(R.string.are_you_sure_you_want_to_remove_a_trash)
                         buttonCancel.isVisible = true
                         buttonConfirm.isVisible = true
                         backgroundButtons.isVisible = true
