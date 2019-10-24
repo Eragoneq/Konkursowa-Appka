@@ -18,18 +18,17 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/userLocationBackground"
         android:layout_width="0dp"
         android:layout_height="64dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="10dp"
-        android:background="@color/colorLight"
+        android:background="@color/common_google_signin_btn_text_dark_default"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:srcCompat="@color/colorLight" />
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <TextView
         android:id="@+id/userLocationName"
@@ -37,10 +36,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:text="@string/your_location"
+        android:textColor="@color/common_google_signin_btn_text_dark_pressed"
         android:textSize="36sp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView"
-        app:layout_constraintStart_toStartOf="@+id/imageView"
-        app:layout_constraintTop_toTopOf="@+id/imageView" />
+        app:layout_constraintBottom_toBottomOf="@+id/userLocationBackground"
+        app:layout_constraintStart_toStartOf="@+id/userLocationBackground"
+        app:layout_constraintTop_toTopOf="@+id/userLocationBackground" />
 
     <TextView
         android:id="@+id/userLocationScore"
@@ -48,10 +48,11 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:text="TextView"
+        android:textColor="@color/common_google_signin_btn_text_dark_pressed"
         android:textSize="36sp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView"
-        app:layout_constraintEnd_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toTopOf="@+id/imageView" />
+        app:layout_constraintBottom_toBottomOf="@+id/userLocationBackground"
+        app:layout_constraintEnd_toEndOf="@+id/userLocationBackground"
+        app:layout_constraintTop_toTopOf="@+id/userLocationBackground" />
 
     <Button
         android:id="@+id/mapButton"

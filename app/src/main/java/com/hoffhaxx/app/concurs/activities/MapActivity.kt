@@ -198,7 +198,7 @@ class MapActivity : AppCompatActivity() {
                     if (clickableMarkers) {
                         if (distance < maxDistance) {
                             action = "add"
-                            textButtons.text = getString(R.string.trash_question)
+                            textButtons.text = getString(R.string.are_you_sure_you_want_to_add_a_trash)
                             buttonCancel.isVisible = true
                             buttonConfirm.isVisible = true
                             backgroundButtons.isVisible = true
@@ -221,7 +221,7 @@ class MapActivity : AppCompatActivity() {
                     )
                     if (marker.title == "Trash") {
                         action = "delete"
-                        textButtons.text = getString(R.string.trash_question)
+                        textButtons.text = getString(R.string.are_you_sure_you_want_to_remove_a_trash)
                         buttonCancel.isVisible = true
                         buttonConfirm.isVisible = true
                         backgroundButtons.isVisible = true
@@ -320,14 +320,14 @@ class MapActivity : AppCompatActivity() {
     private fun buildAlertMessageNoGps() {
 
         val builder = AlertDialog.Builder(this)
-        builder.setMessage("Your GPS seems to be disabled, do you want to enable it?")
+        builder.setMessage(R.string.gps_disabled)
             .setCancelable(false)
-            .setPositiveButton("Yes") { dialog, id ->
+            .setPositiveButton(R.string.yes) { dialog, id ->
                 startActivityForResult(
                     Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
                     , 11)
             }
-            .setNegativeButton("No") { dialog, id ->
+            .setNegativeButton(R.string.no) { dialog, id ->
                 dialog.cancel()
                 //finish()
             }

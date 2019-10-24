@@ -31,4 +31,11 @@
     <color name="secondaryDarkColor">#6b9b37</color>
     <color name="primaryTextColor">#000000</color>
 
+    <color name="pollution50Color">#0ab234</color>
+    <color name="pollution100Color">#f3dc30</color>
+    <color name="pollution150Color">#f28c18</color>
+    <color name="pollution200Color">#e54124</color>
+    <color name="pollution300Color">#80200f</color>
+    <color name="pollutionOver300Color">#370e06</color>
+
 </resources>
