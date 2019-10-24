@@ -20,4 +20,10 @@ interface Webservice {
 
     @POST("/user/register")
     suspend fun userRegister(@Body body : RegisterCredentials) : SignUpResult
+
+    @GET("/quest")
+    suspend fun getQuests() : QuestData?
+
+    @POST("/quest")
+    suspend fun addQuests(@Body body : List<Quest>)
 }
