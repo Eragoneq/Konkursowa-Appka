@@ -35,7 +35,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:text="@string/your_location"
+        android:text="@string/aqi"
         android:textColor="@color/common_google_signin_btn_text_dark_pressed"
         android:textSize="36sp"
         app:layout_constraintBottom_toBottomOf="@+id/userLocationBackground"

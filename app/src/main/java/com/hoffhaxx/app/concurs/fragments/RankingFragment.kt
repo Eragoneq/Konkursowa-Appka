@@ -86,7 +86,9 @@ class RankingFragment : Fragment() {
                             ResourcesCompat.getDrawable(resources, R.color.pollution300Color, null)
                     }
                 } else {
-                    userLocationScore.text = "Huj"
+                    userLocationScore.text = getString(R.string.no_data)
+                    userLocationBackground.background =
+                        ResourcesCompat.getDrawable(resources, R.color.pollutionDefault, null)
                 }
             }
         } catch (e : WebClient.NetworkException) {

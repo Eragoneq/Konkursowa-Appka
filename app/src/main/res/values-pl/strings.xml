@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">EcøYøu</string>
     <string name="action_settings">Ustawienia</string>
-    <string name="add_trash">Dodaj śmieci</string>
     <string name="are_you_sure_you_want_to_add_a_trash">Czy na pewno chcesz tu dodać śmieci?</string>
     <string name="are_you_sure_you_want_to_remove_a_trash">Czy na pewno chcesz usunąć stąd śmieci?</string>
     <string name="bottom_nav_item_todo">Do zrobienia</string>
@@ -26,6 +24,8 @@
     <string name="title_home">Strona glówna</string>
     <string name="title_notifications">Powiadomienia</string>
     <string name="trash">Śmieci</string>
-    <string name="trash_question">Czy na pewno chcesz tu dodać śmieci?</string>
-    <string name="your_location">Twoja lokalizacja</string>
+    <string name="gps_disabled">Twój GPS jest wyłączony, czy chcesz go włączyć?</string>
+    <string name="yes">tak</string>
+    <string name="no">nie</string>
+    <string name="no_data">Brak danych</string>
 </resources>
