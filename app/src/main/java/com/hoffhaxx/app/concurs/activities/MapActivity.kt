@@ -391,7 +391,7 @@ class MapActivity : AppCompatActivity() {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 startLocationUpdates()
             } else {
-                Toast.makeText(this@MapActivity, "Permission Denied", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@MapActivity, getString(R.string.permission_denied), Toast.LENGTH_SHORT).show()
             }
         }
     }

@@ -1,24 +1,17 @@
 package com.hoffhaxx.app.concurs.fragments
 
 
-import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Intent
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
+import androidx.fragment.app.Fragment
 import com.hoffhaxx.app.concurs.R
 import com.hoffhaxx.app.concurs.activities.MapActivity
 import com.hoffhaxx.app.concurs.misc.PollutionRepository
@@ -35,9 +28,9 @@ import kotlinx.coroutines.withContext
  */
 class RankingFragment : Fragment() {
 
-    lateinit var userLocationScore: TextView
-    lateinit var userLocationBackground: ImageView
-    lateinit var mapButton: Button
+    private lateinit var userLocationScore: TextView
+    private lateinit var userLocationBackground: ImageView
+    private lateinit var mapButton: Button
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -92,13 +85,13 @@ class RankingFragment : Fragment() {
                 }
             }
         } catch (e : WebClient.NetworkException) {
-            withContext(Dispatchers.Main) {
-                /*AlertDialog.Builder(this)
-                    .setTitle("Błąd logwania")
-                    .setMessage("Nie można nawiązać połączenia z serwerem")
-                    .setNeutralButton("OK") {dialog, which ->  }
+            withContext(Main) {
+                AlertDialog.Builder(context)
+                    .setTitle(getString(R.string.no_internet_connection))
+                    .setMessage(getString(R.string.check_if_internet))
+                    .setNeutralButton(getString(R.string.ok)) {dialog, which ->  }
                     .create()
-                    .show()*/
+                    .show()
             }
         }
     }

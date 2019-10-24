@@ -5,14 +5,12 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.hoffhaxx.app.concurs.R
 import com.hoffhaxx.app.concurs.fragments.*
 import com.hoffhaxx.app.concurs.misc.PollutionRepository
 import com.hoffhaxx.app.concurs.web.WebClient
-import kotlinx.android.synthetic.main.info_fragment.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -31,9 +29,9 @@ class HomeActivity : AppCompatActivity() {
         } catch (e : WebClient.NetworkException) {
             withContext(Dispatchers.Main) {
                 AlertDialog.Builder(this@HomeActivity)
-                    .setTitle("Błąd logwania")
-                    .setMessage("Nie można nawiązać połączenia z serwerem")
-                    .setNeutralButton("OK") {dialog, which ->  }
+                    .setTitle(getString(R.string.logging_error))
+                    .setMessage(getString(R.string.cannot_connect_to_server))
+                    .setNeutralButton(getString(R.string.ok)) {dialog, which ->  }
                     .create()
                     .show()
             }
@@ -46,7 +44,7 @@ class HomeActivity : AppCompatActivity() {
 
         testPollution()
 
-        val fragmentsArray= listOf<Fragment>(InfoFragment(), AchievementsFragment(), HomepageFragment(), RankingFragment(), LeafFragment())
+        val fragmentsArray= listOf(InfoFragment(), AchievementsFragment(), HomepageFragment(), RankingFragment(), LeafFragment())
 
         viewPager = findViewById(R.id.viewPagerMain)
         bottomNav = findViewById(R.id.bottom_nav)

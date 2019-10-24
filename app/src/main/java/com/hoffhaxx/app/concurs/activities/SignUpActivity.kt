@@ -78,9 +78,9 @@ class SignUpActivity: AppCompatActivity() {
         } catch (e : WebClient.NetworkException) {
             withContext(Main) {
                 AlertDialog.Builder(this@SignUpActivity)
-                    .setTitle("Błąd logwania")
-                    .setMessage("Nie można nawiązać połączenia z serwerem")
-                    .setNeutralButton("OK") {dialog, which ->  }
+                    .setTitle(getString(R.string.logging_error))
+                    .setMessage(getString(R.string.cannot_connect_to_server))
+                    .setNeutralButton(getString(R.string.ok)) {dialog, which ->  }
                     .create()
                     .show()
             }

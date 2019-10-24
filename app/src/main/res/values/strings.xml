@@ -33,4 +33,10 @@
     <string name="sign_up_goto_sign_in">Go back to login</string>
     <string name="aqi" translatable="false">AQI</string>
     <string name="no_data">No data</string>
+    <string name="cannot_connect_to_server">Can\'t connect to server</string>
+    <string name="logging_error">Logging error</string>
+    <string name="ok" translatable="false">OK</string>
+    <string name="check_if_internet">Check if you are connected to internet</string>
+    <string name="no_internet_connection">No internet connection</string>
+    <string name="permission_denied">Permission Denied</string>
 </resources>
