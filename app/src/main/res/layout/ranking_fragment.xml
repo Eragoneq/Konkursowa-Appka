@@ -13,6 +13,7 @@
         android:layout_height="wrap_content"
         android:text="@string/statistics"
         android:textSize="40sp"
+        android:fontFamily="@font/lato_bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -38,6 +39,7 @@
         android:text="@string/aqi"
         android:textColor="@color/common_google_signin_btn_text_dark_pressed"
         android:textSize="36sp"
+        android:fontFamily="@font/lato_bold"
         app:layout_constraintBottom_toBottomOf="@+id/userLocationBackground"
         app:layout_constraintStart_toStartOf="@+id/userLocationBackground"
         app:layout_constraintTop_toTopOf="@+id/userLocationBackground" />
@@ -49,6 +51,7 @@
         android:layout_marginEnd="16dp"
         android:textColor="@color/common_google_signin_btn_text_dark_pressed"
         android:textSize="36sp"
+        android:fontFamily="@font/lato_bold"
         app:layout_constraintBottom_toBottomOf="@+id/userLocationBackground"
         app:layout_constraintEnd_toEndOf="@+id/userLocationBackground"
         app:layout_constraintTop_toTopOf="@+id/userLocationBackground" />
@@ -57,10 +60,14 @@
         android:id="@+id/mapButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="20dp"
-        android:text="Mapa"
+        android:layout_marginBottom="64dp"
+        android:background="@color/btnColor"
+        android:fontFamily="@font/lato_bold"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:text="@string/go_to_trash_map"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
