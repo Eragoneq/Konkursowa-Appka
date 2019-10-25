@@ -28,7 +28,8 @@ class HomeActivity : AppCompatActivity() {
 
     private fun testPollution() = CoroutineScope(Dispatchers.IO).launch {
         try {
-            val markers = MapRepository.addMarkers(mutableListOf(Marker("malysz", 1.3, 1.5, "twojstary", "dzisiaj", "idtxd")))
+//            val markers = MapRepository.addMarkers(mutableListOf(Marker("malysz", 1.3, 1.5, "twojstary", "dzisiaj", "idtxd")))
+            MapRepository.removeMarker("5db332a680fe726923b85d13")
 //            Log.i("TESTxddd", markers.toString())
         } catch (e : WebClient.NetworkException) {
             withContext(Dispatchers.Main) {

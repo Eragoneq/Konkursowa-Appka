@@ -1,7 +1,6 @@
 package com.hoffhaxx.app.concurs.misc
 
 import com.hoffhaxx.app.concurs.activities.map.Marker
-import com.hoffhaxx.app.concurs.misc.data.RemoveMarkerCredentials
 import com.hoffhaxx.app.concurs.web.WebClient
 
 object MapRepository {
@@ -23,9 +22,9 @@ object MapRepository {
         }
     }
 
-    suspend fun removeMarker(marker : Marker) {
+    suspend fun removeMarker(id : String) {
         try {
-            WebClient.client.removeMarkers(RemoveMarkerCredentials(marker.id))
+            WebClient.client.removeMarkers(id)
         } catch (e : retrofit2.HttpException) {
             throw WebClient.NetworkException()
         }
