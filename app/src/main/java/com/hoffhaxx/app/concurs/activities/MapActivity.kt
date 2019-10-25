@@ -35,6 +35,7 @@ import com.hoffhaxx.app.concurs.misc.fromJson
 import com.hoffhaxx.app.concurs.web.WebClient
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
@@ -329,11 +330,13 @@ class MapActivity : AppCompatActivity() {
         }
     }
 
-    private fun refreshMap() {
-        googleMap.clear()
-        for((key, value) in filters) {
-            if(value) {
-                placeMarkersOfType(key)
+    private fun refreshMap() = CoroutineScope(Dispatchers.IO).launch {
+        withContext(Main){
+            googleMap.clear()
+            for((key, value) in filters) {
+                if(value) {
+                    placeMarkersOfType(key)
+                }
             }
         }
     }
