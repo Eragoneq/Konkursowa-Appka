@@ -9,6 +9,7 @@ import androidx.viewpager.widget.ViewPager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.hoffhaxx.app.concurs.R
 import com.hoffhaxx.app.concurs.fragments.*
+import com.hoffhaxx.app.concurs.misc.MapRepository
 import com.hoffhaxx.app.concurs.misc.PollutionRepository
 import com.hoffhaxx.app.concurs.misc.QuestRepository
 import com.hoffhaxx.app.concurs.misc.data.Quest
@@ -26,9 +27,8 @@ class HomeActivity : AppCompatActivity() {
 
     private fun testPollution() = CoroutineScope(Dispatchers.IO).launch {
         try {
-            val quests = listOf(Quest("fajny opis", 10.0))
-            val result = QuestRepository.addQuests(quests)
-            Log.i("TEST", result.toString())
+            val markers = MapRepository.getMarkers()
+            Log.i("TEST", markers.toString())
         } catch (e : WebClient.NetworkException) {
             withContext(Dispatchers.Main) {
                 AlertDialog.Builder(this@HomeActivity)

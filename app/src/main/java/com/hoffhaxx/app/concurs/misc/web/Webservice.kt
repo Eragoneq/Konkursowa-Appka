@@ -1,5 +1,6 @@
 package com.hoffhaxx.app.concurs.web
 
+import com.hoffhaxx.app.concurs.activities.map.Marker
 import com.hoffhaxx.app.concurs.misc.data.*
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -26,4 +27,10 @@ interface Webservice {
 
     @POST("/quest")
     suspend fun addQuests(@Body body : List<Quest>)
+
+    @GET("/map")
+    suspend fun getMarkers() : MarkerData?
+
+    @POST("/map")
+    suspend fun addMarkers(@Body body : List<Marker>)
 }
