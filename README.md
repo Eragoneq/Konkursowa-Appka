@@ -24,4 +24,6 @@ Ta sekcja ma zawierać kilka różnych funkcjonalności. Aktualnie udało nam si
 Jedna z ważniejszych, ale i najbardziej czasochłonnych funkcjonalności. Chcieliśmy przygotować system który właśnie byłby głównym elementem przyciągającym do codziennego korzystania. Za wykonywanie zadań i zdobywanie osiągnięć otrzymywalibyśmy punkty, za które mielibyśmy możliwość zakupu nowych rzeczy do naszego małego środowiska. Wszystkie dobre czynności powodowałyby powolny rozwój. Zaczynalibyśmy z pustą i lekko zanieczyszczoną polanką lub oceanem, a wraz z czasem wszystko stawałoby się coraz bardziej zielone i pełne życia. Natomiast każda zła czynność przyczyniałaby się do pogorszania sytuacji. W ten sposób chcemy pokazać jaki wpływ mają nasze czynności na nasze środowisko. Poniżej jedna z grafik ukazująca styl w jakim chcelibyśmy przygotować to wszystko.
 ![Drzewko](https://i.imgur.com/PgwZhb8.png, "Drzewko")
 
-###
+### Nasze zaangażowanie
+
+Wybraliśmy język Kotlin, aby przygotować aplikację na Androida by trafić do ludzi mniej więcej w podobnym wieku do naszego, dla których technologia jest codziennością i czują, że mogą coś zrobić by polepszyć aktualną sytuację
