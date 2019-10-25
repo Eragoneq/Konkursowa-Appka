@@ -11,9 +11,11 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Looper
 import android.provider.Settings
+import android.util.Log
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.core.app.ActivityCompat.startActivityForResult
 import androidx.core.view.isVisible
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -25,9 +27,16 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.google.gson.Gson
 import com.hoffhaxx.app.concurs.R
 import com.hoffhaxx.app.concurs.activities.map.Marker
+import com.hoffhaxx.app.concurs.misc.MapRepository
+import com.hoffhaxx.app.concurs.misc.MapRepository.getMarkers
 import com.hoffhaxx.app.concurs.misc.SharedPreferencesRepository
 import com.hoffhaxx.app.concurs.misc.data.UserLocation
 import com.hoffhaxx.app.concurs.misc.fromJson
+import com.hoffhaxx.app.concurs.web.WebClient
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.HashMap
@@ -152,8 +161,8 @@ class MapActivity : AppCompatActivity() {
                         marker.title,
                         marker.position.latitude,
                         marker.position.longitude,
-                        "user name",
-                        SimpleDateFormat("dd/MM/yyyy").format(Calendar.getInstance().time),
+                        "",
+                        "",
                         ""
                     )
                     if (clickableMarkers) {
@@ -183,8 +192,8 @@ class MapActivity : AppCompatActivity() {
                         "Trash",
                         it.latitude,
                         it.longitude,
-                        "user name",
-                        SimpleDateFormat("dd/MM/yyyy").format(Calendar.getInstance().time),
+                        "",
+                        "",
                         ""
                     )
 
@@ -220,8 +229,8 @@ class MapActivity : AppCompatActivity() {
                         marker.title,
                         marker.position.latitude,
                         marker.position.longitude,
-                        "user name",
-                        SimpleDateFormat("dd/MM/yyyy").format(Calendar.getInstance().time),
+                        "",
+                        "",
                         ""
                     )
                     if (marker.title == "Trash") {
@@ -261,29 +270,24 @@ class MapActivity : AppCompatActivity() {
         //filters["Malysz"] = false
     }
 
-    private fun getMarkers(): MutableList<Marker> {
-        val markersJson = SharedPreferencesRepository.marker
+    private fun saveMarker(m : Marker) = CoroutineScope(Dispatchers.IO).launch {
+        try {
+            MapRepository.addMarkers(mutableListOf(m))
+        } catch (e : WebClient.NetworkException) {
+            withContext(Dispatchers.Main) {
 
-        return if (markersJson != null)
-            Gson().fromJson(markersJson)
-        else
-            mutableListOf()
-    }
-
-    private fun saveMarker(m : Marker) {
-        val markersTemp = getMarkers()
-        markersTemp.add(m)
-        SharedPreferencesRepository.marker = Gson().toJson(markersTemp)
-    }
-
-    private fun removeMarker(m: Marker) {
-        val markersTemp = getMarkers()
-        for (mark: Marker in markersTemp) {
-            if(mark.id == m.id){
-                markersTemp.remove(mark)
             }
         }
-        SharedPreferencesRepository.marker = Gson().toJson(markersTemp)
+    }
+
+    private fun removeMarker(m: Marker) = CoroutineScope(Dispatchers.IO).launch {
+        try {
+            MapRepository.removeMarker(m)
+        } catch (e : WebClient.NetworkException) {
+            withContext(Dispatchers.Main) {
+
+            }
+        }
     }
 
     private fun placeMarkerOnMap(m: Marker) {
@@ -310,12 +314,18 @@ class MapActivity : AppCompatActivity() {
         }*/
     }
 
-    private fun placeMarkersOfType(type: String) {
-        val marOfType = getMarkers().filter {
-            it.type == type
-        }
-        for (m in marOfType) {
-            placeMarkerOnMap(m)
+    private fun placeMarkersOfType(type: String) = CoroutineScope(Dispatchers.IO).launch {
+        try {
+            val marOfType = MapRepository.getMarkers()?.filter {
+                it.type == type
+            }
+            if (marOfType != null) {
+                for (m in marOfType) {
+                    placeMarkerOnMap(m)
+                }
+            }
+        } catch (e : WebClient.NetworkException) {
+
         }
     }
 
@@ -344,8 +354,6 @@ class MapActivity : AppCompatActivity() {
             }
         val alert: AlertDialog = builder.create()
         alert.show()
-
-
     }
 
 

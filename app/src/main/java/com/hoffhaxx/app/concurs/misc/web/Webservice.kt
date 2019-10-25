@@ -2,10 +2,7 @@ package com.hoffhaxx.app.concurs.web
 
 import com.hoffhaxx.app.concurs.activities.map.Marker
 import com.hoffhaxx.app.concurs.misc.data.*
-import retrofit2.http.Body
-import retrofit2.http.DELETE
-import retrofit2.http.GET
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface Webservice {
     @GET("/user/profile")
@@ -35,6 +32,6 @@ interface Webservice {
     @POST("/map")
     suspend fun addMarkers(@Body body : MutableList<Marker>)
 
-    @DELETE("/map")
-    suspend fun removeMarkers(@Body body : RemoveMarkerCredentials)
+    @DELETE("/map/{id}")
+    suspend fun removeMarkers(@Path("id") id : String)
 }
