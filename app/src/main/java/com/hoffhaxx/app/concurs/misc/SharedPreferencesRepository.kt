@@ -37,9 +37,7 @@ object SharedPreferencesRepository {
 
     var userLocation : UserLocation?
         get() {
-            val json = prefs.getString((KEY_USER_LOCATION), null)
-            if (json == null)
-                return null
+            val json = prefs.getString((KEY_USER_LOCATION), null) ?: return null
             return Gson().fromJson(json, UserLocation::class.java)
         }
         set(value) {

@@ -4,6 +4,7 @@ package com.hoffhaxx.app.concurs.fragments
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -86,6 +87,8 @@ class RankingFragment : Fragment() {
             }
         } catch (e : WebClient.NetworkException) {
 
+        } catch (e: IllegalStateException){
+            Log.println(Log.ERROR, "FRAG", "Ranking element is not available")
         }
     }
 
