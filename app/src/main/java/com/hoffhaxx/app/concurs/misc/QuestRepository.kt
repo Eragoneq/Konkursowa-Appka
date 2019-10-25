@@ -9,8 +9,8 @@ import com.hoffhaxx.app.concurs.web.PollutionClient
 import com.hoffhaxx.app.concurs.web.WebClient
 
 object QuestRepository {
-    suspend fun getQuests(): List<Quest>? {
-        var quests : List<Quest>?
+    suspend fun getQuests(): MutableList<Quest>? {
+        var quests : MutableList<Quest>?
         try {
             quests = WebClient.client.getQuests()?.quests
         } catch (e : retrofit2.HttpException) {
@@ -19,7 +19,7 @@ object QuestRepository {
         return quests
     }
 
-    suspend fun addQuests(quests : List<Quest>) {
+    suspend fun addQuests(quests : MutableList<Quest>) {
         try {
             WebClient.client.addQuests(quests)
         } catch (e : retrofit2.HttpException) {
