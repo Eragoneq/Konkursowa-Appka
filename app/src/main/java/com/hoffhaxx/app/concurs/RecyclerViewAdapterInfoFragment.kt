@@ -22,7 +22,8 @@ class RecyclerViewAdapterInfoFragment(private val quests: MutableList<Quest>?):
     }
 
     override fun getItemCount(): Int {
-        if (quests != null){
+        if (quests != null)
+        {
             return quests.size
         }
         else{
