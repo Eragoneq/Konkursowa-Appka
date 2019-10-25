@@ -11,8 +11,20 @@
         android:layout_height="wrap_content">
 
     </com.google.android.material.appbar.AppBarLayout>
-
     <include layout="@layout/content_main" />
+
+    <Button
+        android:id="@+id/logoutBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:background="@drawable/roundbutton_layout"
+        android:textColor="@color/text_color"
+        android:fontFamily="@font/lato_regular"
+        android:text="Sign out"
+        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"

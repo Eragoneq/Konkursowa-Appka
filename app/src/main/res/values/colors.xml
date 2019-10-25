@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!-- TODO: Uporządkować kolory w odpowiedni sposób -->
     <color name="colorPrimary">#F3F0DD</color>
     <color name="colorPrimaryDark">#55B598</color>
     <color name="colorAccent">#87B955</color>
     <color name="colorLight">#FFECB3</color>
 
     <color name="navbar">#64DD17</color>
+    <color name="bottom_nav">#707070</color>
     <color name="waves">#64DD17</color>
     <color name="btnColor">#8ED66A</color>
+    <color name="error">#D50000</color>
+    <color name="transparent">#00000000</color>
 
     <color name="gradientTop">#FDFCD5</color>
     <color name="gradientBottom">#DCFEC9</color>
@@ -26,5 +31,19 @@
     <color name="secondaryLightColor">#cfff95</color>
     <color name="secondaryDarkColor">#6b9b37</color>
     <color name="primaryTextColor">#000000</color>
+
+    <color name="pollutionDefault">#000000</color>
+    <color name="pollution50Color">#0ab234</color>
+    <color name="pollution100Color">#f3dc30</color>
+    <color name="pollution150Color">#f28c18</color>
+    <color name="pollution200Color">#e54124</color>
+    <color name="pollution300Color">#80200f</color>
+    <color name="pollutionOver300Color">#370e06</color>
+
+    <color name="button_pressed">#0aff7c</color>
+    <color name="button_focused">#0aff7c</color>
+    <color name="button_default">#20A050</color>
+    <color name="bg_gradient_start">#52f74a</color>
+    <color name="bg_gradient_end">#57bd7e</color>
 
 </resources>

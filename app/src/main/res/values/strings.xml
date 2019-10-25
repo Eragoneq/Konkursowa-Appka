@@ -1,13 +1,47 @@
 <resources>
-    <string name="app_name">Stara Olafa</string>
+    <string name="app_name" translatable="false">EcøYøu</string>
     <string name="action_settings">Settings</string>
-    <string name="main_content">Hocki Klocki, myszka miki</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="sign_in_fragment_header">Welcome back</string>
-    <string name="sign_in_fragment_email_hint">Email</string>
-    <string name="sign_in_fragment_password_hint">Password</string>
+    <string name="nickname_hint">Nickname</string>
+    <string name="email_hint" translatable="false">E-mail</string>
+    <string name="password_hint">Password</string>
+    <string name="illegal_email">Please enter valid e-mail</string>
+    <string name="illegal_pass">Your password should be at least 5 characters long</string>
     <string name="sign_in_fragment_button">Sign in</string>
     <string name="sign_in_fragment_socialmedia_login_str">Or continue with</string>
     <string name="sign_up">Sign up</string>
     <string name="sign_in_fragment_dont_remember_pass_btn">I don\'t remember password</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard" translatable="false">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="bottom_nav_item_todo">TODO</string>
+    <string name="bottom_nav_menu_achiev">Achievements</string>
+    <string name="bottom_nav_menu_home">Home</string>
+    <string name="bottom_nav_menu_stats">Stats</string>
+    <string name="bottom_nav_menu_leaf">Leaf</string>
+    <string name="trash">Trash</string>
+    <string name="confirm">Confirm</string>
+    <string name="cancel">Cancel</string>
+    <string name="are_you_sure_you_want_to_add_a_trash">Are you sure you want to add a Trash\?</string>
+    <string name="are_you_sure_you_want_to_remove_a_trash">Are you sure you want to remove a Trash\?</string>
+    <string name="far_away">You\'re too far away</string>
+    <string name="gps_disabled">Your GPS seems to be disabled, do you want to enable it?</string>
+    <string name="yes">yes</string>
+    <string name="no">no</string>
+    <string name="lorem_ipsum" translatable="false">lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum</string>
+    <string name="sign_up_goto_sign_in">Go back to login</string>
+    <string name="aqi" translatable="false">AQI</string>
+    <string name="no_data">No data</string>
+    <string name="cannot_connect_to_server">Can\'t connect to server</string>
+    <string name="logging_error">Logging error</string>
+    <string name="ok" translatable="false">OK</string>
+    <string name="check_if_internet">Check if you are connected to internet</string>
+    <string name="no_internet_connection">No internet connection</string>
+    <string name="permission_denied">Permission Denied</string>
+    <string name="statistics">STATISTICS</string>
+    <string name="go_to_trash_map">Go to Trash Map</string>
+    <string name="environment">ENVIRONMENT</string>
+    <string name="achievements">ACHIEVEMENTS</string>
+    <string name="info" translatable="false">INFO</string>
+    <string name="welcome_back">Welcome back %s!</string>
 </resources>

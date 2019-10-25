@@ -1,0 +1,8 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+  <item>
+    <shape>
+      <solid
+          android:color="@color/bottom_nav"/>
+    </shape>
+  </item>
+</selector>

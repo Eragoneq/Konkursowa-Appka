@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.hoffhaxx.app.concurs">
-
+    <!-- TODO: Dodać odpowiednie permisje i ogarnąć o co chodzi z tym xmlem -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -16,30 +16,38 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".activities.MapActivity" />
+        <activity android:name=".activities.MapActivity"
+            android:theme="@style/MapTheme"
+            android:permission="android.permission.ACCESS_FINE_LOCATION"/>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyBXob3gmhVb4v5FqGsw72292_CBI8Y0LZc" />
+            android:value="AIzaSyDVXNMmuaK1OmUV6HEuv4kVY5LOk1BAU4w" />
+
         <activity
             android:name=".activities.MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme">
-        </activity>
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".activities.LoginActivity"
-            android:label="Login Activity"
+            android:label="@string/app_name"
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".HomeActivity"
+            android:name=".activities.SignUpActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme">
-        </activity>
-
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activities.HomeActivity"
+            android:label="@string/app_name"
+            android:theme="@style/MainTheme" />
+        <activity android:name=".activities.InfoPopUpActivity"
+            android:theme="@style/AppTheme.InfoPopUp"/>
     </application>
+
 </manifest>
