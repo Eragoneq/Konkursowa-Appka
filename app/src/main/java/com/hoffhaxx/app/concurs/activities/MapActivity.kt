@@ -28,6 +28,9 @@ import com.hoffhaxx.app.concurs.activities.map.Marker
 import com.hoffhaxx.app.concurs.misc.SharedPreferencesRepository
 import com.hoffhaxx.app.concurs.misc.data.UserLocation
 import com.hoffhaxx.app.concurs.misc.fromJson
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.HashMap
 import kotlin.math.sqrt
 
 
@@ -53,7 +56,7 @@ class MapActivity : AppCompatActivity() {
     lateinit var textButtons: TextView
     
     private var isMarkerClicked: Boolean = false
-    private val defaultMarker: Marker = Marker("", 0.0, 0.0, false, "")
+    private val defaultMarker: Marker = Marker("", 0.0, 0.0, "", "", "")
     private var lastClickedMarker: Marker = defaultMarker
 
     private var action = ""
@@ -149,8 +152,9 @@ class MapActivity : AppCompatActivity() {
                         marker.title,
                         marker.position.latitude,
                         marker.position.longitude,
-                        false,
-                        "user name"
+                        "user name",
+                        SimpleDateFormat("dd/MM/yyyy").format(Calendar.getInstance().time),
+                        ""
                     )
                     if (clickableMarkers) {
                         if (marker.title == "Trash") {
@@ -179,8 +183,9 @@ class MapActivity : AppCompatActivity() {
                         "Trash",
                         it.latitude,
                         it.longitude,
-                        false,
-                        "user name"
+                        "user name",
+                        SimpleDateFormat("dd/MM/yyyy").format(Calendar.getInstance().time),
+                        ""
                     )
 
                     isMarkerClicked = false
@@ -215,8 +220,9 @@ class MapActivity : AppCompatActivity() {
                         marker.title,
                         marker.position.latitude,
                         marker.position.longitude,
-                        false,
-                        "user name"
+                        "user name",
+                        SimpleDateFormat("dd/MM/yyyy").format(Calendar.getInstance().time),
+                        ""
                     )
                     if (marker.title == "Trash") {
                         action = "delete"
@@ -272,7 +278,11 @@ class MapActivity : AppCompatActivity() {
 
     private fun removeMarker(m: Marker) {
         val markersTemp = getMarkers()
-        markersTemp.remove(m)
+        for (mark: Marker in markersTemp) {
+            if(mark.id == m.id){
+                markersTemp.remove(mark)
+            }
+        }
         SharedPreferencesRepository.marker = Gson().toJson(markersTemp)
     }
 
@@ -283,7 +293,7 @@ class MapActivity : AppCompatActivity() {
                 MarkerOptions()
                     .position(location)
                     .title(getString(R.string.trash))
-                    //.snippet(m.user)
+                    .snippet(m.addedDate)
                     .icon(BitmapDescriptorFactory.fromResource(R.raw.mapmarker32))
                     .visible(true)
             )
