@@ -44,7 +44,7 @@ class MapActivity : AppCompatActivity() {
 
     private val filters = HashMap<String, Boolean>()
 
-    lateinit var checkBoxMalysz: CheckBox
+    //lateinit var checkBoxMalysz: CheckBox
     lateinit var checkBoxTrash: CheckBox
 
     lateinit var buttonConfirm: Button
@@ -101,12 +101,12 @@ class MapActivity : AppCompatActivity() {
                     filters["Trash"] = isChecked
                     refreshMap()
                 }
-                checkBoxMalysz = findViewById(R.id.Malysz)
+                /*checkBoxMalysz = findViewById(R.id.Malysz)
                 checkBoxMalysz.isChecked = false
                 checkBoxMalysz.setOnCheckedChangeListener { buttonView, isChecked ->
                     filters["Malysz"] = isChecked
                     refreshMap()
-                }
+                }*/
 
                 buttonConfirm = findViewById(R.id.Confirm)
                 buttonCancel = findViewById(R.id.Cancel)
@@ -243,15 +243,16 @@ class MapActivity : AppCompatActivity() {
         filters[type] = value
         if (type == "Trash") {
             checkBoxTrash.isChecked = value
-        } else if (type == "Malysz") {
-            checkBoxMalysz.isChecked = value
         }
+        /*else if (type == "Malysz") {
+            checkBoxMalysz.isChecked = value
+        }*/
     }
 
     private fun initFilters()
     {
         filters["Trash"] = true
-        filters["Malysz"] = false
+        //filters["Malysz"] = false
     }
 
     private fun getMarkers(): MutableList<Marker> {
@@ -281,12 +282,13 @@ class MapActivity : AppCompatActivity() {
             googleMap.addMarker(
                 MarkerOptions()
                     .position(location)
-                    .title(m.type)
-                    .snippet(m.user)
+                    .title(getString(R.string.trash))
+                    //.snippet(m.user)
                     .icon(BitmapDescriptorFactory.fromResource(R.raw.mapmarker32))
                     .visible(true)
             )
-        } else if(m.type == "Malysz") {
+        }
+        /*else if(m.type == "Malysz") {
             googleMap.addMarker(
                 MarkerOptions()
                     .position(location)
@@ -295,7 +297,7 @@ class MapActivity : AppCompatActivity() {
                     .icon(BitmapDescriptorFactory.fromResource(R.raw.malysz))
                     .visible(true)
             )
-        }
+        }*/
     }
 
     private fun placeMarkersOfType(type: String) {

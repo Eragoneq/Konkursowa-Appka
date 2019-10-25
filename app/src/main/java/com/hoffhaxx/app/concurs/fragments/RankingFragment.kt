@@ -85,14 +85,7 @@ class RankingFragment : Fragment() {
                 }
             }
         } catch (e : WebClient.NetworkException) {
-            withContext(Main) {
-                /*AlertDialog.Builder(context)
-                    .setTitle(getString(R.string.no_internet_connection))
-                    .setMessage(getString(R.string.check_if_internet))
-                    .setNeutralButton(getString(R.string.ok)) {dialog, which ->  }
-                    .create()
-                    .show()*/
-            }
+
         }
     }
 

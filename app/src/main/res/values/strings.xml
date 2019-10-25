@@ -20,7 +20,6 @@
     <string name="bottom_nav_menu_stats">Stats</string>
     <string name="bottom_nav_menu_leaf">Leaf</string>
     <string name="trash">Trash</string>
-    <string name="malysz" translatable="false">Malysz</string>
     <string name="confirm">Confirm</string>
     <string name="cancel">Cancel</string>
     <string name="are_you_sure_you_want_to_add_a_trash">Are you sure you want to add a Trash\?</string>
