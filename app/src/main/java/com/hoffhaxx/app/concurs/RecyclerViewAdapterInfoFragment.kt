@@ -22,7 +22,13 @@ class RecyclerViewAdapterInfoFragment(private val quests: MutableList<Quest>?):
     }
 
     override fun getItemCount(): Int {
-        return quests!!.size
+        if (quests != null)
+        {
+            return quests.size
+        }
+        else{
+            return 0
+        }
     }
 
     @SuppressLint("SetTextI18n")
