@@ -132,7 +132,7 @@ class MapActivity : AppCompatActivity() {
 
                 buttonConfirm.setOnClickListener {
                     if (action == "delete") {
-                        removeMarker(clickedMarker)
+                        removeMarker(lastClickedMarker)
                         refreshMap()
                     } else if (action == "add") {
                         saveMarker(clickedMarker)
@@ -158,19 +158,20 @@ class MapActivity : AppCompatActivity() {
                 //googleMap.uiSettings.setZoomControlsEnabled(true)
 
                 googleMap.setOnMarkerClickListener { marker ->
-                    val thisMarker = Marker(
+                    /*val thisMarker = Marker(
                         marker.title,
                         marker.position.latitude,
                         marker.position.longitude,
                         "",
                         "",
                         ""
-                    )
+                    )*/
                     if (clickableMarkers) {
-                        if (marker.title == "Trash") {
-                            if (!isMarkerClicked || lastClickedMarker != thisMarker) {
+                        if (marker.title == getString(R.string.trash)) {
+                            if (lastClickedMarker.latitude != marker.position.latitude || lastClickedMarker.longitude != marker.position.longitude) {
                                 marker.showInfoWindow()
-                                lastClickedMarker = thisMarker
+                                //lastClickedMarker = thisMarker
+
                                 isMarkerClicked = true
                             } else {
                                 isMarkerClicked = false
@@ -219,6 +220,7 @@ class MapActivity : AppCompatActivity() {
                             textButtons.isVisible = true
                             clickableMarkers = false
                             clickedMarker = thisMarker
+                            Toast.makeText(this, clickedMarker.latitude.toString()+" "+clickedMarker.longitude.toString(), Toast.LENGTH_SHORT).show()
                         } else {
                             Toast.makeText(this, getString(R.string.far_away), Toast.LENGTH_SHORT).show()
                         }
@@ -226,15 +228,16 @@ class MapActivity : AppCompatActivity() {
                 }
 
                 googleMap.setOnInfoWindowClickListener { marker ->
-                    val thisMarker = Marker(
+                    /*val thisMarker = Marker(
                         marker.title,
                         marker.position.latitude,
                         marker.position.longitude,
                         "",
                         "",
                         ""
-                    )
-                    if (marker.title == "Trash") {
+                    )*/
+                    //lastClickedMarker = defaultMarker
+                    if (marker.title == getString(R.string.trash)) {
                         action = "delete"
                         textButtons.text = getString(R.string.are_you_sure_you_want_to_remove_a_trash)
                         buttonCancel.isVisible = true
@@ -242,7 +245,7 @@ class MapActivity : AppCompatActivity() {
                         backgroundButtons.isVisible = true
                         textButtons.isVisible = true
                         clickableMarkers = false
-                        clickedMarker = thisMarker
+                        setLastClickedMarker(marker.position.latitude, marker.position.longitude)
                     }
                 }
 
@@ -271,9 +274,34 @@ class MapActivity : AppCompatActivity() {
         //filters["Malysz"] = false
     }
 
+    private fun setLastClickedMarker(lat: Double, lng: Double) = CoroutineScope(Dispatchers.IO).launch {
+        try {
+            withContext(Main) {
+                val tempMarkers = MapRepository.getMarkers()
+                if (tempMarkers != null) {
+                    for(m: Marker in tempMarkers){
+                        if(m.latitude == lat && m.longitude == lng){
+                            lastClickedMarker = m
+                        }
+                    }
+                }
+            }
+        } catch (e : WebClient.NetworkException) {
+            withContext(Dispatchers.Main) {
+
+            }
+        }
+    }
+
     private fun saveMarker(m : Marker) = CoroutineScope(Dispatchers.IO).launch {
         try {
-            MapRepository.addMarkers(mutableListOf(m))
+            withContext(Main) {
+                MapRepository.addMarkers(mutableListOf(m))
+                //setLastClickedMarker(m.latitude, m.longitude)
+                //placeMarkerOnMap(lastClickedMarker)
+                //lastClickedMarker = defaultMarker
+                refreshMap()
+            }
         } catch (e : WebClient.NetworkException) {
             withContext(Dispatchers.Main) {
 
@@ -283,7 +311,9 @@ class MapActivity : AppCompatActivity() {
 
     private fun removeMarker(m: Marker) = CoroutineScope(Dispatchers.IO).launch {
         try {
-            MapRepository.removeMarker(m)
+            withContext(Main){
+                MapRepository.removeMarker(m)
+            }
         } catch (e : WebClient.NetworkException) {
             withContext(Dispatchers.Main) {
 
@@ -317,12 +347,14 @@ class MapActivity : AppCompatActivity() {
 
     private fun placeMarkersOfType(type: String) = CoroutineScope(Dispatchers.IO).launch {
         try {
-            val marOfType = MapRepository.getMarkers()?.filter {
-                it.type == type
-            }
-            if (marOfType != null) {
-                for (m in marOfType) {
-                    placeMarkerOnMap(m)
+            withContext(Main) {
+                val marOfType = MapRepository.getMarkers()?.filter {
+                    it.type == type
+                }
+                if (marOfType != null) {
+                    for (m in marOfType) {
+                        placeMarkerOnMap(m)
+                    }
                 }
             }
         } catch (e : WebClient.NetworkException) {
