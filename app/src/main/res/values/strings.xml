@@ -40,4 +40,7 @@
     <string name="permission_denied">Permission Denied</string>
     <string name="statistics">Statistics</string>
     <string name="go_to_trash_map">Go to Trash Map</string>
+    <string name="environment">Environment</string>
+    <string name="achievements">Achievements</string>
+    <string name="info" translatable="false">Info</string>
 </resources>

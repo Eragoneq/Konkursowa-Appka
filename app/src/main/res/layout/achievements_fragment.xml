@@ -13,7 +13,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Achievements"
+        android:text="@string/achievements"
+        android:fontFamily="@font/lato_bold"
         android:textSize="40sp" />
 
     <androidx.recyclerview.widget.RecyclerView

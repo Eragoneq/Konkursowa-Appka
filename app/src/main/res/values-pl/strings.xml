@@ -35,4 +35,6 @@
     <string name="permission_denied">Odmowa dostępu</string>
     <string name="statistics">Statystyki</string>
     <string name="go_to_trash_map">Przejdź do mapy śmieci</string>
+    <string name="environment">Środowisko</string>
+    <string name="achievements">Osiągnięcia</string>
 </resources>
