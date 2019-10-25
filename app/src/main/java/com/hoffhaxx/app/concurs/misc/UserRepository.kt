@@ -11,6 +11,7 @@ object UserRepository {
         if (SharedPreferencesRepository.sessionId != "") {
             try {
                 user =  WebClient.client.userProfile()
+                SharedPreferencesRepository.user = user
             } catch (e : retrofit2.HttpException) {
                 throw WebClient.NetworkException()
             }
