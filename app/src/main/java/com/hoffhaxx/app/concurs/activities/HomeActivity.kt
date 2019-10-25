@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.hoffhaxx.app.concurs.R
+import com.hoffhaxx.app.concurs.activities.map.Marker
 import com.hoffhaxx.app.concurs.fragments.*
 import com.hoffhaxx.app.concurs.misc.MapRepository
 import com.hoffhaxx.app.concurs.misc.PollutionRepository
@@ -27,8 +28,8 @@ class HomeActivity : AppCompatActivity() {
 
     private fun testPollution() = CoroutineScope(Dispatchers.IO).launch {
         try {
-            val markers = MapRepository.getMarkers()
-            Log.i("TEST", markers.toString())
+            val markers = MapRepository.addMarkers(mutableListOf(Marker("malysz", 1.3, 1.5, "twojstary", "dzisiaj", "idtxd")))
+//            Log.i("TESTxddd", markers.toString())
         } catch (e : WebClient.NetworkException) {
             withContext(Dispatchers.Main) {
                 AlertDialog.Builder(this@HomeActivity)

@@ -3,6 +3,7 @@ package com.hoffhaxx.app.concurs.web
 import com.hoffhaxx.app.concurs.activities.map.Marker
 import com.hoffhaxx.app.concurs.misc.data.*
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
 
@@ -26,11 +27,14 @@ interface Webservice {
     suspend fun getQuests() : QuestData?
 
     @POST("/quest")
-    suspend fun addQuests(@Body body : List<Quest>)
+    suspend fun addQuests(@Body body : MutableList<Quest>)
 
     @GET("/map")
     suspend fun getMarkers() : MarkerData?
 
     @POST("/map")
-    suspend fun addMarkers(@Body body : List<Marker>)
+    suspend fun addMarkers(@Body body : MutableList<Marker>)
+
+    @DELETE("/map")
+    suspend fun removeMarkers(@Body body : RemoveMarkerCredentials)
 }

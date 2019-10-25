@@ -4,7 +4,7 @@ import com.hoffhaxx.app.concurs.activities.map.Marker
 import com.hoffhaxx.app.concurs.web.WebClient
 
 object MapRepository {
-    suspend fun getMarkers(): List<Marker>? {
+    suspend fun getMarkers(): MutableList<Marker>? {
         var markers : List<Marker>?
         try {
             markers = WebClient.client.getMarkers()?.markers
@@ -14,7 +14,7 @@ object MapRepository {
         return markers
     }
 
-    suspend fun addMarkers(markers : List<Marker>) {
+    suspend fun addMarkers(markers : MutableList<Marker>) {
         try {
             WebClient.client.addMarkers(markers)
         } catch (e : retrofit2.HttpException) {
