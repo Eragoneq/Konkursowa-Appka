@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.hoffhaxx.app.concurs.AchievementCard
 import com.hoffhaxx.app.concurs.R
-import com.hoffhaxx.app.concurs.RecyclerViewAdapter_AchievementsFragment
+import com.hoffhaxx.app.concurs.RecyclerViewAdapterAchievementsFragment
 import kotlinx.android.synthetic.main.achievements_fragment.*
 
 /**
@@ -36,7 +36,7 @@ class AchievementsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         recyclerViewAchievements.apply {
             layoutManager = LinearLayoutManager(activity)
-            adapter = RecyclerViewAdapter_AchievementsFragment(achievementCards)
+            adapter = RecyclerViewAdapterAchievementsFragment(achievementCards)
         }
     }
 

@@ -5,9 +5,12 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.hoffhaxx.app.concurs.R
+import com.hoffhaxx.app.concurs.RecyclerViewAdapterInfoFragment
 import com.hoffhaxx.app.concurs.activities.map.Marker
 import com.hoffhaxx.app.concurs.fragments.*
 import com.hoffhaxx.app.concurs.misc.MapRepository
@@ -15,6 +18,7 @@ import com.hoffhaxx.app.concurs.misc.PollutionRepository
 import com.hoffhaxx.app.concurs.misc.QuestRepository
 import com.hoffhaxx.app.concurs.misc.data.Quest
 import com.hoffhaxx.app.concurs.web.WebClient
+import kotlinx.android.synthetic.main.info_fragment.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -43,11 +47,19 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
+    private fun chujciwdupeolaf(amount: Int) = CoroutineScope(Dispatchers.IO).launch {
+        try {
+            val quests = QuestRepository.getQuests(15)
+        } catch (e : WebClient.NetworkException) {
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.home_activity)
 
         testPollution()
+        chujciwdupeolaf(50)
 
         val fragmentsArray= listOf(InfoFragment(), AchievementsFragment(), HomepageFragment(), RankingFragment(), LeafFragment())
 

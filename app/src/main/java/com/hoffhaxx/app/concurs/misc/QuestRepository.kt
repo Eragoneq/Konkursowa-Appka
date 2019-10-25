@@ -9,10 +9,21 @@ import com.hoffhaxx.app.concurs.web.PollutionClient
 import com.hoffhaxx.app.concurs.web.WebClient
 
 object QuestRepository {
-    suspend fun getQuests(): MutableList<Quest>? {
-        var quests : MutableList<Quest>?
+    suspend fun getQuests(amount: Int): MutableList<Quest>? {
+        val quest_list : MutableList<Quest>?    //database
+        val quests : MutableList<Quest>?   //goal
+        var randompos : Int
+
         try {
-            quests = WebClient.client.getQuests()?.quests
+            quest_list = WebClient.client.getQuests()?.quests
+            quests = mutableListOf()
+
+            for (i in 1..amount){
+                val questssize: Int = quest_list!!.size
+                randompos = (0..questssize).random() - 1
+                quests.add(quest_list[randompos])
+            }
+            SharedPreferencesRepository.quests = quests
         } catch (e : retrofit2.HttpException) {
             throw WebClient.NetworkException()
         }
