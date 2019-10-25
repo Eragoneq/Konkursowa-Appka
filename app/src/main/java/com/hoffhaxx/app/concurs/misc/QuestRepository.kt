@@ -14,12 +14,19 @@ object QuestRepository {
             var randompos : Int
             val quest_list = WebClient.client.getQuests()?.quests
             val quests = mutableListOf<Quest>()
-
-            for (i in 1..amount){
-                val questssize: Int = quest_list!!.size
-                randompos = (0..questssize).random() - 1
-                quests.add(quest_list[randompos])
+            var questssize: Int
+            if (quest_list != null)
+            {
+                questssize = quest_list.size
+                for (i in 1..amount){
+                    val questssize: Int = quest_list!!.size
+                    randompos = (0..questssize).random() - 1
+                    quests.add(quest_list[randompos])
+                }
+            }else{
+                questssize = 0
             }
+
             SharedPreferencesRepository.quests = quests
             return quests
         } catch (e : retrofit2.HttpException) {
