@@ -91,13 +91,6 @@ class RankingFragment : Fragment() {
         }
     }
 
-
-    /*private fun setPollutionScore() {
-        var score = 67.toString()
-
-        userLocationScore.text = score
-    }*/
-
     private fun goToMap(){
         val intent = Intent(this.context, MapActivity::class.java)
         startActivity(intent)

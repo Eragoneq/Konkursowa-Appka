@@ -191,7 +191,6 @@ class MapActivity : AppCompatActivity() {
                             textButtons.isVisible = true
                             clickableMarkers = false
                             clickedMarker = thisMarker
-                            Toast.makeText(this, clickedMarker.latitude.toString()+" "+clickedMarker.longitude.toString(), Toast.LENGTH_SHORT).show()
                         } else {
                             Toast.makeText(this, getString(R.string.far_away), Toast.LENGTH_SHORT).show()
                         }
@@ -200,14 +199,25 @@ class MapActivity : AppCompatActivity() {
 
                 googleMap.setOnInfoWindowClickListener { marker ->
                     if (marker.title == getString(R.string.trash)) {
-                        action = "delete"
-                        textButtons.text = getString(R.string.are_you_sure_you_want_to_remove_a_trash)
-                        buttonCancel.isVisible = true
-                        buttonConfirm.isVisible = true
-                        backgroundButtons.isVisible = true
-                        textButtons.isVisible = true
-                        clickableMarkers = false
-                        setLastClickedMarker(marker.position.latitude, marker.position.longitude)
+                        val maxDistance = 100
+                        val distance = distanceInMeters(
+                            userLatLng.latitude,
+                            userLatLng.longitude,
+                            marker.position.latitude,
+                            marker.position.longitude
+                        )
+                        if (distance < maxDistance) {
+                            action = "delete"
+                            textButtons.text = getString(R.string.are_you_sure_you_want_to_remove_a_trash)
+                            buttonCancel.isVisible = true
+                            buttonConfirm.isVisible = true
+                            backgroundButtons.isVisible = true
+                            textButtons.isVisible = true
+                            clickableMarkers = false
+                            setLastClickedMarker(marker.position.latitude, marker.position.longitude)
+                        } else {
+                            Toast.makeText(this, getString(R.string.far_away), Toast.LENGTH_SHORT).show()
+                        }
                     }
                 }
 
