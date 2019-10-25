@@ -22,9 +22,9 @@ object MapRepository {
         }
     }
 
-    suspend fun removeMarker(id : String) {
+    suspend fun removeMarker(marker : Marker) {
         try {
-            WebClient.client.removeMarkers(id)
+            WebClient.client.removeMarkers(marker.id)
         } catch (e : retrofit2.HttpException) {
             throw WebClient.NetworkException()
         }
