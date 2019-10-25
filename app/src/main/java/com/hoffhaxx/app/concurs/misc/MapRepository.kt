@@ -23,9 +23,9 @@ object MapRepository {
         }
     }
 
-    suspend fun removeMarker(id : String) {
+    suspend fun removeMarker(marker : Marker) {
         try {
-            WebClient.client.removeMarkers(RemoveMarkerCredentials(id))
+            WebClient.client.removeMarkers(RemoveMarkerCredentials(marker.id))
         } catch (e : retrofit2.HttpException) {
             throw WebClient.NetworkException()
         }
