@@ -161,8 +161,8 @@ class MapActivity : AppCompatActivity() {
                         marker.title,
                         marker.position.latitude,
                         marker.position.longitude,
-                        "user name",
-                        SimpleDateFormat("dd/MM/yyyy").format(Calendar.getInstance().time),
+                        "",
+                        "",
                         ""
                     )
                     if (clickableMarkers) {
@@ -192,8 +192,8 @@ class MapActivity : AppCompatActivity() {
                         "Trash",
                         it.latitude,
                         it.longitude,
-                        "user name",
-                        SimpleDateFormat("dd/MM/yyyy").format(Calendar.getInstance().time),
+                        "",
+                        "",
                         ""
                     )
 
@@ -229,8 +229,8 @@ class MapActivity : AppCompatActivity() {
                         marker.title,
                         marker.position.latitude,
                         marker.position.longitude,
-                        "user name",
-                        SimpleDateFormat("dd/MM/yyyy").format(Calendar.getInstance().time),
+                        "",
+                        "",
                         ""
                     )
                     if (marker.title == "Trash") {
