@@ -5,6 +5,8 @@ import android.content.SharedPreferences
 import androidx.core.content.edit
 import com.google.android.gms.maps.model.LatLng
 import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import com.hoffhaxx.app.concurs.misc.data.Quest
 import com.hoffhaxx.app.concurs.misc.data.User
 import com.hoffhaxx.app.concurs.misc.data.UserLocation
 
@@ -12,6 +14,7 @@ object SharedPreferencesRepository {
     private val PREFS_NAME = "hoffhaxx.preferences"
     private lateinit var prefs : SharedPreferences
 
+    private val KEY_QUESTS = "quests"
     private val KEY_NAME = "name"
     private val KEY_MARKER = "marker"
     private val KEY_SESSION_ID = "sessionId"
@@ -66,5 +69,17 @@ object SharedPreferencesRepository {
             if (value != null) {
                 putInt(KEY_AQI, value)
             }
+        }
+    var quests : MutableList<Quest>?
+        get() {
+            val json = prefs.getString((KEY_QUESTS), null)
+            if (json == null)
+                return null
+            val groupListType = object : TypeToken<MutableList<Quest>>() {}.type
+            return Gson().fromJson(json, groupListType)
+        }
+        set(value) {
+            val string = Gson().toJson(value)
+            prefs.edit { putString(KEY_QUESTS, string) }
         }
 }
