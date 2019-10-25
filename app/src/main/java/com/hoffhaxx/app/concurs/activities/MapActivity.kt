@@ -11,11 +11,9 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Looper
 import android.provider.Settings
-import android.util.Log
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import androidx.core.app.ActivityCompat.startActivityForResult
 import androidx.core.view.isVisible
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -24,22 +22,17 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-import com.google.gson.Gson
 import com.hoffhaxx.app.concurs.R
 import com.hoffhaxx.app.concurs.activities.map.Marker
 import com.hoffhaxx.app.concurs.misc.MapRepository
-import com.hoffhaxx.app.concurs.misc.MapRepository.getMarkers
 import com.hoffhaxx.app.concurs.misc.SharedPreferencesRepository
 import com.hoffhaxx.app.concurs.misc.data.UserLocation
-import com.hoffhaxx.app.concurs.misc.fromJson
-import com.hoffhaxx.app.concurs.web.WebClient
+import com.hoffhaxx.app.concurs.misc.web.WebClient
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.text.SimpleDateFormat
-import java.util.*
 import kotlin.collections.HashMap
 import kotlin.math.sqrt
 
@@ -57,7 +50,6 @@ class MapActivity : AppCompatActivity() {
 
     private val filters = HashMap<String, Boolean>()
 
-    //lateinit var checkBoxMalysz: CheckBox
     lateinit var checkBoxTrash: CheckBox
 
     lateinit var buttonConfirm: Button
@@ -111,15 +103,8 @@ class MapActivity : AppCompatActivity() {
                 checkBoxTrash = findViewById(R.id.Trash)
                 checkBoxTrash.isChecked = true
                 checkBoxTrash.setOnCheckedChangeListener { buttonView, isChecked ->
-                    filters["Trash"] = isChecked
-                    refreshMap()
+                    setFilterValue("Trash", isChecked)
                 }
-                /*checkBoxMalysz = findViewById(R.id.Malysz)
-                checkBoxMalysz.isChecked = false
-                checkBoxMalysz.setOnCheckedChangeListener { buttonView, isChecked ->
-                    filters["Malysz"] = isChecked
-                    refreshMap()
-                }*/
 
                 buttonConfirm = findViewById(R.id.Confirm)
                 buttonCancel = findViewById(R.id.Cancel)
@@ -133,11 +118,9 @@ class MapActivity : AppCompatActivity() {
                 buttonConfirm.setOnClickListener {
                     if (action == "delete") {
                         removeMarker(lastClickedMarker)
-                        refreshMap()
                     } else if (action == "add") {
                         saveMarker(clickedMarker)
                         setFilterValue("Trash", true)
-                        refreshMap()
                     }
                     buttonCancel.isVisible = false
                     buttonConfirm.isVisible = false
@@ -155,23 +138,11 @@ class MapActivity : AppCompatActivity() {
                     clickableMarkers = true
                 }
 
-                //googleMap.uiSettings.setZoomControlsEnabled(true)
-
                 googleMap.setOnMarkerClickListener { marker ->
-                    /*val thisMarker = Marker(
-                        marker.title,
-                        marker.position.latitude,
-                        marker.position.longitude,
-                        "",
-                        "",
-                        ""
-                    )*/
                     if (clickableMarkers) {
                         if (marker.title == getString(R.string.trash)) {
                             if (lastClickedMarker.latitude != marker.position.latitude || lastClickedMarker.longitude != marker.position.longitude) {
                                 marker.showInfoWindow()
-                                //lastClickedMarker = thisMarker
-
                                 isMarkerClicked = true
                             } else {
                                 isMarkerClicked = false
@@ -228,15 +199,6 @@ class MapActivity : AppCompatActivity() {
                 }
 
                 googleMap.setOnInfoWindowClickListener { marker ->
-                    /*val thisMarker = Marker(
-                        marker.title,
-                        marker.position.latitude,
-                        marker.position.longitude,
-                        "",
-                        "",
-                        ""
-                    )*/
-                    //lastClickedMarker = defaultMarker
                     if (marker.title == getString(R.string.trash)) {
                         action = "delete"
                         textButtons.text = getString(R.string.are_you_sure_you_want_to_remove_a_trash)
@@ -263,15 +225,12 @@ class MapActivity : AppCompatActivity() {
         if (type == "Trash") {
             checkBoxTrash.isChecked = value
         }
-        /*else if (type == "Malysz") {
-            checkBoxMalysz.isChecked = value
-        }*/
+        refreshMap()
     }
 
     private fun initFilters()
     {
         filters["Trash"] = true
-        //filters["Malysz"] = false
     }
 
     private fun setLastClickedMarker(lat: Double, lng: Double) = CoroutineScope(Dispatchers.IO).launch {
@@ -297,9 +256,6 @@ class MapActivity : AppCompatActivity() {
         try {
             withContext(Main) {
                 MapRepository.addMarkers(mutableListOf(m))
-                //setLastClickedMarker(m.latitude, m.longitude)
-                //placeMarkerOnMap(lastClickedMarker)
-                //lastClickedMarker = defaultMarker
                 refreshMap()
             }
         } catch (e : WebClient.NetworkException) {
@@ -313,6 +269,7 @@ class MapActivity : AppCompatActivity() {
         try {
             withContext(Main){
                 MapRepository.removeMarker(m)
+                refreshMap()
             }
         } catch (e : WebClient.NetworkException) {
             withContext(Dispatchers.Main) {
@@ -333,16 +290,6 @@ class MapActivity : AppCompatActivity() {
                     .visible(true)
             )
         }
-        /*else if(m.type == "Malysz") {
-            googleMap.addMarker(
-                MarkerOptions()
-                    .position(location)
-                    .title(m.type)
-                    .snippet(m.user)
-                    .icon(BitmapDescriptorFactory.fromResource(R.raw.malysz))
-                    .visible(true)
-            )
-        }*/
     }
 
     private fun placeMarkersOfType(type: String) = CoroutineScope(Dispatchers.IO).launch {
@@ -385,7 +332,6 @@ class MapActivity : AppCompatActivity() {
             }
             .setNegativeButton(R.string.no) { dialog, id ->
                 dialog.cancel()
-                //finish()
             }
         val alert: AlertDialog = builder.create()
         alert.show()

@@ -1,12 +1,7 @@
 package com.hoffhaxx.app.concurs.misc
 
-import android.util.Log
-import com.hoffhaxx.app.concurs.misc.SharedPreferencesRepository.aqi
-import com.hoffhaxx.app.concurs.misc.data.PollutionData
 import com.hoffhaxx.app.concurs.misc.data.Quest
-import com.hoffhaxx.app.concurs.misc.data.QuestData
-import com.hoffhaxx.app.concurs.web.PollutionClient
-import com.hoffhaxx.app.concurs.web.WebClient
+import com.hoffhaxx.app.concurs.misc.web.WebClient
 
 object QuestRepository {
     suspend fun getQuests(amount: Int): MutableList<Quest>? {

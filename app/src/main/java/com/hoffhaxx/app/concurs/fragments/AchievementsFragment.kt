@@ -15,11 +15,11 @@ import kotlinx.android.synthetic.main.achievements_fragment.*
 /**
  * A simple [Fragment] subclass.
  */
-private val achievementCards = arrayListOf<AchievementCard>(
-    AchievementCard("Wielki pindol", R.drawable.ic_achievements),
-    AchievementCard("Większy pindol", R.drawable.ic_achievements),
-    AchievementCard("Jeszcze większy pindol", R.drawable.ic_achievements),
-    AchievementCard("Największy pindol", R.drawable.ic_achievements)
+private val achievementCards = arrayListOf(
+    AchievementCard("Achievement1", R.drawable.ic_achievements),
+    AchievementCard("Achievement2", R.drawable.ic_achievements),
+    AchievementCard("Achievement3", R.drawable.ic_achievements),
+    AchievementCard("Achievement4", R.drawable.ic_achievements)
 )
 
 class AchievementsFragment : Fragment() {

@@ -1,8 +1,7 @@
 package com.hoffhaxx.app.concurs.misc
 
-import android.util.Log
 import com.hoffhaxx.app.concurs.misc.data.*
-import com.hoffhaxx.app.concurs.web.WebClient
+import com.hoffhaxx.app.concurs.misc.web.WebClient
 
 object UserRepository {
 

@@ -43,5 +43,7 @@
     <color name="button_pressed">#0aff7c</color>
     <color name="button_focused">#0aff7c</color>
     <color name="button_default">#20A050</color>
+    <color name="bg_gradient_start">#52f74a</color>
+    <color name="bg_gradient_end">#57bd7e</color>
 
 </resources>
