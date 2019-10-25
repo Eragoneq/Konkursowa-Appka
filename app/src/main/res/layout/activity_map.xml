@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <CheckBox
+    <!--<CheckBox
         android:id="@+id/Malysz"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
@@ -22,7 +22,7 @@
         android:fontFamily="@font/lato_bold"
         android:text="@string/malysz"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Trash" />
+        app:layout_constraintTop_toBottomOf="@+id/Trash" />-->
 
     <CheckBox
         android:id="@+id/Trash"
