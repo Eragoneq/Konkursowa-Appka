@@ -45,6 +45,7 @@ class MapActivity : AppCompatActivity() {
     lateinit var mLastLocation: Location
     private lateinit var mLocationRequest: LocationRequest
     private val REQUEST_PERMISSION_LOCATION = 10
+    private val MAX_DISTANCE = 100
 
     private lateinit var userLatLng: LatLng
 
@@ -173,7 +174,7 @@ class MapActivity : AppCompatActivity() {
                     isMarkerClicked = false
                     lastClickedMarker = defaultMarker
 
-                    val maxDistance = 100
+                    val maxDistance = MAX_DISTANCE
                     val distance = distanceInMeters(
                         userLatLng.latitude,
                         userLatLng.longitude,
@@ -199,7 +200,7 @@ class MapActivity : AppCompatActivity() {
 
                 googleMap.setOnInfoWindowClickListener { marker ->
                     if (marker.title == getString(R.string.trash)) {
-                        val maxDistance = 100
+                        val maxDistance = MAX_DISTANCE
                         val distance = distanceInMeters(
                             userLatLng.latitude,
                             userLatLng.longitude,
