@@ -15,7 +15,7 @@ object QuestRepository {
             {
                 questssize = quest_list.size
                 for (i in 1..amount){
-                    randompos = (0..questssize).random() - 1
+                    randompos = (1..questssize).random() - 1
                     quests.add(quest_list[randompos])
                 }
             }
