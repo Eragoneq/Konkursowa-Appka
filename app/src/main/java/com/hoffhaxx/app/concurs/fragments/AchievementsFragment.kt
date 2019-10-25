@@ -10,9 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.hoffhaxx.app.concurs.AchievementCard
 import com.hoffhaxx.app.concurs.R
 import com.hoffhaxx.app.concurs.RecyclerViewAdapter_AchievementsFragment
-import com.hoffhaxx.app.concurs.RecyclerViewAdapter_InfoFragment
 import kotlinx.android.synthetic.main.achievements_fragment.*
-import kotlinx.android.synthetic.main.info_fragment.*
 
 /**
  * A simple [Fragment] subclass.

@@ -45,7 +45,7 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:src="@drawable/ic_achievements"
-                android:tint="#dbe300"
+                android:tint="#f0ff1c"
                 />
 
         </LinearLayout>

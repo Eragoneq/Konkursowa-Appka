@@ -1,21 +1,25 @@
 package com.hoffhaxx.app.concurs.fragments
 
 
-import android.app.Dialog
+import android.app.AlertDialog
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.Window
-import android.widget.Button
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.hoffhaxx.app.concurs.EcoCard
 import com.hoffhaxx.app.concurs.R
-import com.hoffhaxx.app.concurs.RecyclerViewAdapter_InfoFragment
-import com.hoffhaxx.app.concurs.activities.InfoPopUpActivity
+import com.hoffhaxx.app.concurs.RecyclerViewAdapterInfoFragment
+import com.hoffhaxx.app.concurs.misc.QuestRepository
+import com.hoffhaxx.app.concurs.misc.data.Quest
+import com.hoffhaxx.app.concurs.web.WebClient
 import kotlinx.android.synthetic.main.info_fragment.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import kotlin.random.Random
 
 /**
@@ -36,8 +40,6 @@ fun gen_ecocard(): EcoCard{
 
 class InfoFragment : Fragment() {
 
-    private lateinit var linearLayoutManager: LinearLayoutManager
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -52,7 +54,24 @@ class InfoFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         recyclerViewBookmarks.apply {
             layoutManager = LinearLayoutManager(activity)
-            adapter = RecyclerViewAdapter_InfoFragment(ecoCards)
+            adapter = RecyclerViewAdapterInfoFragment(ecoCards)
+        }
+    }
+
+    private fun testCards() = CoroutineScope(Dispatchers.IO).launch {
+        try {
+            val quests = mutableListOf(Quest("fajny opis", 10.0))
+            val result = QuestRepository.addQuests(quests)
+            Log.i("TEST", result.toString())
+        } catch (e : WebClient.NetworkException) {
+            withContext(Dispatchers.Main) {
+                AlertDialog.Builder(this@InfoFragment.context)
+                    .setTitle(getString(R.string.logging_error))
+                    .setMessage(getString(R.string.cannot_connect_to_server))
+                    .setNeutralButton(getString(R.string.ok)) {dialog, which ->  }
+                    .create()
+                    .show()
+            }
         }
     }
 

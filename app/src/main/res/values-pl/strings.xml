@@ -33,8 +33,8 @@
     <string name="check_if_internet">Sprawdź swoje połączenie z internetem</string>
     <string name="no_internet_connection">Brak połączenia z internetem</string>
     <string name="permission_denied">Odmowa dostępu</string>
-    <string name="statistics">Statystyki</string>
+    <string name="statistics">STATYSTYKI</string>
     <string name="go_to_trash_map">Przejdź do mapy śmieci</string>
-    <string name="environment">Środowisko</string>
-    <string name="achievements">Osiągnięcia</string>
+    <string name="environment">ŚRODOWISKO</string>
+    <string name="achievements">OSIĄGNIĘCIA</string>
 </resources>

@@ -47,7 +47,6 @@ object SharedPreferencesRepository {
             prefs.edit{ putString(KEY_USER_LOCATION, string) }
         }
 
-
     var sessionId : String?
         get() = prefs.getString(KEY_SESSION_ID, "")
         set(value) = prefs.edit { putString(KEY_SESSION_ID, value) }

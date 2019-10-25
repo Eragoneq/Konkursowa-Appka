@@ -5,6 +5,7 @@ import com.hoffhaxx.app.concurs.misc.data.*
 import com.hoffhaxx.app.concurs.web.WebClient
 
 object UserRepository {
+
     suspend fun getUser(): User? {
         var user = SharedPreferencesRepository.user
         if (SharedPreferencesRepository.sessionId != "") {
@@ -16,6 +17,7 @@ object UserRepository {
         }
         return user
     }
+
     suspend fun loginUserLocal(email: String, password : String) : SignInResult {
         val credentials = LoginCredentials(email, password)
         SharedPreferencesRepository.sessionId = ""

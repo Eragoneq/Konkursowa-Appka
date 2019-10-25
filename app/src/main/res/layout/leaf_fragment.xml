@@ -3,7 +3,7 @@
     android:id="@+id/leaf_fragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#5CC011"
+    android:background="@drawable/fragment_home_bg"
     android:orientation="vertical">
 
     <TextView

@@ -38,9 +38,9 @@
     <string name="check_if_internet">Check if you are connected to internet</string>
     <string name="no_internet_connection">No internet connection</string>
     <string name="permission_denied">Permission Denied</string>
-    <string name="statistics">Statistics</string>
+    <string name="statistics">STATISTICS</string>
     <string name="go_to_trash_map">Go to Trash Map</string>
-    <string name="environment">Environment</string>
-    <string name="achievements">Achievements</string>
-    <string name="info" translatable="false">Info</string>
+    <string name="environment">ENVIRONMENT</string>
+    <string name="achievements">ACHIEVEMENTS</string>
+    <string name="info" translatable="false">INFO</string>
 </resources>

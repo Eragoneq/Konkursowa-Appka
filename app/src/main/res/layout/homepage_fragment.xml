@@ -5,7 +5,7 @@
     android:id="@+id/homepage_fragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/navbar">
+    android:background="@drawable/fragment_home_bg">
 
     <ImageView
         android:id="@+id/imageView3"
@@ -16,6 +16,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline3"
+        app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/sign_in_background" />
 
     <androidx.constraintlayout.widget.Guideline
@@ -49,5 +50,27 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.8" />
+
+    <TextView
+        android:id="@+id/homepage_fragment_textviewName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="280dp"
+        android:text="Name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:textSize="20sp"/>
+
+    <TextView
+        android:id="@+id/homepage_fragment_textviewLevel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="26dp"
+        android:text="Level"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@+id/homepage_fragment_textviewName" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

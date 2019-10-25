@@ -1,24 +1,20 @@
 package com.hoffhaxx.app.concurs
 
-import android.app.Dialog
-import android.content.Intent
+import android.annotation.SuppressLint
 import android.view.*
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.PopupWindow
 import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
-import com.hoffhaxx.app.concurs.activities.InfoPopUpActivity
-import com.hoffhaxx.app.concurs.fragments.InfoFragment
 
-class RecyclerViewAdapter_InfoFragment(private val eco_cards: ArrayList<EcoCard>):
-    RecyclerView.Adapter<RecyclerViewAdapter_InfoFragment.ViewHolder>(){
+class RecyclerViewAdapterInfoFragment(private val eco_cards: ArrayList<EcoCard>):
+    RecyclerView.Adapter<RecyclerViewAdapterInfoFragment.ViewHolder>(){
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): RecyclerViewAdapter_InfoFragment.ViewHolder {
+    ): ViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(R.layout.recyclerview_item_infofragment,
             parent, false)
         return ViewHolder(v)
@@ -28,12 +24,13 @@ class RecyclerViewAdapter_InfoFragment(private val eco_cards: ArrayList<EcoCard>
         return eco_cards.size
     }
 
-    override fun onBindViewHolder(holder: RecyclerViewAdapter_InfoFragment.ViewHolder, position: Int) {
-        val ecocard : EcoCard = eco_cards[position]
-        holder.textViewPoints?.text = "+" + ecocard.points.toString()
-        holder.textViewInfo?.text = ecocard.info
-        holder.imageViewPoints?.setImageResource(ecocard.imgPoints_id)
-        holder.imageViewTick?.setImageResource(ecocard.imgTick_id)
+    @SuppressLint("SetTextI18n")
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val ecoCard : EcoCard = eco_cards[position]
+        holder.textViewPoints?.text = "+" + ecoCard.points.toString()
+        holder.textViewInfo?.text = ecoCard.info
+        holder.imageViewPoints?.setImageResource(ecoCard.imgPoints_id)
+        holder.imageViewTick?.setImageResource(ecoCard.imgTick_id)
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
@@ -53,11 +50,11 @@ class RecyclerViewAdapter_InfoFragment(private val eco_cards: ArrayList<EcoCard>
                 val view = LayoutInflater.from(itemView.context).inflate(R.layout.info_popup, null)
                 window.contentView = view
 
-                val button_exit: Button = view.findViewById(R.id.infopopup_buttonexit)
-                val textv: TextView = view.findViewById(R.id.infopopup_text)
-                textv.text = textViewInfo?.text
+                val buttonExit: Button = view.findViewById(R.id.infopopup_buttonexit)
+                val textView: TextView = view.findViewById(R.id.infopopup_text)
+                textView.text = textViewInfo?.text
 
-                button_exit.setOnClickListener{
+                buttonExit.setOnClickListener{
                     window.dismiss()
                 }
                 window.showAtLocation(itemView, Gravity.CENTER, 10, 10)
