@@ -1,6 +1,5 @@
 package com.hoffhaxx.app.concurs
 
-import android.media.Image
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,13 +7,13 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class RecyclerViewAdapter_AchievementsFragment(private val achievements_cards: ArrayList<AchievementCard>):
-    RecyclerView.Adapter<RecyclerViewAdapter_AchievementsFragment.ViewHolder>(){
+class RecyclerViewAdapterAchievementsFragment(private val achievements_cards: ArrayList<AchievementCard>):
+    RecyclerView.Adapter<RecyclerViewAdapterAchievementsFragment.ViewHolder>(){
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): RecyclerViewAdapter_AchievementsFragment.ViewHolder {
+    ): RecyclerViewAdapterAchievementsFragment.ViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(R.layout.recyclerview_item_achievementsfragment,
             parent, false)
         return ViewHolder(v)
@@ -24,7 +23,7 @@ class RecyclerViewAdapter_AchievementsFragment(private val achievements_cards: A
         return achievements_cards.size
     }
 
-    override fun onBindViewHolder(holder: RecyclerViewAdapter_AchievementsFragment.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: RecyclerViewAdapterAchievementsFragment.ViewHolder, position: Int) {
         val achievementscard : AchievementCard = achievements_cards[position]
         holder.textViewAchievemtnInfo?.text = achievementscard.achievementInfo
         holder.imageViewAchievement?.setImageResource(achievementscard.achievementImageId)

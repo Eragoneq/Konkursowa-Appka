@@ -8,6 +8,7 @@ import androidx.viewpager.widget.ViewPager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.hoffhaxx.app.concurs.R
 import com.hoffhaxx.app.concurs.fragments.*
+import com.hoffhaxx.app.concurs.misc.QuestRepository
 import com.hoffhaxx.app.concurs.misc.web.WebClient
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -22,6 +23,9 @@ class HomeActivity : AppCompatActivity() {
 
     private fun testPollution() = CoroutineScope(Dispatchers.IO).launch {
         try {
+//            val markers = MapRepository.addMarkers(mutableListOf(Marker("malysz", 1.3, 1.5, "twojstary", "dzisiaj", "idtxd")))
+            //MapRepository.removeMarker("5db332a680fe726923b85d13")
+//            Log.i("TESTxddd", markers.toString())
         } catch (e : WebClient.NetworkException) {
             withContext(Dispatchers.Main) {
                 AlertDialog.Builder(this@HomeActivity)
@@ -34,11 +38,19 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
+    private fun testquests(amount: Int) = CoroutineScope(Dispatchers.IO).launch {
+        try {
+            val quests = QuestRepository.getQuests(15)
+        } catch (e : WebClient.NetworkException) {
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.home_activity)
 
         testPollution()
+        testquests(50)
 
         val fragmentsArray= listOf(InfoFragment(), AchievementsFragment(), HomepageFragment(), RankingFragment(), LeafFragment())
 
