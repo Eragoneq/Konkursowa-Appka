@@ -12,18 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <!--<CheckBox
-        android:id="@+id/Malysz"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:background="@color/btnColor"
-        android:theme="@style/Checkbox"
-        android:fontFamily="@font/lato_bold"
-        android:text="@string/malysz"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Trash" />-->
-
     <CheckBox
         android:id="@+id/Trash"
         android:layout_width="100dp"

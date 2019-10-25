@@ -11,11 +11,9 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Looper
 import android.provider.Settings
-import android.util.Log
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import androidx.core.app.ActivityCompat.startActivityForResult
 import androidx.core.view.isVisible
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -24,21 +22,16 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-import com.google.gson.Gson
 import com.hoffhaxx.app.concurs.R
 import com.hoffhaxx.app.concurs.activities.map.Marker
 import com.hoffhaxx.app.concurs.misc.MapRepository
-import com.hoffhaxx.app.concurs.misc.MapRepository.getMarkers
 import com.hoffhaxx.app.concurs.misc.SharedPreferencesRepository
 import com.hoffhaxx.app.concurs.misc.data.UserLocation
-import com.hoffhaxx.app.concurs.misc.fromJson
-import com.hoffhaxx.app.concurs.web.WebClient
+import com.hoffhaxx.app.concurs.misc.web.WebClient
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.text.SimpleDateFormat
-import java.util.*
 import kotlin.collections.HashMap
 import kotlin.math.sqrt
 

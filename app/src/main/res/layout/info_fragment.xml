@@ -3,7 +3,7 @@
     android:id="@+id/info_fragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#86FA39"
+    android:background="@drawable/fragment_home_bg"
     android:orientation="vertical">
 
     <TextView
@@ -18,7 +18,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewBookmarks"
         android:layout_width="360dp"
-        android:layout_height="586dp"
+        android:layout_height="583dp"
         android:scrollbars="vertical">
 
     </androidx.recyclerview.widget.RecyclerView>

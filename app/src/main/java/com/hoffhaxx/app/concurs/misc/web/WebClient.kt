@@ -1,10 +1,8 @@
-package com.hoffhaxx.app.concurs.web
+package com.hoffhaxx.app.concurs.misc.web
 
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
-import android.util.Log
-import androidx.core.content.ContextCompat.getSystemService
 import com.hoffhaxx.app.concurs.misc.SharedPreferencesRepository
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory

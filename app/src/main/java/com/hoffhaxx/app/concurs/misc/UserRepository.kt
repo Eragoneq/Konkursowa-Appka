@@ -1,8 +1,7 @@
 package com.hoffhaxx.app.concurs.misc
 
-import android.util.Log
 import com.hoffhaxx.app.concurs.misc.data.*
-import com.hoffhaxx.app.concurs.web.WebClient
+import com.hoffhaxx.app.concurs.misc.web.WebClient
 
 object UserRepository {
 
@@ -11,6 +10,7 @@ object UserRepository {
         if (SharedPreferencesRepository.sessionId != "") {
             try {
                 user =  WebClient.client.userProfile()
+                SharedPreferencesRepository.user = user
             } catch (e : retrofit2.HttpException) {
                 throw WebClient.NetworkException()
             }

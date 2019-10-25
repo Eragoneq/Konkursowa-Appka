@@ -48,7 +48,6 @@
             android:theme="@style/MainTheme" />
         <activity android:name=".activities.InfoPopUpActivity"
             android:theme="@style/AppTheme.InfoPopUp"/>
-<!--        xddddd-->
     </application>
 
 </manifest>

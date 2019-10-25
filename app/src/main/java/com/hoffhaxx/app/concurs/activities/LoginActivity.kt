@@ -15,10 +15,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.hoffhaxx.app.concurs.R
-import com.hoffhaxx.app.concurs.fragments.SignUpFragment
-import com.hoffhaxx.app.concurs.misc.PollutionRepository
 import com.hoffhaxx.app.concurs.misc.UserRepository
-import com.hoffhaxx.app.concurs.web.WebClient
+import com.hoffhaxx.app.concurs.misc.web.WebClient
 import kotlinx.android.synthetic.main.fragment_sign_in.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO

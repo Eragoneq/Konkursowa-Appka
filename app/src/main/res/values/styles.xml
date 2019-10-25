@@ -13,7 +13,7 @@
 
     <style name="MainTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/navbar</item>
+        <item name="colorPrimaryDark">@color/bg_gradient_start</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:windowTranslucentStatus">false</item>

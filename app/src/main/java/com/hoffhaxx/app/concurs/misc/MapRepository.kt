@@ -1,7 +1,7 @@
 package com.hoffhaxx.app.concurs.misc
 
 import com.hoffhaxx.app.concurs.activities.map.Marker
-import com.hoffhaxx.app.concurs.web.WebClient
+import com.hoffhaxx.app.concurs.misc.web.WebClient
 
 object MapRepository {
     suspend fun getMarkers(): MutableList<Marker>? {

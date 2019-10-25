@@ -52,25 +52,27 @@
         app:layout_constraintGuide_percent="0.8" />
 
     <TextView
-        android:id="@+id/homepage_fragment_textviewName"
+        android:id="@+id/welcome_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="280dp"
-        android:text="Name"
+        android:layout_marginTop="32dp"
+        android:text="@string/welcome_back"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:textSize="20sp"/>
+        app:layout_constraintTop_toBottomOf="@+id/lvlRectangle" />
 
     <TextView
-        android:id="@+id/homepage_fragment_textviewLevel"
+        android:id="@+id/user_level"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="26dp"
-        android:text="Level"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:textSize="20sp"
-        app:layout_constraintTop_toBottomOf="@+id/homepage_fragment_textviewName" />
+        android:elevation="2dp"
+        android:text="0"
+        android:textSize="80sp"
+        app:layout_constraintBottom_toBottomOf="@+id/lvlRectangle"
+        app:layout_constraintEnd_toEndOf="@+id/lvlRectangle"
+        app:layout_constraintStart_toStartOf="@+id/lvlRectangle"
+        app:layout_constraintTop_toTopOf="@+id/lvlRectangle" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
