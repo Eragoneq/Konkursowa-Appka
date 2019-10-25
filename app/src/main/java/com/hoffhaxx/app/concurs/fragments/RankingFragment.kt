@@ -1,7 +1,6 @@
 package com.hoffhaxx.app.concurs.fragments
 
 
-import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -17,7 +16,7 @@ import com.hoffhaxx.app.concurs.R
 import com.hoffhaxx.app.concurs.activities.MapActivity
 import com.hoffhaxx.app.concurs.misc.PollutionRepository
 import com.hoffhaxx.app.concurs.misc.SharedPreferencesRepository
-import com.hoffhaxx.app.concurs.web.WebClient
+import com.hoffhaxx.app.concurs.misc.web.WebClient
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Dispatchers.Main
@@ -91,13 +90,6 @@ class RankingFragment : Fragment() {
             Log.println(Log.ERROR, "FRAG", "Ranking element is not available")
         }
     }
-
-
-    /*private fun setPollutionScore() {
-        var score = 67.toString()
-
-        userLocationScore.text = score
-    }*/
 
     private fun goToMap(){
         val intent = Intent(this.context, MapActivity::class.java)

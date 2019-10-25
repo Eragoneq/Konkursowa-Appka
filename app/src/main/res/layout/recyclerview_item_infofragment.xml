@@ -58,7 +58,7 @@
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:textAlignment="center"
-                android:text="Nie wiem kurwa zajeb sie to bedzie calkiem ekologiczne"
+                android:text=""
                 android:textSize="13sp" />
 
             <ImageView

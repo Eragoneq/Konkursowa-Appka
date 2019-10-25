@@ -21,7 +21,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guidelineNavbar"
         app:labelVisibilityMode="unlabeled" />
-        <!--Ostatnia linijka z jakiegoś powodu usuwa tę chują animację wybranej opcji, nie wiem
+        <!--Ostatnia linijka z jakiegoś powodu usuwa tę animację wybranej opcji, nie wiem
         jak to działa, ale nie usuwać -->
 
 

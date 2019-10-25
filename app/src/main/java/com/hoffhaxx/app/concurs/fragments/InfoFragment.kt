@@ -14,7 +14,7 @@ import com.hoffhaxx.app.concurs.R
 import com.hoffhaxx.app.concurs.RecyclerViewAdapterInfoFragment
 import com.hoffhaxx.app.concurs.misc.QuestRepository
 import com.hoffhaxx.app.concurs.misc.data.Quest
-import com.hoffhaxx.app.concurs.web.WebClient
+import com.hoffhaxx.app.concurs.misc.web.WebClient
 import kotlinx.android.synthetic.main.info_fragment.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -30,9 +30,9 @@ private val ecoCards = arrayListOf<EcoCard>()
 
 fun gen_ecocard(): EcoCard{
     val points: Int = (1 until 6).random()
-    val string_base = listOf<String>("wiadomosc a, kurwa musi byc dluga zeby dzialalo",
-        "wiadomosc b, kurwa musi byc dluga zeby dzialalo",
-        "wiadomosc c, kurwa musi byc dluga zeby dzialalo")   //do wypierdolenia
+    val string_base = listOf("wiadomosc a, musi byc dluga zeby dzialalo",
+        "wiadomosc b, musi byc dluga zeby dzialalo",
+        "wiadomosc c, musi byc dluga zeby dzialalo")
     val string_msg = string_base.get(Random.nextInt(string_base.size))
 
     return EcoCard(points, string_msg, R.drawable.ic_eco, R.drawable.ic_done)

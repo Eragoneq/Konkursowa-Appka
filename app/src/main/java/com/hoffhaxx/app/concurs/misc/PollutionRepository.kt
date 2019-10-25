@@ -2,9 +2,8 @@ package com.hoffhaxx.app.concurs.misc
 
 import android.util.Log
 import com.hoffhaxx.app.concurs.misc.data.PollutionData
-import com.hoffhaxx.app.concurs.misc.data.User
-import com.hoffhaxx.app.concurs.web.PollutionClient
-import com.hoffhaxx.app.concurs.web.WebClient
+import com.hoffhaxx.app.concurs.misc.web.PollutionClient
+import com.hoffhaxx.app.concurs.misc.web.WebClient
 
 object PollutionRepository {
     suspend fun getAqi(latitude : Double, longitude : Double): PollutionData? {

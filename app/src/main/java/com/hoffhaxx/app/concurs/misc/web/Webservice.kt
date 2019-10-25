@@ -1,4 +1,4 @@
-package com.hoffhaxx.app.concurs.web
+package com.hoffhaxx.app.concurs.misc.web
 
 import com.hoffhaxx.app.concurs.activities.map.Marker
 import com.hoffhaxx.app.concurs.misc.data.*
