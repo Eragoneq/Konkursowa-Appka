@@ -3,6 +3,9 @@
 
 Nasza aplikacja to nowoczesna pomoc w codziennym ekologicznym życiu. Dzięki zadaniom, osiągnięciom i innymi funkcjonalnościami chcemy spowodować by ludzie nabrali dobrych nawyków. Miało to być osiągnięte poprzez stworzenie codziennego organizera połączonego z systemem progressu oraz opieki.
 
+### Link do API naszego servera
+[ServerAPI](https://github.com/OlafEs/konkurs-api)
+
 ## Strona główna
 
 Tak wyglądał przygotowany przez nas wstępny design naszej strony głównej, staraliśmy sie zaimplementować to co udało się wykonać w tym czasie, lecz nie mieliśmy jeszcze dokładnego pomysłu jakie elementy powinny się jeszcze wyświetlać. Nasz koncept jest związany z poziomem jaki ma użytkownik, który rośnie wraz z wykonywaniem zadań. Okrąg dookoła tej liczby pokazywałby właśnie stan procentowy jaki jest potrzebny do uzyskania następnego poziomu. Poza tym elementy po bokach to pozytywne i negatywne punkty, które się również otrzymuje dzięki zadaniom i osiągnięciom. Niżej chcielśmy wyświetlać najnowsze ciekawe artykuły naukowe oraz powiadomienia o codziennych zadaniach o wykonanych czynnościach itp.
